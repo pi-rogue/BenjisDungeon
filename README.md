@@ -2,7 +2,7 @@
 
 
 ### Todo list :
-- [ ] Trouver un vrai nom
+- [ ] Trouver un vrai nom en rapport avec le jeu (pi-rogue alors qu'on parle pas de maths ?)
 - [ ] Génération procédurale des étages
 - [ ] Toutes les textures (après plusieurs tests, si on peut faire du 64x64 ce serait vraiment bien)
 - [ ] Réfléchir à l'ambiance musicale
