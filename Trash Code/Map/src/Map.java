@@ -5,7 +5,7 @@ public class Map {
 	private int x=0, y=0, tailleX=0, tailleY=0;
 	
 	public Map() {
-		for(int i=0; i<150; i++) {
+		for(int i=0; i<150; i++) { //Si on change i de 200 à 500 par exemple ça change le résultat à la fin
 			for(int j=0; j<150; j++) {
 				this.grille[i][j] = false;
 			}
