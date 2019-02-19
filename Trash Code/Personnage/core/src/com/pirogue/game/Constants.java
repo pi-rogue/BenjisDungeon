@@ -11,7 +11,7 @@ public class Constants {
 	public static int MAP_WIDTHpx = MAP_WIDTH * toPX;
 	public static int MAP_HEIGHTpx = MAP_HEIGHT * toPX;
 
-	public static int CAMERA_WIDTH = toPX * 10; // Largeur de la caméra. On veut afficher 10 blocs en largeur.
+	public static int CAMERA_WIDTH = toPX * 15; // Largeur de la caméra. On veut afficher 15 blocs en largeur.
 	public static int CAMERA_HEIGHT; // Hauteur de la caméra, s'adapte en fonction de la largeur pour avoir une résolution cohérente
 	public static int HERO_VELOCITY = 300;  // Vitesse du personnage en px/s (je crois)
 }

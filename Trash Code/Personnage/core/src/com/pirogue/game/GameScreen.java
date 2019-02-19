@@ -36,12 +36,12 @@ public class GameScreen implements Screen {
 		mapRenderer = new OrthogonalTiledMapRenderer(map);
 
 		// -- Load all Animations -- //
-		heroSprite = new Texture(Gdx.files.internal("doggo.png"));
-		int cellWidth = heroSprite.getWidth()/3;    // L'image doggo.png fait 3 colonnes
+		heroSprite = new Texture(Gdx.files.internal("hero.png"));
+		int cellWidth = heroSprite.getWidth()/3;    // L'image hero.png fait 3 colonnes
 		int cellHeight = heroSprite.getHeight()/4;  // et 4 lignes
 		
 		TextureRegion[][] tmp = TextureRegion.split(heroSprite, cellWidth, cellHeight); // On découpe l'image
-		float vitesse = 1/5f; // 5 fps
+		float vitesse = 1/7f; // 7 fps
 		animF = new Animation<TextureRegion>(vitesse, tmp[0]);  // Front //
 		animL = new Animation<TextureRegion>(vitesse, tmp[1]);  // Left  //
 		animR = new Animation<TextureRegion>(vitesse, tmp[2]);  // Right //
