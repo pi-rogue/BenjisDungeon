@@ -17,8 +17,8 @@ Pour le code je conseille de lire dans cet ordre :
 
 * Run > Run Configurations
 * Clic droit sur Java Application, New Configuration
-	Name : DesktopLauncher
-	Project : pirogue-desktop
+	Name : DesktopLauncher, 
+	Project : pirogue-desktop, 
 	Main class : com.pirogue.game.desktop.DesktopLauncher
 * RUN
 
