@@ -17,8 +17,8 @@ Pour le code je conseille de lire dans cet ordre :
 
 * Run > Run Configurations
 * Clic droit sur Java Application, New Configuration
-	Name : DesktopLauncher
-	Project : pirogue-desktop
+	Name : DesktopLauncher, 
+	Project : pirogue-desktop, 
 	Main class : com.pirogue.game.desktop.DesktopLauncher
 * RUN
 
@@ -28,7 +28,7 @@ Comme ça pour démarrer le projet vous aurez plus qu'à faire : CTRL + F11
 * Window > Preferences > Run/Debug > Launching
 * Tout en bas dans Launch Operations, cocher "Always launch the previously launched application".
 _____________________________________________
-# Si vous avez un problème pour load les images
+# Si vous avez un problème pour load les images ou la map
 
 * Dans pirogue-core, clic droit sur le dossier 'assets', Build Path, Use as source folder.
 * A chaque fois que vous ajoutez ou enlevez une image dans le dossier assets, il faut faire clic
