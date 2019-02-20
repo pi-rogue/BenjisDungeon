@@ -1,5 +1,6 @@
 package com.pirogue.game.desktop;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.pirogue.game.Constants;
@@ -14,6 +15,7 @@ public class DesktopLauncher {
 		config.width = Constants.CAMERA_WIDTH;
 		config.height = Constants.CAMERA_HEIGHT;
 		config.fullscreen = true;
+		config.addIcon("icon_32x32.png", Files.FileType.Internal);
 
 		new LwjglApplication(new PiRogue(), config); // Démarrer le jeu
 	}
