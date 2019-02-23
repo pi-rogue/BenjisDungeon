@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" name="test" tilewidth="32" tileheight="32" tilecount="12" columns="4">
+  <image source="tiles/wall.png" width="128" height="96"/>
+ </tileset>
+ <tileset firstgid="13" name="collide" tilewidth="32" tileheight="32" tilecount="12" columns="4">
+  <image source="tiles/collide.png" width="128" height="96"/>
+ </tileset>
+ <layer id="1" name="background" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NkYGBgpDKmFhg1b2iZxwql2ahgHiuSHCORZuIzD1mcBQsmxTyQ27igbGYkjM8sXOYhm0UqwGYeJfGNbh4rA3XMoyYGAOPNQfawBAAA
+  </data>
+ </layer>
+ <layer id="2" name="collide" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+NlYGDgpTIWpxKmlnl8VDaP2u4bLuYJQmkhKpgniCTHS6SZ+MxDFhfAgkkxD+Q2MSibHwnjMwuXechmUSM+KIlvdPMEqWQeNTEA11T1fbAEAAA=
+  </data>
+ </layer>
+</map>
