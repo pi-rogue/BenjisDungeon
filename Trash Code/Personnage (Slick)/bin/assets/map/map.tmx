@@ -13,7 +13,7 @@
  </layer>
  <layer id="2" name="collide" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+NlYGDgpTIWpxKmlnm8VDaP2u4bLuYJQmkhKpgniBZvxJiJzzxkcQEsmBTzQG4Tg7L5kTA+s3CZh2wWNeKDkvimlXnUxADunKqnsAQAAA==
+   H4sIAAAAAAAAC+NlYGDgpTIWpxKmlnl8VDaP2u4bLuYJQmkhKpgniCTHS6SZ+MxDFhfAgkkxD+Q2MSibHwnjMwuXechmUSM+KIlvdPMEqWQeNTEA11T1fbAEAAA=
   </data>
  </layer>
 </map>
