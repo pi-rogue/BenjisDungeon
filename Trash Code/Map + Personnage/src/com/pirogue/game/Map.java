@@ -20,7 +20,7 @@ public class Map {
 		this.background = new Tile[width][height];
 		this.textureSize = spr.getSprite(0,0).getWidth();
 		
-		/* TODO : Génération de l'étage avec le code de Kilian directement dans le
+		/* TODO : Génération de l'étage avec le code de Kilian directement dans le             edit kilian : OMW, je check le code et je fais des tests
 		 * tableau this.background
 		 * 
 		 * L'idée c'est de mettre à la place des 0 ou 1 un objet Tile :
