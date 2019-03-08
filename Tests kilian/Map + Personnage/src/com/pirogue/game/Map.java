@@ -8,11 +8,10 @@ public class Map {
 	
 	protected SpriteSheet spritesheet;
 	protected SpriteSheet collidesheet;
-	private Tile[][] background;
 	protected int width, height;
 	protected float textureSize;
-	private boolean grille[][] = new boolean[150][150];
-	private String Blocks[][] = new String[150][150];
+	public boolean grille[][] = new boolean[150][150];
+	private Tile Blocks[][];
 	private int salleX=0, salleY=0, tailleSalleX=0, tailleSalleY=0;
 
 	public Map(int width, int height, SpriteSheet spr, SpriteSheet col) {
@@ -20,13 +19,13 @@ public class Map {
 		this.collidesheet = col;
 		this.width = width;
 		this.height = height;
-		this.background = new Tile[width][height];
+		this.Blocks = new Tile[width][height];
 		this.textureSize = spr.getSprite(0,0).getWidth();
 		
 		for(int i=0; i<150; i++) {
 			for(int j=0; j<150; j++) {
 				this.grille[i][j] = false;		//initialisation des 2 tableaux
-				this.Blocks[i][j] = "Vide";
+				this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 1),collidesheet.getSprite(2,0)); //"Vide";
 			}
 		}
 		for(int i=0; i<500; i++) { //nombre de salles générées 
@@ -34,27 +33,7 @@ public class Map {
 		}
 		this.scanBlock();
 	
-		
-		for (int i=0; i<width; i++) {
-			background[i][0] = new Tile(spritesheet.getSprite(0, 0), collidesheet.getSprite(0, 0));
-			background[i][height-1] = new Tile(spritesheet.getSprite(0, 0), collidesheet.getSprite(0, 0));
-		}
-		for (int j=0; j<height; j++) {
-				background[0][j] = new Tile(spritesheet.getSprite(0, 0), collidesheet.getSprite(0, 0));
-				background[width-1][j] = new Tile(spritesheet.getSprite(0, 0), collidesheet.getSprite(0, 0));
-		}
-		
-		for (int i=1; i<width-1; i++) {
-			for (int j=1; j<height-1; j++) {
-				this.background[i][j] = new Tile();
-			}
-		}
 
-		background[width/2][height/2] = new Tile(spritesheet.getSprite(0, 0), collidesheet.getSprite(0, 0));
-		background[width/2][height/2-1] = new Tile(spritesheet.getSprite(0, 0), collidesheet.getSprite(0, 0));
-		background[width/2-1][height/2-1] = new Tile(spritesheet.getSprite(0, 0), collidesheet.getSprite(0, 0));
-		background[width/2-1][height/2] = new Tile(spritesheet.getSprite(0, 0), collidesheet.getSprite(0, 0));
-		background[width/2-2][height/2] = new Tile(spritesheet.getSprite(0, 1), collidesheet.getSprite(0, 1));
 	}
 	
 	public void generate() {										//génération des salles
@@ -88,43 +67,43 @@ public class Map {
 				//test Block généré: cela permet de savoir quel type de block afficher
 				if(this.grille[i][j] == true) {
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = "Sol";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 0),collidesheet.getSprite(2,0));//"Sol"; ok
 					}
 					if(this.grille[i-1][j] == false && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = "Haut";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 1),collidesheet.getSprite(2,0));//"Gauche"; ok 
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = "Droite";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(2, 0),collidesheet.getSprite(2,0));//"Bas"; ok 
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == false && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = "Bas";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 1),collidesheet.getSprite(2,0));//"Droite"; ok 
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == false) {
-						this.Blocks[i][j] = "Gauche";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 0),collidesheet.getSprite(2,0));//"Haut"; ok 
 					}
 					if(this.grille[i-1][j-1] == false && this.grille[i-1][j] == false && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == false) {
-						this.Blocks[i][j] = "Coin-Haut-Gauche";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 3),collidesheet.getSprite(2,0));//"Coin-Haut-Gauche"; ok
 					}
 					if(this.grille[i-1][j] == false && this.grille[i-1][j+1] == false && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = "Coin-Haut-Droite";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(2,0));//"Coin-Haut-Droite"; pas ok
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j+1] == false && this.grille[i+1][j] == false && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = "Coin-Bas-Droite";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(2,0));//"Coin-Bas-Droite";
 					}
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == false && this.grille[i+1][j-1] == false && this.grille[i][j-1] == false) {
-						this.Blocks[i][j] = "Coin-Bas-Gauche";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(2,0));//"Coin-Haut-Droite"; ok
 					}
 					if(this.grille[i-1][j-1] == false && this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = "Angle-Haut-Gauche";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 3),collidesheet.getSprite(2,0));//"Angle-Haut-Gauche";ok
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == false && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = "Angle-Haut-Droite";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(2, 3),collidesheet.getSprite(2,0));//"Angle-Haut-Droite";
 					}
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = "Angle-Bas-Droite";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(2, 2),collidesheet.getSprite(2,0));//"Angle-Bas-Droite";
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == false && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = "Angle-Bas-Gauche";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 2),collidesheet.getSprite(2,0));//"Angle-Bas-Gauche";
 					}	
 				}
 			}
@@ -138,18 +117,18 @@ public class Map {
 	}
 	
 	public Image getTileImage(int x, int y) {
-		return background[x][y].getTexture();
+		return Blocks[x][y].getTexture();
 	}
 
 	public Image getCollideImage(int x, int y) {
-		return background[x][y].getCollide();
+		return Blocks[x][y].getCollide();
 	}
 
 	// J'ai pas trop le temps de tester le truc des offset et je me suis peut-être fail quelque part
 	public void render(Graphics g, float offsetX, float offsetY) {
 		for (int x=0; x<width; x++) {
 			for (int y=0; y<height; y++) {
-				Image texture = background[x][y].getTexture();
+				Image texture = Blocks[x][y].getTexture();
 				
 				if (texture != null) {
 					g.drawImage(texture, x*textureSize-offsetX, y*textureSize-offsetY);
