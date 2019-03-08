@@ -26,13 +26,8 @@ public class Dungeon {
 		this.currentFloor = 0;
 		
 		generateFloor();
-		
-		int spawnX, spawnY;
-		do {
-			spawnX = 1 + (int)(Math.random() * ((149 - 1) + 1));
-			spawnY = 1 + (int)(Math.random() * ((149 - 1) + 1));
-		} while(this.getCurrentFloor().grille[spawnY][spawnX] == true);
-		this.hero = new Hero(spawnX*32+16, spawnY*32+16, new SpriteSheet("assets/sprites/test.png", 32, 32), this);
+
+		this.hero = new Hero(this.floors.get(this.currentFloor).spawnX*32, this.floors.get(this.currentFloor).spawnX*32, new SpriteSheet("assets/sprites/test.png", 32, 32), this);
 		
 		// Je pense que le mieux serait finalement de générer dès le début
 		// un nombre fixe d'étages random entre 7 - 10 par exemple avec un boss au dernier
