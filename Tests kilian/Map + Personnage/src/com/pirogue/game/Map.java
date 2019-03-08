@@ -73,7 +73,7 @@ public class Map {
 						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 1),collidesheet.getSprite(2,0));//"Gauche"; ok 
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(2, 0),collidesheet.getSprite(2,0));//"Bas"; ok 
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 0),collidesheet.getSprite(2,0));//"Bas"; ok 
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == false && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 1),collidesheet.getSprite(2,0));//"Droite"; ok 
@@ -85,7 +85,7 @@ public class Map {
 						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 3),collidesheet.getSprite(2,0));//"Coin-Haut-Gauche"; ok
 					}
 					if(this.grille[i-1][j] == false && this.grille[i-1][j+1] == false && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(2,0));//"Coin-Haut-Droite"; pas ok
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(2,0));//"Coin-Haut-Droite"; pas ok
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j+1] == false && this.grille[i+1][j] == false && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(2,0));//"Coin-Bas-Droite";
@@ -97,13 +97,13 @@ public class Map {
 						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 3),collidesheet.getSprite(2,0));//"Angle-Haut-Gauche";ok
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == false && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(2, 3),collidesheet.getSprite(2,0));//"Angle-Haut-Droite";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 2),collidesheet.getSprite(2,0));//"Angle-Haut-Droite";
 					}
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = new Tile(spritesheet.getSprite(2, 2),collidesheet.getSprite(2,0));//"Angle-Bas-Droite";
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == false && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 2),collidesheet.getSprite(2,0));//"Angle-Bas-Gauche";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(2, 3),collidesheet.getSprite(2,0));//"Angle-Bas-Gauche"; ok
 					}	
 				}
 			}
