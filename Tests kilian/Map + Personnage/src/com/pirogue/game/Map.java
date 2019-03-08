@@ -85,10 +85,10 @@ public class Map {
 						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 3),collidesheet.getSprite(2,0));//"Coin-Haut-Gauche"; ok
 					}
 					if(this.grille[i-1][j] == false && this.grille[i-1][j+1] == false && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(2,0));//"Coin-Haut-Droite"; pas ok
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(2,0));//"Coin-Haut-Droite"; pas ok
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j+1] == false && this.grille[i+1][j] == false && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(2,0));//"Coin-Bas-Droite";
+						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(2,0));//"Coin-Bas-Droite";
 					}
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == false && this.grille[i+1][j-1] == false && this.grille[i][j-1] == false) {
 						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(2,0));//"Coin-Haut-Droite"; ok
