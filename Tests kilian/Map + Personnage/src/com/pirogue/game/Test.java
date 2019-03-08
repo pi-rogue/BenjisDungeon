@@ -33,7 +33,7 @@ public class Test extends BasicGame {
 		container.setVSync(true); // Askip ça évite des problèmes d'affichage (synchronisation verticale)
 		container.setMaximumLogicUpdateInterval(20); // Force delta <= 20 (permet de ne pas (trop) traverser les murs si il y a un freeze)
 		
-		this.dungeon = new Dungeon(20, 15, "assets/map/tiles/wall.png", "assets/map/tiles/collide.png", 32);
+		this.dungeon = new Dungeon(150, 150, "assets/map/tiles/spritesheet.png", "assets/map/tiles/collide.png", 32);
 		this.hero = new Hero(64, 64, new SpriteSheet("assets/sprites/test.png", 32, 32), this.dungeon.getCurrentFloor());
 	}
 	
