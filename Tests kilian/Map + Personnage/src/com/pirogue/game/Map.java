@@ -55,8 +55,6 @@ public class Map {
 		background[width/2-1][height/2-1] = new Tile(spritesheet.getSprite(0, 0), collidesheet.getSprite(0, 0));
 		background[width/2-1][height/2] = new Tile(spritesheet.getSprite(0, 0), collidesheet.getSprite(0, 0));
 		background[width/2-2][height/2] = new Tile(spritesheet.getSprite(0, 1), collidesheet.getSprite(0, 1));
-		
-	
 	}
 	
 	public void generate() {										//génération des salles
@@ -89,68 +87,42 @@ public class Map {
 				
 				//test Block généré: cela permet de savoir quel type de block afficher
 				if(this.grille[i][j] == true) {
-					
-					//test Sol
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = "Sol";
 					}
-					
-					//test Haut
 					if(this.grille[i-1][j] == false && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = "Haut";
 					}
-					
-					//test Droite
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = "Droite";
 					}
-					
-					//test Bas
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == false && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = "Bas";
 					}
-					
-					//test Gauche
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == false) {
 						this.Blocks[i][j] = "Gauche";
 					}
-					//----------------------------------------------------------------------------------------------------------------------------- Maintenant les blocks de Coins
-					//test Coin-Haut-Gauche
 					if(this.grille[i-1][j-1] == false && this.grille[i-1][j] == false && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == false) {
 						this.Blocks[i][j] = "Coin-Haut-Gauche";
 					}
-					
-					//test Coin-Haut-Droite 
 					if(this.grille[i-1][j] == false && this.grille[i-1][j+1] == false && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = "Coin-Haut-Droite";
 					}
-					
-					//test Coin-Bas-Droite
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j+1] == false && this.grille[i+1][j] == false && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = "Coin-Bas-Droite";
 					}
-					
-					//test Coin-Bas-Gauche
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == false && this.grille[i+1][j-1] == false && this.grille[i][j-1] == false) {
 						this.Blocks[i][j] = "Coin-Bas-Gauche";
 					}
-					//---------------------------------------------------------------------------------------------------------------------------Maitenant les blocks d'Angles
-					//test Angle-Haut-Gauche
 					if(this.grille[i-1][j-1] == false && this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = "Angle-Haut-Gauche";
 					}
-					
-					//test Angle-Haut-Droite
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == false && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = "Angle-Haut-Droite";
 					}
-					
-					//test Angle-Bas-Droite
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = "Angle-Bas-Droite";
 					}
-					
-					//test Angle-Bas-Gauche
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == false && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = "Angle-Bas-Gauche";
 					}	
