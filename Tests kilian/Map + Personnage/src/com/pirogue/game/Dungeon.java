@@ -12,7 +12,7 @@ public class Dungeon {
 	private int width, height;
 	private SpriteSheet spritesheet;
 	private SpriteSheet collidesheet;
-	private int currentFloor;
+	public int currentFloor;
 	
 	public Dungeon(int width, int height, String sprSheet, String colSheet, int textureSize) throws SlickException {
 		this.width = width;
