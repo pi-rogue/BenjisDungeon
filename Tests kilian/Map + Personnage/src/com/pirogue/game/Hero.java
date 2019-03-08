@@ -68,19 +68,19 @@ public class Hero {
 			if (futureX>map.width*map.textureSize-width) futureX=map.width*map.textureSize-width;
 			if (futureY>map.height*map.textureSize-height) futureY=map.height*map.textureSize-height;
 
-/*			// Vérification des collisions
+			// Vérification des collisions
 			Image tile = map.getCollideImage((int)(futureX/width), (int)(futureY/height));
 			if (tile != null) {  // TODO prendre en compte la taille du personnage (et pas juste le coin haut gauche)
 				Color color = tile.getColor(((int)futureX) % width, ((int)futureY) % height);
-				if (color.getRed()!=255) {
+				if (color.getRed()==255) {
 					this.x = (int) futureX;
 					this.y = (int) futureY;
 				}
 			}
-			else { // A enlever plus tard, on n'est pas censés pourvoir se déplacer sur des cases de vide     */
+			else { // A enlever plus tard, on n'est pas censés pourvoir se déplacer sur des cases de vide
 				this.x = (int) futureX;
 				this.y = (int) futureY;
-//			}
+			}
 		}
 	}
 	

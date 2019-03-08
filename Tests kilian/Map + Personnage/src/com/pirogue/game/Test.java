@@ -8,7 +8,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
 public class Test extends BasicGame {
 
@@ -36,12 +35,6 @@ public class Test extends BasicGame {
 		container.setMaximumLogicUpdateInterval(20); // Force delta <= 20 (permet de ne pas (trop) traverser les murs si il y a un freeze)
 
 		this.dungeon = new Dungeon(150, 150, "assets/map/tiles/spritesheet.png", "assets/map/tiles/collide.png", 32, container);
-		int spawnX, spawnY;
-		do {
-			spawnX = 1 + (int)(Math.random() * ((149 - 1) + 1));
-			spawnY = 1 + (int)(Math.random() * ((149 - 1) + 1));
-		}while(this.dungeon.floors.get(dungeon.currentFloor).grille[spawnY][spawnX] == true);
-		//this.hero = new Hero(spawnX*32+16, spawnY*32+16, new SpriteSheet("assets/sprites/test.png", 32, 32), this.dungeon.getCurrentFloor());
 	}
 	
 	public void keyReleased(int key, char c) {
