@@ -23,7 +23,9 @@ public class Test extends BasicGame {
 	
 	public static void main(String[] args) throws SlickException {
 		System.setProperty("org.lwjgl.librarypath", new File("lib/natives").getAbsolutePath()); // A laisser, pour qu'il trouve les libraries
-		new AppGameContainer(new Test(), 640, 480, false).start(); // Demarre le jeu avec une fenêtre de 640x480
+		AppGameContainer application = new AppGameContainer(new Test(), 640, 480, false); // Demarre le jeu avec une fenêtre de 640x480
+		application.setFullscreen(true);
+		application.start();
 	}
 
 	@Override
