@@ -10,13 +10,15 @@ import org.newdawn.slick.SpriteSheet;
 public class Hero {
 	
 	private float velocity = 0.5f; // Je sais pas vous mais chez moi ça fait n'importe quoi dès qu'on passe en dessous de 0.5f jsp pourquoi
-	private int x,y, width,height, direction;
+	private int x,y, width,height, direction, spriteDir;
 	private boolean moving = false;
 	private Animation[][] animations; // Tableau 2D parce que pour chaque direction on a deux anims (en déplacement ou non)
 	private Map map;
+	private Dungeon dungeon;
 	
-	public Hero(int x, int y, SpriteSheet spriteSheet, Map map) {
-		this.map = map;
+	public Hero(int x, int y, SpriteSheet spriteSheet, Dungeon dungeon) {
+		this.map = dungeon.getCurrentFloor();
+		this.dungeon = dungeon;
 		this.x = x;
 		this.y = y;
 		int IMGwidth = spriteSheet.getWidth();
@@ -40,8 +42,8 @@ public class Hero {
 		}		
 	}
 	
-	public void render(GameContainer container, Graphics g) {
-		g.drawAnimation(animations[direction][moving ? 1:0], x, y);
+	public void render(Graphics g) {
+		g.drawAnimation(animations[direction][moving ? 1:0], dungeon.container.getWidth()/2-width/2, dungeon.container.getHeight()/2-height/2);
 	}
 
 	public void update(GameContainer container, int delta) {
@@ -64,21 +66,21 @@ public class Hero {
 			if (futureX<0) futureX=0;
 			if (futureY<0) futureY=0;
 			if (futureX>map.width*map.textureSize-width) futureX=map.width*map.textureSize-width;
-			if (futureY>map.height*map.textureSize-height) futureY=map.height*map.textureSize-height;		
+			if (futureY>map.height*map.textureSize-height) futureY=map.height*map.textureSize-height;
 
-			// Vérification des collisions
+/*			// Vérification des collisions
 			Image tile = map.getCollideImage((int)(futureX/width), (int)(futureY/height));
 			if (tile != null) {  // TODO prendre en compte la taille du personnage (et pas juste le coin haut gauche)
 				Color color = tile.getColor(((int)futureX) % width, ((int)futureY) % height);
-				if (color.getBlue()!=0) {
+				if (color.getRed()!=255) {
 					this.x = (int) futureX;
 					this.y = (int) futureY;
 				}
 			}
-			else { // A enlever plus tard, on n'est pas censés pourvoir se déplacer sur des cases de vide
+			else { // A enlever plus tard, on n'est pas censés pourvoir se déplacer sur des cases de vide     */
 				this.x = (int) futureX;
 				this.y = (int) futureY;
-			}
+//			}
 		}
 	}
 	
@@ -88,6 +90,14 @@ public class Hero {
 
 	public void setMoving(boolean moving) {
 		this.moving = moving;
+	}
+
+	public int getX() {
+		return this.x;
+	}
+
+	public int getY() {
+		return this.y;
 	}
 	
 }
