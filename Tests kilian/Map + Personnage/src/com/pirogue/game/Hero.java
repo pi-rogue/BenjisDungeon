@@ -69,7 +69,7 @@ public class Hero {
 			if (futureY>map.height*map.textureSize-height) futureY=map.height*map.textureSize-height;
 
 			// Vérification des collisions
-			Image tile = map.getCollideImage((int)((x+dungeon.container.getWidth()/2)/width), (int)((y+dungeon.container.getHeight()/2)/height));
+			Image tile = map.getCollideImage((int)((futureX+dungeon.container.getWidth()/2)/width), (int)((futureY+dungeon.container.getHeight()/2)/height));
 //			Image tile = map.getCollideImage((int)((x-futureX)/width), (int)((y-futureY)/height));
 			if (tile != null) {  // TODO prendre en compte la taille du personnage (et pas juste le coin haut gauche)
 				Color color = tile.getColor(((int)futureX) % width, ((int)futureY) % height);

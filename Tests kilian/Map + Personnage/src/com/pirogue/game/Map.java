@@ -6,6 +6,8 @@ import org.newdawn.slick.SpriteSheet;
 
 public class Map {
 	
+	public boolean vision; // Permet d'afficher les collisions pour debug (touche A)
+	
 	protected SpriteSheet spritesheet;
 	protected SpriteSheet collidesheet;
 	protected int width, height;
@@ -132,7 +134,9 @@ public class Map {
 	public void render(Graphics g, float offsetX, float offsetY) {
 		for (int x=0; x<width; x++) {
 			for (int y=0; y<height; y++) {
-				Image texture = Blocks[x][y].getTexture();
+				Image texture;
+				if (this.vision) texture = Blocks[x][y].getCollide();
+				else texture = Blocks[x][y].getTexture();
 				
 				if (texture != null) {
 					g.drawImage(texture, x*textureSize-offsetX, y*textureSize-offsetY);

@@ -65,7 +65,9 @@ public class Test extends BasicGame {
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
 		dungeon.hero.update(container, delta);
-		
+		if (container.getInput().isKeyPressed(Input.KEY_A)) {
+			dungeon.getCurrentFloor().vision = !dungeon.getCurrentFloor().vision;
+		}
 		String arrowsDir = arrowsDirection();
 		if (arrowsDir.equals("")) dungeon.hero.setMoving(false); // Pour le momentum on a juste à ajouter une petite variable ici
 		else dungeon.hero.setMoving(true);                       // qui s'incrémente et on rajoute dans la condition : compteur>10
