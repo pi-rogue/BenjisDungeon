@@ -15,7 +15,6 @@ public class Map {
 	public boolean grille[][] = new boolean[150][150];
 	public Tile Blocks[][];
 	private int salleX=0, salleY=0, tailleSalleX=0, tailleSalleY=0;
-	public int spawnX,spawnY;
 	 
 
 	public Map(int width, int height, SpriteSheet spr, SpriteSheet col) {
@@ -58,9 +57,7 @@ public class Map {
 		if(test <= 50) {				//tolérance du nombre de blocks déja occupés
 			for(int i=this.salleY-this.tailleSalleY; i<=this.salleY+this.tailleSalleY; i++) {
 				for(int j=this.salleX-this.tailleSalleX; j<=this.salleX+this.tailleSalleX; j++) {
-					this.grille[i][j] = true;
-					this.spawnX = this.salleX;
-					this.spawnY = this.salleY;			//génération de la salle si les conditions sont ok
+					this.grille[i][j] = true;		//génération de la salle si les conditions sont ok
 				}									//sinon RIEN !
 			}
 		}

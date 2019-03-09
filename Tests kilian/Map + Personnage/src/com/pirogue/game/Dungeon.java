@@ -30,8 +30,8 @@ public class Dungeon {
 		Tile Sol = new Tile(spritesheet.getSprite(3, 0),collidesheet.getSprite(3,0));
 		int spawnX, spawnY;
 		do {
-			spawnX = 1 + (int)(Math.random() * ((149 - 1) + 1));
-			spawnY = 1 + (int)(Math.random() * ((149 - 1) + 1));
+			spawnX = 25 + (int)(Math.random() * ((125 - 25) + 1));
+			spawnY = 25 + (int)(Math.random() * ((125 - 25) + 1));
 		} while(this.getCurrentFloor().Blocks[spawnX][spawnY].equals(Sol));
 		this.hero = new Hero(spawnX*32, spawnY*32, new SpriteSheet("assets/sprites/test.png", 32, 32), this);
 		
