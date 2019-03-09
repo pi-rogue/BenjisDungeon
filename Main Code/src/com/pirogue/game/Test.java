@@ -35,7 +35,7 @@ public class Test extends BasicGame {
 		container.setVSync(Constants.VERTICAL_SYNC);
 		container.setMaximumLogicUpdateInterval(Constants.DELTA_MAX);
 
-		this.dungeon = new Dungeon("assets/map/tiles/spritesheet.png", "assets/map/tiles/collide.png");
+		this.dungeon = new Dungeon("assets/map/tileset.png", "assets/map/collide.png");
 		Constants.dungeon = this.dungeon;
 		this.dungeon.spawnHero();
 	}
