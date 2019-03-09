@@ -9,12 +9,14 @@ public class Constants {
 	
 	/* GLOBAL */
 	public static boolean SHOW_FPS = true;
-	public static boolean FULLSCREEN = true;
+	public static boolean FULLSCREEN = false;
 	public static boolean VERTICAL_SYNC = true;  // Askip ça évite des problèmes d'affichage (synchronisation verticale)
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	private static int blockNumbersHorizontal = 20;    // Nombre de blocs à afficher sur l'écran
-	private static int blockNumbersVertical = 15;      // Y'a des ratios à respecter si on se met en fullscreen, à la limite on fera une enum
-    
+	private static int blockNumbersVertical = 15;      // Si vous voulez changer il faut enlever le fullscreen (on verra plus tard pour fix ça)
+	public static String tileset = "assets/map/test_tileset_wiwi.png";
+	public static String collide = "assets/map/test_collide_wiwi.png";
+	
 	/* MAP */
 	public static int mapWidth = 150;
 	public static int mapHeight = 150;
@@ -24,7 +26,7 @@ public class Constants {
 	
 	
 	// ------ Keyboard Configuration ------ //
-	public static int KEY_ViewCollisions = Input.KEY_A;
+	public static int KEY_DebugView = Input.KEY_A;
 	public static int KEY_Exit = Input.KEY_ESCAPE;
 	public static int KEY_Up = Input.KEY_UP;
 	public static int KEY_Down = Input.KEY_DOWN;

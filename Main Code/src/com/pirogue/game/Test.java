@@ -33,7 +33,7 @@ public class Test extends BasicGame {
 		container.setShowFPS(Constants.SHOW_FPS);
 		container.setVSync(Constants.VERTICAL_SYNC);
 		container.setMaximumLogicUpdateInterval(Constants.DELTA_MAX);
-		this.dungeon = new Dungeon("assets/map/test_tileset_wiwi.png", "assets/map/test_collide_wiwi.png");
+		this.dungeon = new Dungeon(Constants.tileset, Constants.collide);
 		Constants.dungeon = this.dungeon;
 		this.dungeon.spawnHero();
 	}
@@ -67,7 +67,7 @@ public class Test extends BasicGame {
 	public void update(GameContainer container, int delta) throws SlickException {
 		dungeon.hero.update(container, delta);
 		
-		if (container.getInput().isKeyPressed(Constants.KEY_ViewCollisions)) {
+		if (container.getInput().isKeyPressed(Constants.KEY_DebugView)) {
 			dungeon.getCurrentFloor().vision = !dungeon.getCurrentFloor().vision;
 		}
 		

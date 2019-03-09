@@ -43,7 +43,7 @@ public class Hero {
 	}
 	
 	public void render(Graphics g) {
-		g.drawAnimation(animations[direction][moving ? 1:0], Constants.SCREEN_WIDTH/2-width/2, Constants.SCREEN_HEIGHT/2-height/2);
+		g.drawAnimation(animations[direction][moving ? 1:0], (Constants.SCREEN_WIDTH-width)/2, (Constants.SCREEN_HEIGHT-height)/2);
 	}
 
 	public void update(GameContainer container, int delta) {
@@ -69,22 +69,68 @@ public class Hero {
 			if (futureY>map.height*map.blockSize-height) futureY=map.height*map.blockSize-height;
 
 			// Vérification des collisions
-//			Image tile = map.getCollideImage((int)((futureX+dungeon.container.getWidth()/2)/width), (int)((futureY+dungeon.container.getHeight()/2)/height));
-			Image tile = map.getCollideImage((int)(futureX/width), (int)(futureY/height));
-			if (tile != null) {  // TODO prendre en compte la taille du personnage (et pas juste le coin haut gauche)
-				Color color = tile.getColor(((int)futureX) % width, ((int)futureY) % height);
-				if (!(color.getRed()==255 && color.getGreen()==0 && color.getBlue()==0)) {
-					this.x = (int) futureX;
-					this.y = (int) futureY;
-				}
+			// On numérote les quatres coins du héros comme ça: 
+			// 0 | 1
+			// -----
+			// 2 | 3
+			boolean[] corners = {false, false, false, false}; // Liste des coins à checker			
+
+			switch (direction) { // Pour alléger on check que certains coins selon la direction (3 coins pour un déplacement diagonal, 2 sinon)
+			case 0: corners[0]=true; corners[1]=true; break;
+			case 1: corners[0]=true; corners[1]=true; corners[3]=true; break;
+			case 2: corners[1]=true; corners[3]=true; break;
+			case 3: corners[1]=true; corners[3]=true; corners[2]=true; break;
+			case 4: corners[3]=true; corners[2]=true; break;
+			case 5: corners[3]=true; corners[2]=true; corners[0]=true; break;
+			case 6: corners[2]=true; corners[0]=true; break;
+			case 7: corners[2]=true; corners[0]=true; corners[1]=true; break;
 			}
-//			else { // A enlever plus tard, on n'est pas censés pourvoir se déplacer sur des cases de vide
-//				this.x = (int) futureX;
-//				this.y = (int) futureY;
-//			}
+			
+			if (!isColliding(corners, futureX, futureY)) {
+				this.x = (int) futureX;
+				this.y = (int) futureY;
+			}
 		}
 	}
 	
+	private boolean isColliding(boolean[] corners, float futureX, float futureY) {
+		Image img;
+		float cornerX=0, cornerY=0;
+
+		for (int i=0; i<4; i++) {
+			if (corners[i]) {
+				switch (i) {
+				case 0:
+					cornerX = futureX-width/2;
+					cornerY = futureY-height/2;
+					break;
+				case 1:
+					cornerX = futureX+width/2;
+					cornerY = futureY-height/2;
+					break;
+				case 2:
+					cornerX = futureX-width/2;
+					cornerY = futureY+height/2;
+					break;
+				case 3:
+					cornerX = futureX+width/2;
+					cornerY = futureY+height/2;
+					break;
+				}
+				 
+				img = map.getCollideImage((int)(cornerX/width), (int)(cornerY/height)); 
+				if (img != null) {
+					Color color = img.getColor((int)(cornerX % width), (int)(cornerY % height));
+					if (color.getRed()==255 && color.getGreen()==0 && color.getBlue()==0) {
+						return true;
+					}
+				}
+				else return true; // Si l'image est null (pour du vide par exemple), on ne peut pas marcher dessus
+			}
+		}
+		return false;
+	}
+
 	public void setDirection(int direction) {
 		this.direction = direction;
 	}

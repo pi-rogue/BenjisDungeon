@@ -42,7 +42,7 @@ public class Dungeon {
 				new SpriteSheet("assets/sprites/test.png", blockSize, blockSize));
 
 		// Affichage du bloc de spawn //
-		this.getCurrentFloor().Blocks[getCurrentFloor().spawnX][getCurrentFloor().spawnY] = new Tile(collidesheet.getSprite(3, 1), collidesheet.getSprite(2, 0));
+//		this.getCurrentFloor().Blocks[getCurrentFloor().spawnX][getCurrentFloor().spawnY] = new Tile(collidesheet.getSprite(3, 1), collidesheet.getSprite(2, 0));
 
 	}
 	
