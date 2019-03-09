@@ -6,6 +6,15 @@ import org.lwjgl.opengl.DisplayMode;
 
 public class DisplayModes {
 
+	/*
+	 *
+	 * C'est un bout de code qui permet de récupérer toutes les résolutions disponibles, on s'en servira surement plus tard
+	 * 
+	 * Si vous voulez tester y'a juste à ajouter new DisplayModes(); à n'importe quel endroit du code
+	 * 
+	 */
+	
+	
 	public DisplayModes() {
 		DisplayMode[] modes;
 		try {

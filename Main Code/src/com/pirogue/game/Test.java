@@ -13,7 +13,6 @@ public class Test extends BasicGame {
 
 	private GameContainer container;
 	private Dungeon dungeon;
-	private Hero hero;
 
 	public Test() {
 		super("Test Game");
@@ -34,8 +33,7 @@ public class Test extends BasicGame {
 		container.setShowFPS(Constants.SHOW_FPS);
 		container.setVSync(Constants.VERTICAL_SYNC);
 		container.setMaximumLogicUpdateInterval(Constants.DELTA_MAX);
-
-		this.dungeon = new Dungeon("assets/map/tileset.png", "assets/map/collide.png");
+		this.dungeon = new Dungeon("assets/map/test_tileset_wiwi.png", "assets/map/test_collide_wiwi.png");
 		Constants.dungeon = this.dungeon;
 		this.dungeon.spawnHero();
 	}
