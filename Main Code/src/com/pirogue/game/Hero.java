@@ -86,7 +86,27 @@ public class Hero {
 			case 7: corners[2]=true; corners[0]=true; corners[1]=true; break;
 			}
 			
-			if (!isColliding(corners, futureX, futureY)) {
+			if (isColliding(corners, futureX, futureY)) {
+				switch (direction) { // Quand on se déplace en diagonale on peut quand meme glisser sur un mur ou non
+				case 1:
+					if (!isColliding(corners, this.x + velocity * delta, this.y)) this.x=(int)(this.x + velocity * delta);
+					else if (!isColliding(corners, this.x, this.y - velocity * delta)) this.y=(int)(this.y - velocity * delta);
+					break;
+				case 3:
+					if (!isColliding(corners, this.x + velocity * delta, this.y)) this.x=(int)(this.x + velocity * delta);
+					else if (!isColliding(corners, this.x, this.y + velocity * delta)) this.y=(int)(this.y + velocity * delta);
+					break;
+				case 5:
+					if (!isColliding(corners, this.x - velocity * delta, this.y)) this.x=(int)(this.x - velocity * delta);
+					else if (!isColliding(corners, this.x, this.y + velocity * delta)) this.y=(int)(this.y + velocity * delta);
+					break;
+				case 7:
+					if (!isColliding(corners, this.x - velocity * delta, this.y)) this.x=(int)(this.x - velocity * delta);
+					else if (!isColliding(corners, this.x, this.y - velocity * delta)) this.y=(int)(this.y - velocity * delta);
+					break;
+				}
+			}
+			else {
 				this.x = (int) futureX;
 				this.y = (int) futureY;
 			}
