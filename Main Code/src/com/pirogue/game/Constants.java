@@ -1,6 +1,7 @@
 package com.pirogue.game;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.Input;
 
 public class Constants {
@@ -10,7 +11,7 @@ public class Constants {
 	/* GLOBAL */
 	public static boolean SHOW_FPS = true;
 	public static boolean FULLSCREEN = false;
-	public static boolean VERTICAL_SYNC = true;  // Askip ça évite des problèmes d'affichage (synchronisation verticale)
+	public static boolean VERTICAL_SYNC = false;  // Askip ça évite des problèmes d'affichage (synchronisation verticale)
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	private static int blockNumbersHorizontal = 20;    // Nombre de blocs à afficher sur l'écran
 	private static int blockNumbersVertical = 15;      // Si vous voulez changer il faut enlever le fullscreen (on verra plus tard pour fix ça)
@@ -38,4 +39,10 @@ public class Constants {
 	public static Dungeon dungeon;
 	public static int SCREEN_WIDTH = blockNumbersHorizontal*blockSize;
 	public static int SCREEN_HEIGHT = blockNumbersVertical*blockSize;
+	public static SpriteSheet spritesheet;
+	public static SpriteSheet collidesheet;
+	
+	//les différents types de tuiles
+	//y a-t-il moyen de faire passer la spriteSheet en constante ? ca ameliorerais la lisibilité du code et ca permettrait de faire des comparaisons faciles.
+	//public static Tile Droite = new Tile(spritesheet.getSprite(0, 1),collidesheet.getSprite(0,1)), Gauche = new Tile(spritesheet.getSprite(1, 1),collidesheet.getSprite(1,1)), Bas = new Tile(spritesheet.getSprite(1, 0),collidesheet.getSprite(1,0)), Haut = new Tile(spritesheet.getSprite(0, 0),collidesheet.getSprite(0,0));
 }
