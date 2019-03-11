@@ -23,4 +23,12 @@ public class Tile {
 	public Image getCollide() {
 		return collide;
 	}
+	
+	public boolean equals(Tile tile) {
+		if (this.texture==null && tile.getTexture()==null && this.collide==null && tile.getCollide()==null) return true;
+		if (this.texture==null && tile.getTexture()==null) return this.collide.equals(tile.getCollide());
+		if (this.collide==null && tile.getCollide()==null) return this.texture.equals(tile.getTexture());
+		if (this.texture==null || tile.getTexture()==null || this.collide==null || tile.getCollide()==null) return false; // On veut éviter les NullPointerException
+		return this.texture.equals(tile.getTexture()) && this.collide.equals(tile.getCollide());
+	}
 }
