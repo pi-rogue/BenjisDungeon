@@ -5,7 +5,6 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-
 public class Constants {
 
 	// ---------- Settings ---------- //
@@ -45,11 +44,24 @@ public class Constants {
 	public static SpriteSheet collidesheet;
 	
 	//les différents types de tuiles
+	public static Tile Droite, Gauche, Bas, Haut, AngleHG, AngleHD, AngleBG, AngleBD, CoinHG, CoinHD, CoinBG, CoinBD, Sol;
 	
-	//public static Tile Droite = new Tile(spritesheet.getSprite(0, 1),collidesheet.getSprite(0,1)), Gauche = new Tile(spritesheet.getSprite(1, 1),collidesheet.getSprite(1,1)), Bas = new Tile(spritesheet.getSprite(1, 0),collidesheet.getSprite(1,0)), Haut = new Tile(spritesheet.getSprite(0, 0),collidesheet.getSprite(0,0));
-	
+	//initiallisation des spritesheets
 	public static void init() throws SlickException {
 		spritesheet = new SpriteSheet(tileset, blockSize, blockSize);
 		collidesheet = new SpriteSheet(collide, blockSize, blockSize);
+		Droite = new Tile(spritesheet.getSprite(0, 1),collidesheet.getSprite(0,1));
+		Gauche = new Tile(spritesheet.getSprite(1, 1),collidesheet.getSprite(1,1));
+		Bas = new Tile(spritesheet.getSprite(1, 0),collidesheet.getSprite(1,0));
+		Haut = new Tile(spritesheet.getSprite(0, 0),collidesheet.getSprite(0,0));
+		AngleHG = new Tile(spritesheet.getSprite(3, 3),collidesheet.getSprite(3,3));
+		AngleHD = new Tile(spritesheet.getSprite(3, 2),collidesheet.getSprite(3,2));
+		AngleBG = new Tile(spritesheet.getSprite(2, 3),collidesheet.getSprite(2,3));
+		AngleBD = new Tile(spritesheet.getSprite(2, 2),collidesheet.getSprite(2,2));
+		CoinHG = new Tile(spritesheet.getSprite(1, 3),collidesheet.getSprite(1,3));
+		CoinHD = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(0,3));
+		CoinBG = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(1,2));
+		CoinBD = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(0,2));
+		Sol = new Tile(spritesheet.getSprite(3, 0),collidesheet.getSprite(3,0));
 	}
 }
