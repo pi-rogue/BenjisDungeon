@@ -1,4 +1,4 @@
-﻿# BenjisDungeon
+# BenjisDungeon
 
 
 ### Todo list :
@@ -9,6 +9,7 @@
 - [x] Faire se déplacer un personnage sur une map (diagonales, avec caméra centrée, collisions avec les murs)
 - [ ] Décimer la famille du prof qui nous a touours pas répondu
 - [ ] Ajouter des coffres avec des taux de loot
+- [ ] Faire un inventaire pour équiper les objets
 - [ ] Faire les équipements et objets
 - [ ] Plusieurs classes avec différents sorts
 - [ ] Des monstres qui spawnent random (+ un monstre op si on a le temps)
