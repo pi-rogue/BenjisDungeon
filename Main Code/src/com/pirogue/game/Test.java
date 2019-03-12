@@ -28,12 +28,13 @@ public class Test extends BasicGame {
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
+		Constants.init();
 		Constants.container = container; // On le met ici pour pouvoir y accéder de partout
 		this.container = container;
 		container.setShowFPS(Constants.SHOW_FPS);
 		container.setVSync(Constants.VERTICAL_SYNC);
 		container.setMaximumLogicUpdateInterval(Constants.DELTA_MAX);
-		this.dungeon = new Dungeon(Constants.tileset, Constants.collide);
+		this.dungeon = new Dungeon();
 		Constants.dungeon = this.dungeon;
 		this.dungeon.spawnHero();
 	}

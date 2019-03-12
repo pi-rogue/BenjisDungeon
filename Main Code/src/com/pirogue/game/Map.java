@@ -2,14 +2,11 @@ package com.pirogue.game;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SpriteSheet;
 
 public class Map {
 	
 	public boolean vision; // Permet d'afficher les collisions pour debug (touche A)
 	
-	protected SpriteSheet spritesheet;
-	protected SpriteSheet collidesheet;
 	protected int width, height;
 	protected float blockSize;
 	protected boolean grille[][];
@@ -18,9 +15,7 @@ public class Map {
 	public int spawnX,spawnY;
 	 
 
-	public Map(int width, int height, SpriteSheet spr, SpriteSheet col) {
-		this.spritesheet = spr;
-		this.collidesheet = col;
+	public Map(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.Blocks = new Tile[width][height];
@@ -30,7 +25,7 @@ public class Map {
 		for(int i=0; i<width; i++) {
 			for(int j=0; j<height; j++) {
 				this.grille[i][j] = false;		//initialisation des 2 tableaux
-				this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 1),collidesheet.getSprite(3, 1)); //"Vide";
+				this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(3, 1),Constants.collidesheet.getSprite(3, 1)); //"Vide";
 			}
 		}
 
@@ -67,19 +62,19 @@ public class Map {
 	}
 
 	public void scanBlock() {
-		Tile Droite = new Tile(spritesheet.getSprite(0, 1),collidesheet.getSprite(0,1)), Gauche = new Tile(spritesheet.getSprite(1, 1),collidesheet.getSprite(1,1)), Bas = new Tile(spritesheet.getSprite(1, 0),collidesheet.getSprite(1,0)), Haut = new Tile(spritesheet.getSprite(0, 0),collidesheet.getSprite(0,0));
+		Tile Droite = new Tile(Constants.spritesheet.getSprite(0, 1),Constants.collidesheet.getSprite(0,1)), Gauche = new Tile(Constants.spritesheet.getSprite(1, 1),Constants.collidesheet.getSprite(1,1)), Bas = new Tile(Constants.spritesheet.getSprite(1, 0),Constants.collidesheet.getSprite(1,0)), Haut = new Tile(Constants.spritesheet.getSprite(0, 0),Constants.collidesheet.getSprite(0,0));
 		for(int i=1; i<width-1; i++) {
 			for(int j=1; j<height-1; j++) {
 				
 				//test Block généré: cela permet de savoir quel type de block afficher
 				if(this.grille[i][j] == true) {
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 0),collidesheet.getSprite(3,0));//"Sol"; ok
+						this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(3, 0),Constants.collidesheet.getSprite(3,0));//"Sol"; ok
 					}
 					if(this.grille[i-1][j] == false && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
 						if(this.Blocks[i][j-1].equals(Droite)) {
-							this.Blocks[i][j-1] = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(0,2));//coin bas droite
-							this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 3),collidesheet.getSprite(1,3));//coin haut gauche
+							this.Blocks[i][j-1] = new Tile(Constants.spritesheet.getSprite(0, 2),Constants.collidesheet.getSprite(0,2));//coin bas droite
+							this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(1, 3),Constants.collidesheet.getSprite(1,3));//coin haut gauche
 						}
 						else {
 							this.Blocks[i][j] = Gauche;//"Gauche"; ok
@@ -87,8 +82,8 @@ public class Map {
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
 						if(this.Blocks[i-1][j].equals(Haut)) {
-							this.Blocks[i-1][j] = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(0,2));//coin bas droite
-							this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 3),collidesheet.getSprite(1,3));//coin haut gauche
+							this.Blocks[i-1][j] = new Tile(Constants.spritesheet.getSprite(0, 2),Constants.collidesheet.getSprite(0,2));//coin bas droite
+							this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(1, 3),Constants.collidesheet.getSprite(1,3));//coin haut gauche
 						}
 						else {
 							this.Blocks[i][j] = Bas;//"Bas"; ok 
@@ -96,8 +91,8 @@ public class Map {
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == false && this.grille[i][j-1] == true) {
 						if(this.Blocks[i][j-1].equals(Gauche)) {
-							this.Blocks[i][j-1] = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(1,2));//coin bas gauche
-							this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(0,3));//coin haut droite
+							this.Blocks[i][j-1] = new Tile(Constants.spritesheet.getSprite(1, 2),Constants.collidesheet.getSprite(1,2));//coin bas gauche
+							this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(0, 3),Constants.collidesheet.getSprite(0,3));//coin haut droite
 						}
 						else {
 							this.Blocks[i][j] = Droite;//"Droite"; ok 
@@ -105,36 +100,36 @@ public class Map {
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == false) {
 						if(this.Blocks[i-1][j].equals(Bas)) {
-							this.Blocks[i-1][j] = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(1,2));//coin bas gauche
-							this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(0,3));//coin haut droite
+							this.Blocks[i-1][j] = new Tile(Constants.spritesheet.getSprite(1, 2),Constants.collidesheet.getSprite(1,2));//coin bas gauche
+							this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(0, 3),Constants.collidesheet.getSprite(0,3));//coin haut droite
 						}
 						else {
 							this.Blocks[i][j] = Haut;//"Haut"; ok 
 						}
 					}
 					if(this.grille[i-1][j] == false && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == false) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 3),collidesheet.getSprite(1,3));//"Coin-Haut-Gauche"; ok
+						this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(1, 3),Constants.collidesheet.getSprite(1,3));//"Coin-Haut-Gauche"; ok
 					}
 					if(this.grille[i-1][j] == false && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(1,2));//"Coin-Bas-Gauche"; ok
+						this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(1, 2),Constants.collidesheet.getSprite(1,2));//"Coin-Bas-Gauche"; ok
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j] == false && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(0,2));//"Coin-Bas-Droite"; ok
+						this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(0, 2),Constants.collidesheet.getSprite(0,2));//"Coin-Bas-Droite"; ok
 					}
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == false && this.grille[i][j-1] == false) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(0,3));//"Coin-Haut-Droite"; ok
+						this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(0, 3),Constants.collidesheet.getSprite(0,3));//"Coin-Haut-Droite"; ok
 					}
 					if(this.grille[i-1][j-1] == false && this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 3),collidesheet.getSprite(3,3));//"Angle-Haut-Gauche"; ok
+						this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(3, 3),Constants.collidesheet.getSprite(3,3));//"Angle-Haut-Gauche"; ok
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == false && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 2),collidesheet.getSprite(3,2));//"Angle-Haut-Droite"; ok
+						this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(3, 2),Constants.collidesheet.getSprite(3,2));//"Angle-Haut-Droite"; ok
 					}
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(2, 2),collidesheet.getSprite(2,2));//"Angle-Bas-Droite"; ok
+						this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(2, 2),Constants.collidesheet.getSprite(2,2));//"Angle-Bas-Droite"; ok
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == false && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(2, 3),collidesheet.getSprite(2,3));//"Angle-Bas-Gauche"; ok
+						this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(2, 3),Constants.collidesheet.getSprite(2,3));//"Angle-Bas-Gauche"; ok
 					}	
 				}
 			}

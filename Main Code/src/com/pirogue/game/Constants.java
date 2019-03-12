@@ -3,6 +3,8 @@ package com.pirogue.game;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
 
 public class Constants {
 
@@ -39,10 +41,15 @@ public class Constants {
 	public static Dungeon dungeon;
 	public static int SCREEN_WIDTH = blockNumbersHorizontal*blockSize;
 	public static int SCREEN_HEIGHT = blockNumbersVertical*blockSize;
-	public static SpriteSheet spritesheet;
+    public static SpriteSheet spritesheet;
 	public static SpriteSheet collidesheet;
 	
 	//les différents types de tuiles
-	//y a-t-il moyen de faire passer la spriteSheet en constante ? ca ameliorerais la lisibilité du code et ca permettrait de faire des comparaisons faciles.
+	
 	//public static Tile Droite = new Tile(spritesheet.getSprite(0, 1),collidesheet.getSprite(0,1)), Gauche = new Tile(spritesheet.getSprite(1, 1),collidesheet.getSprite(1,1)), Bas = new Tile(spritesheet.getSprite(1, 0),collidesheet.getSprite(1,0)), Haut = new Tile(spritesheet.getSprite(0, 0),collidesheet.getSprite(0,0));
+	
+	public static void init() throws SlickException {
+		spritesheet = new SpriteSheet(tileset, blockSize, blockSize);
+		collidesheet = new SpriteSheet(collide, blockSize, blockSize);
+	}
 }
