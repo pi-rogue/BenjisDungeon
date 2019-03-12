@@ -37,7 +37,7 @@ public class Map {
 	
 	public void generate() {										//génération des salles
 		this.salleX = 10 + (int)(Math.random() * (((width-10) - 10) + 1));
-		this.salleY = 10 + (int)(Math.random() * (((height-10) - 10) + 1));//nb aléatoire entre 10 et height-10 (140)
+		this.salleY = 10 + (int)(Math.random() * (((height-10) - 10) + 1));//nb aléatoire entre 10 et height-10
 		this.tailleSalleX = 3 + (int)(Math.random() * ((8 - 3) + 1));
 		this.tailleSalleY = 3 + (int)(Math.random() * ((8 - 3) + 1));//nb aléatoire entre 3 et 8
 	
@@ -68,7 +68,8 @@ public class Map {
 				//test Block généré: cela permet de savoir quel type de block afficher
 				if(this.grille[i][j] == true) {
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = Constants.Sol;
+						int random = (int)(Math.random() * Constants.Sols.length); //nb aléatoire entre 0 et 30 exclu
+						this.Blocks[i][j] = Constants.Sols[random];
 					}
 					if(this.grille[i-1][j] == false && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
 						if(this.Blocks[i][j-1].equals(Constants.Droite)) {

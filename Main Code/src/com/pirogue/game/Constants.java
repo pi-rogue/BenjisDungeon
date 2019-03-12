@@ -1,9 +1,9 @@
 package com.pirogue.game;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 public class Constants {
 
@@ -11,11 +11,9 @@ public class Constants {
 	
 	/* GLOBAL */
 	public static boolean SHOW_FPS = true;
-	public static boolean FULLSCREEN = false;
+	public static boolean FULLSCREEN = true;
 	public static boolean VERTICAL_SYNC = false;  // Askip ça évite des problèmes d'affichage (synchronisation verticale)
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
-	private static int blockNumbersHorizontal = 20;    // Nombre de blocs à afficher sur l'écran
-	private static int blockNumbersVertical = 15;      // Si vous voulez changer il faut enlever le fullscreen (on verra plus tard pour fix ça)
 	public static String tileset = "assets/map/test_tileset_wiwi.png";
 	public static String collide = "assets/map/test_collide_wiwi.png";
 	
@@ -38,13 +36,14 @@ public class Constants {
 	// Variables //   (je savais pas comment les appeler en fait c'est des constantes mais qui changent à chaque démarrage du jeu ou propres au pc)
 	public static GameContainer container;
 	public static Dungeon dungeon;
-	public static int SCREEN_WIDTH = blockNumbersHorizontal*blockSize;
-	public static int SCREEN_HEIGHT = blockNumbersVertical*blockSize;
+	public static int SCREEN_WIDTH = 1360; // Voir résolutions compatibles dans Trash Code > Resolutions.txt
+	public static int SCREEN_HEIGHT = 768; // On pourra faire un sélecteur plus tard quand on aura une page de settings
     public static SpriteSheet spritesheet;
 	public static SpriteSheet collidesheet;
 	
 	//les différents types de tuiles
-	public static Tile Droite, Gauche, Bas, Haut, AngleHG, AngleHD, AngleBG, AngleBD, CoinHG, CoinHD, CoinBG, CoinBD, Sol;
+	public static Tile Droite, Gauche, Bas, Haut, AngleHG, AngleHD, AngleBG, AngleBD, CoinHG, CoinHD, CoinBG, CoinBD;
+	public static Tile[] Sols;
 	
 	//initiallisation des spritesheets
 	public static void init() throws SlickException {
@@ -62,6 +61,15 @@ public class Constants {
 		CoinHD = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(0,3));
 		CoinBG = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(1,2));
 		CoinBD = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(0,2));
-		Sol = new Tile(spritesheet.getSprite(3, 0),collidesheet.getSprite(3,0));
+		
+		SpriteSheet ground = new SpriteSheet("assets/map/ground.png", blockSize, blockSize);
+		Sols = new Tile[ground.getVerticalCount() * ground.getHorizontalCount()];
+		int n=0;
+		for (int i=0; i<ground.getHorizontalCount(); i++) {
+			for (int j=0; j<ground.getVerticalCount(); j++) {
+				Sols[n] = new Tile(ground.getSprite(i, j),collidesheet.getSprite(3,0));
+				n++;
+			}
+		}
 	}
 }
