@@ -43,7 +43,7 @@ public class Constants {
 	public static SpriteSheet collidesheet;
 	
 	//les différents types de tuiles
-	public static Tile Droite, Gauche, Bas, Haut, AngleHG, AngleHD, AngleBG, AngleBD, CoinHG, CoinHD, CoinBG, CoinBD;
+	public static Tile Droite, Gauche, Bas, Haut, AngleHG, AngleHD, AngleBG, AngleBD, CoinHG, CoinHD, CoinBG, CoinBD, Inter1, Inter2;
 	public static Tile[] Sols;
 	
 	//initiallisation des spritesheets
@@ -62,6 +62,8 @@ public class Constants {
 		CoinHD = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(0,3));
 		CoinBG = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(1,2));
 		CoinBD = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(0,2));
+		Inter1 = new Tile(spritesheet.getSprite(2, 0),collidesheet.getSprite(2,0));
+		Inter2 = new Tile(spritesheet.getSprite(2, 1),collidesheet.getSprite(2,1));
 		
 		SpriteSheet groundsheet = new SpriteSheet(ground, blockSize, blockSize);
 		Sols = new Tile[groundsheet.getVerticalCount() * groundsheet.getHorizontalCount()];

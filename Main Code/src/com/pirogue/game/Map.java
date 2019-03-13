@@ -82,8 +82,8 @@ public class Map {
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
 						if(this.Blocks[i-1][j].equals(Constants.Haut)) {
-							this.Blocks[i-1][j] = Constants.CoinBG;
-							this.Blocks[i][j] = Constants.CoinHD;
+							this.Blocks[i-1][j] = Constants.CoinHD;
+							this.Blocks[i][j] = Constants.CoinBG;
 						}
 						else {
 							this.Blocks[i][j] = Constants.Bas;
@@ -126,10 +126,20 @@ public class Map {
 						this.Blocks[i][j] = Constants.AngleHD;
 					}
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = Constants.AngleBD;
+						if(this.Blocks[i][j].equals(Constants.AngleHG)) {
+							this.Blocks[i][j] = Constants.Inter1;
+						}
+						else {
+							this.Blocks[i][j] = Constants.AngleBD;
+						}
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == false && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = Constants.AngleBG;
+						if(this.Blocks[i][j].equals(Constants.AngleHD)) {
+							this.Blocks[i][j] = Constants.Inter2;
+						}
+						else {
+							this.Blocks[i][j] = Constants.AngleBG;
+						}
 					}	
 				}
 			}
