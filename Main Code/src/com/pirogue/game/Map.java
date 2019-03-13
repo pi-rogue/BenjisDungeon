@@ -82,8 +82,8 @@ public class Map {
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
 						if(this.Blocks[i-1][j].equals(Constants.Haut)) {
-							this.Blocks[i-1][j] = Constants.CoinBD;
-							this.Blocks[i][j] = Constants.CoinHG;
+							this.Blocks[i-1][j] = Constants.CoinBG;
+							this.Blocks[i][j] = Constants.CoinHD;
 						}
 						else {
 							this.Blocks[i][j] = Constants.Bas;
@@ -100,8 +100,8 @@ public class Map {
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == false) {
 						if(this.Blocks[i-1][j].equals(Constants.Bas)) {
-							this.Blocks[i-1][j] = Constants.CoinBG;
-							this.Blocks[i][j] = Constants.CoinHD;
+							this.Blocks[i-1][j] = Constants.CoinBD;
+							this.Blocks[i][j] = Constants.CoinHG;
 						}
 						else {
 							this.Blocks[i][j] = Constants.Haut; 
