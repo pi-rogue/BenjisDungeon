@@ -5,7 +5,7 @@ import org.newdawn.slick.Image;
 
 public class Map {
 	
-	public boolean vision; // Permet d'afficher les collisions pour debug (touche A)
+	private boolean debugView; // Permet d'afficher les collisions pour debug
 	
 	protected int width, height;
 	protected float blockSize;
@@ -169,7 +169,7 @@ public class Map {
 		for (int x=Xi; x<Xf; x++) {
 			for (int y=Yi; y<Yf; y++) {
 				Image texture;
-				if (this.vision) texture = Blocks[x][y].getCollide();
+				if (this.debugView) texture = Blocks[x][y].getCollide();
 				else texture = Blocks[x][y].getTexture();
 				
 				if (texture != null) {
@@ -177,5 +177,9 @@ public class Map {
 				}
 			}
 		}
+	}
+	
+	public void toggleDebugView() {
+		debugView = !debugView;
 	}
 }
