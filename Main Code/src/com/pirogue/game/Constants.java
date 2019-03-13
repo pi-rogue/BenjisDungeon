@@ -14,6 +14,7 @@ public class Constants {
 	public static boolean FULLSCREEN = true;
 	public static boolean VERTICAL_SYNC = false;  // Askip ça évite des problèmes d'affichage (synchronisation verticale)
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
+	public static int FPS_MAX = 200;   // Ca évite de faire chauffer les bons pcs qui tournent à 2000 fps
 	public static String tileset = "assets/map/test_tileset_wiwi.png";
 	public static String collide = "assets/map/test_collide_wiwi.png";
 	public static String ground = "assets/map/ground_biaisé.png";
@@ -29,10 +30,11 @@ public class Constants {
 	// ------ Keyboard Configuration ------ //
 	public static int KEY_DebugView = Input.KEY_A;
 	public static int KEY_Exit = Input.KEY_ESCAPE;
-	public static int KEY_Up = Input.KEY_UP;
-	public static int KEY_Down = Input.KEY_DOWN;
-	public static int KEY_Left = Input.KEY_LEFT;
-	public static int KEY_Right = Input.KEY_RIGHT;
+	public static int KEY_Up = Input.KEY_Z;
+	public static int KEY_Left = Input.KEY_Q;
+	public static int KEY_Down = Input.KEY_S;
+	public static int KEY_Right = Input.KEY_D;
+	public static int KEY_Inventory = Input.KEY_V;
 	
 	// Variables //   (je savais pas comment les appeler en fait c'est des constantes mais qui changent à chaque démarrage du jeu ou propres au pc)
 	public static GameContainer container;

@@ -15,8 +15,10 @@ public class Hero {
 	private Animation[][] animations; // Tableau 2D parce que pour chaque direction on a deux anims (en déplacement ou non)
 	private Map map;
 	private Dungeon dungeon;
+	private Inventory inventory;
 	
 	public Hero(int x, int y, SpriteSheet spriteSheet) {
+		this.inventory = new Inventory();
 		this.dungeon = Constants.dungeon;
 		this.map = dungeon.getCurrentFloor();
 		this.x = x;
@@ -43,7 +45,12 @@ public class Hero {
 	}
 	
 	public void render(Graphics g) {
-		g.drawAnimation(animations[direction][moving ? 1:0], (Constants.SCREEN_WIDTH-width)/2, (Constants.SCREEN_HEIGHT-height)/2);
+		if (inventory.isVisible()) {
+			inventory.render(g);
+		}
+		else {
+			g.drawAnimation(animations[direction][moving ? 1:0], (Constants.SCREEN_WIDTH-width)/2, (Constants.SCREEN_HEIGHT-height)/2);
+		}
 	}
 
 	public void update(GameContainer container, int delta) {
@@ -165,6 +172,10 @@ public class Hero {
 
 	public int getY() {
 		return this.y;
+	}
+	
+	public void toggleInventory() {
+		inventory.setVisible(!inventory.isVisible());
 	}
 	
 }
