@@ -16,6 +16,7 @@ public class Constants {
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	public static String tileset = "assets/map/test_tileset_wiwi.png";
 	public static String collide = "assets/map/test_collide_wiwi.png";
+	public static String ground = "assets/map/ground_biaisé.png";
 	
 	/* MAP */
 	public static int mapWidth = 150;
@@ -62,12 +63,12 @@ public class Constants {
 		CoinBG = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(1,2));
 		CoinBD = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(0,2));
 		
-		SpriteSheet ground = new SpriteSheet("assets/map/ground.png", blockSize, blockSize);
-		Sols = new Tile[ground.getVerticalCount() * ground.getHorizontalCount()];
+		SpriteSheet groundsheet = new SpriteSheet(ground, blockSize, blockSize);
+		Sols = new Tile[groundsheet.getVerticalCount() * groundsheet.getHorizontalCount()];
 		int n=0;
-		for (int i=0; i<ground.getHorizontalCount(); i++) {
-			for (int j=0; j<ground.getVerticalCount(); j++) {
-				Sols[n] = new Tile(ground.getSprite(i, j),collidesheet.getSprite(3,0));
+		for (int i=0; i<groundsheet.getHorizontalCount(); i++) {
+			for (int j=0; j<groundsheet.getVerticalCount(); j++) {
+				Sols[n] = new Tile(groundsheet.getSprite(i, j),collidesheet.getSprite(3,0));
 				n++;
 			}
 		}

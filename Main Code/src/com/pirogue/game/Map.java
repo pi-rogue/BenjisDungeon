@@ -149,10 +149,15 @@ public class Map {
 		return Blocks[x][y].getCollide();
 	}
 
-	// J'ai pas trop le temps de tester le truc des offset et je me suis peut-être fail quelque part
 	public void render(Graphics g, float offsetX, float offsetY) {
-		for (int x=0; x<width; x++) {
-			for (int y=0; y<height; y++) {
+		int Xi=(Constants.dungeon.hero.getX()-Constants.SCREEN_WIDTH/2)/Constants.blockSize -1;
+		int Yi=(Constants.dungeon.hero.getY()-Constants.SCREEN_HEIGHT/2)/Constants.blockSize -1;
+		int Xf=(Constants.dungeon.hero.getX()+Constants.SCREEN_WIDTH/2)/Constants.blockSize +1;
+		int Yf=(Constants.dungeon.hero.getY()+Constants.SCREEN_HEIGHT/2)/Constants.blockSize +1;
+		if (Xi<0) Xi=0; if (Xf>width) Xf=width;
+		if (Yi<0) Yi=0; if (Yf>height) Yf=height;
+		for (int x=Xi; x<Xf; x++) {
+			for (int y=Yi; y<Yf; y++) {
 				Image texture;
 				if (this.vision) texture = Blocks[x][y].getCollide();
 				else texture = Blocks[x][y].getTexture();
