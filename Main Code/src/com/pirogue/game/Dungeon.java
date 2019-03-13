@@ -12,20 +12,14 @@ public class Dungeon {
 	protected ArrayList<Map> floors = new ArrayList<Map>();
 	public Hero hero;
 	private int floorWidth, floorHeight;
-	private SpriteSheet spritesheet;
-	private SpriteSheet collidesheet;
 	public GameContainer container;
 	public int currentFloor;
-	private int blockSize;
 	
-	public Dungeon(String sprSheet, String colSheet) throws SlickException {
+	public Dungeon() {
 		this.floorWidth = Constants.mapWidth;
 		this.floorHeight = Constants.mapHeight;
 		this.container = Constants.container;
-		this.spritesheet = new SpriteSheet(sprSheet, Constants.blockSize, Constants.blockSize);
-		this.collidesheet = new SpriteSheet(colSheet, Constants.blockSize, Constants.blockSize);
 		this.currentFloor = 0;
-		this.blockSize = Constants.blockSize;
 		
 		generateFloor();
 		
@@ -34,12 +28,12 @@ public class Dungeon {
 	}
 	
 	public void generateFloor() {
-		floors.add(new Map(floorWidth, floorHeight, spritesheet, collidesheet));
+		floors.add(new Map(floorWidth, floorHeight));
 	}
 
 	public void spawnHero() throws SlickException {
-		this.hero = new Hero(this.getCurrentFloor().spawnX*blockSize, this.getCurrentFloor().spawnY*blockSize,
-				new SpriteSheet("assets/sprites/test.png", blockSize, blockSize));
+		this.hero = new Hero(this.getCurrentFloor().spawnX*Constants.blockSize, this.getCurrentFloor().spawnY*Constants.blockSize,
+				new SpriteSheet("assets/sprites/test.png", Constants.blockSize, Constants.blockSize));
 
 		// Affichage du bloc de spawn //
 //		this.getCurrentFloor().Blocks[getCurrentFloor().spawnX][getCurrentFloor().spawnY] = new Tile(collidesheet.getSprite(3, 1), collidesheet.getSprite(2, 0));

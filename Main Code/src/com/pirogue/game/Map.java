@@ -2,14 +2,11 @@ package com.pirogue.game;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SpriteSheet;
 
 public class Map {
 	
-	public boolean vision; // Permet d'afficher les collisions pour debug (touche A)
+	private boolean debugView; // Permet d'afficher les collisions pour debug
 	
-	protected SpriteSheet spritesheet;
-	protected SpriteSheet collidesheet;
 	protected int width, height;
 	protected float blockSize;
 	protected boolean grille[][];
@@ -18,9 +15,7 @@ public class Map {
 	public int spawnX,spawnY;
 	 
 
-	public Map(int width, int height, SpriteSheet spr, SpriteSheet col) {
-		this.spritesheet = spr;
-		this.collidesheet = col;
+	public Map(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.Blocks = new Tile[width][height];
@@ -30,20 +25,19 @@ public class Map {
 		for(int i=0; i<width; i++) {
 			for(int j=0; j<height; j++) {
 				this.grille[i][j] = false;		//initialisation des 2 tableaux
-				this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 1),collidesheet.getSprite(3, 1)); //"Vide";
+				this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(3, 1),Constants.collidesheet.getSprite(3, 1)); //"Vide";
 			}
 		}
+
 		for(int i=0; i<Constants.roomsRatio; i++) { //nombre de salles générées
 			this.generate();
 		}
 		this.scanBlock();
-	
-
 	}
 	
 	public void generate() {										//génération des salles
 		this.salleX = 10 + (int)(Math.random() * (((width-10) - 10) + 1));
-		this.salleY = 10 + (int)(Math.random() * (((height-10) - 10) + 1));//nb aléatoire entre 10 et height-10 (140)
+		this.salleY = 10 + (int)(Math.random() * (((height-10) - 10) + 1));//nb aléatoire entre 10 et height-10
 		this.tailleSalleX = 3 + (int)(Math.random() * ((8 - 3) + 1));
 		this.tailleSalleY = 3 + (int)(Math.random() * ((8 - 3) + 1));//nb aléatoire entre 3 et 8
 	
@@ -74,49 +68,83 @@ public class Map {
 				//test Block généré: cela permet de savoir quel type de block afficher
 				if(this.grille[i][j] == true) {
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 0),collidesheet.getSprite(3,0));//"Sol"; ok
+						int random = (int)(Math.random() * Constants.Sols.length); //nb aléatoire entre 0 et 30 exclu
+						this.Blocks[i][j] = Constants.Sols[random];
 					}
 					if(this.grille[i-1][j] == false && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 1),collidesheet.getSprite(1,1));//"Gauche"; ok 
+						if(this.Blocks[i][j-1].equals(Constants.Droite)) {
+							this.Blocks[i][j-1] = Constants.CoinBD;
+							this.Blocks[i][j] = Constants.CoinHG;
+						}
+						else {
+							this.Blocks[i][j] = Constants.Gauche;
+						}	 
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 0),collidesheet.getSprite(1,0));//"Bas"; ok 
+						if(this.Blocks[i-1][j].equals(Constants.Haut)) {
+							this.Blocks[i-1][j] = Constants.CoinHD;
+							this.Blocks[i][j] = Constants.CoinBG;
+						}
+						else {
+							this.Blocks[i][j] = Constants.Bas;
+						}
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == false && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 1),collidesheet.getSprite(0,1));//"Droite"; ok 
+						if(this.Blocks[i][j-1].equals(Constants.Gauche)) {
+							this.Blocks[i][j-1] = Constants.CoinBG;
+							this.Blocks[i][j] = Constants.CoinHD;
+						}
+						else {
+							this.Blocks[i][j] = Constants.Droite;
+						}
 					}
 					if(this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == false) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 0),collidesheet.getSprite(0,0));//"Haut"; ok 
+						if(this.Blocks[i-1][j].equals(Constants.Bas)) {
+							this.Blocks[i-1][j] = Constants.CoinBD;
+							this.Blocks[i][j] = Constants.CoinHG;
+						}
+						else {
+							this.Blocks[i][j] = Constants.Haut; 
+						}
 					}
 					if(this.grille[i-1][j] == false && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == false) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 3),collidesheet.getSprite(1,3));//"Coin-Haut-Gauche"; ok
+						this.Blocks[i][j] = Constants.CoinHG;
 					}
 					if(this.grille[i-1][j] == false && this.grille[i][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(1,2));//"Coin-Haut-Droite"; pas ok
+						this.Blocks[i][j] = Constants.CoinBG;
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == false && this.grille[i+1][j] == false && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(0,2));//"Coin-Bas-Droite";
+						this.Blocks[i][j] = Constants.CoinBD;
 					}
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == false && this.grille[i][j-1] == false) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(0,3));//"Coin-Haut-Droite"; ok
+						this.Blocks[i][j] = Constants.CoinHD;
 					}
 					if(this.grille[i-1][j-1] == false && this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 3),collidesheet.getSprite(3,3));//"Angle-Haut-Gauche";ok
+						this.Blocks[i][j] = Constants.AngleHG;
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == false && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(3, 2),collidesheet.getSprite(3,2));//"Angle-Haut-Droite";
+						this.Blocks[i][j] = Constants.AngleHD;
 					}
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(2, 2),collidesheet.getSprite(2,2));//"Angle-Bas-Droite";
+						if(this.Blocks[i][j].equals(Constants.AngleHG)) {
+							this.Blocks[i][j] = Constants.Inter1;
+						}
+						else {
+							this.Blocks[i][j] = Constants.AngleBD;
+						}
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == false && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = new Tile(spritesheet.getSprite(2, 3),collidesheet.getSprite(2,3));//"Angle-Bas-Gauche"; ok
+						if(this.Blocks[i][j].equals(Constants.AngleHD)) {
+							this.Blocks[i][j] = Constants.Inter2;
+						}
+						else {
+							this.Blocks[i][j] = Constants.AngleBG;
+						}
 					}	
 				}
 			}
 		}
 	}
-
 
 
 	public void render(Graphics g) {
@@ -131,12 +159,17 @@ public class Map {
 		return Blocks[x][y].getCollide();
 	}
 
-	// J'ai pas trop le temps de tester le truc des offset et je me suis peut-être fail quelque part
 	public void render(Graphics g, float offsetX, float offsetY) {
-		for (int x=0; x<width; x++) {
-			for (int y=0; y<height; y++) {
+		int Xi=(Constants.dungeon.hero.getX()-Constants.SCREEN_WIDTH/2)/Constants.blockSize -1;
+		int Yi=(Constants.dungeon.hero.getY()-Constants.SCREEN_HEIGHT/2)/Constants.blockSize -1;
+		int Xf=(Constants.dungeon.hero.getX()+Constants.SCREEN_WIDTH/2)/Constants.blockSize +1;
+		int Yf=(Constants.dungeon.hero.getY()+Constants.SCREEN_HEIGHT/2)/Constants.blockSize +1;
+		if (Xi<0) Xi=0; if (Xf>width) Xf=width;
+		if (Yi<0) Yi=0; if (Yf>height) Yf=height;
+		for (int x=Xi; x<Xf; x++) {
+			for (int y=Yi; y<Yf; y++) {
 				Image texture;
-				if (this.vision) texture = Blocks[x][y].getCollide();
+				if (this.debugView) texture = Blocks[x][y].getCollide();
 				else texture = Blocks[x][y].getTexture();
 				
 				if (texture != null) {
@@ -144,5 +177,9 @@ public class Map {
 				}
 			}
 		}
+	}
+	
+	public void toggleDebugView() {
+		debugView = !debugView;
 	}
 }

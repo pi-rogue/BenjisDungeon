@@ -15,8 +15,10 @@ public class Hero {
 	private Animation[][] animations; // Tableau 2D parce que pour chaque direction on a deux anims (en déplacement ou non)
 	private Map map;
 	private Dungeon dungeon;
+	private Inventory inventory;
 	
 	public Hero(int x, int y, SpriteSheet spriteSheet) {
+		this.inventory = new Inventory();
 		this.dungeon = Constants.dungeon;
 		this.map = dungeon.getCurrentFloor();
 		this.x = x;
@@ -43,7 +45,12 @@ public class Hero {
 	}
 	
 	public void render(Graphics g) {
-		g.drawAnimation(animations[direction][moving ? 1:0], (Constants.SCREEN_WIDTH-width)/2, (Constants.SCREEN_HEIGHT-height)/2);
+		if (inventory.isVisible()) {
+			inventory.render(g);
+		}
+		else {
+			g.drawAnimation(animations[direction][moving ? 1:0], (Constants.SCREEN_WIDTH-width)/2, (Constants.SCREEN_HEIGHT-height)/2);
+		}
 	}
 
 	public void update(GameContainer container, int delta) {
@@ -86,7 +93,27 @@ public class Hero {
 			case 7: corners[2]=true; corners[0]=true; corners[1]=true; break;
 			}
 			
-			if (!isColliding(corners, futureX, futureY)) {
+			if (isColliding(corners, futureX, futureY)) {
+				switch (direction) { // Quand on se déplace en diagonale on peut quand meme glisser sur un mur ou non
+				case 1:
+					if (!isColliding(corners, this.x + velocity * delta, this.y)) this.x=(int)(this.x + velocity * delta);
+					else if (!isColliding(corners, this.x, this.y - velocity * delta)) this.y=(int)(this.y - velocity * delta);
+					break;
+				case 3:
+					if (!isColliding(corners, this.x + velocity * delta, this.y)) this.x=(int)(this.x + velocity * delta);
+					else if (!isColliding(corners, this.x, this.y + velocity * delta)) this.y=(int)(this.y + velocity * delta);
+					break;
+				case 5:
+					if (!isColliding(corners, this.x - velocity * delta, this.y)) this.x=(int)(this.x - velocity * delta);
+					else if (!isColliding(corners, this.x, this.y + velocity * delta)) this.y=(int)(this.y + velocity * delta);
+					break;
+				case 7:
+					if (!isColliding(corners, this.x - velocity * delta, this.y)) this.x=(int)(this.x - velocity * delta);
+					else if (!isColliding(corners, this.x, this.y - velocity * delta)) this.y=(int)(this.y - velocity * delta);
+					break;
+				}
+			}
+			else {
 				this.x = (int) futureX;
 				this.y = (int) futureY;
 			}
@@ -145,6 +172,10 @@ public class Hero {
 
 	public int getY() {
 		return this.y;
+	}
+	
+	public void toggleInventory() {
+		inventory.setVisible(!inventory.isVisible());
 	}
 	
 }
