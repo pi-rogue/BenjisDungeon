@@ -15,7 +15,7 @@ public class Constants {
 	public static boolean VERTICAL_SYNC = false;  // Askip ça évite des problèmes d'affichage (synchronisation verticale)
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	public static int FPS_MAX = 200;   // Ca évite de faire chauffer les bons pcs qui tournent à 2000 fps
-	public static int SCREEN_WIDTH = 1360; // Voir résolutions compatibles dans Trash Code > Resolutions.txt
+	public static int SCREEN_WIDTH = 1366; // Voir résolutions compatibles dans Trash Code > Resolutions.txt
 	public static int SCREEN_HEIGHT = 768; // On pourra faire un sélecteur plus tard quand on aura une page de settings
 	public static String tileset = "assets/map/64x64/test_tileset_wiwi.png";
 	public static String collide = "assets/map/64x64/test_collide_wiwi.png";
@@ -39,6 +39,8 @@ public class Constants {
 	public static int KEY_Inventory = Input.KEY_V;
 	
 	// ------ Variables ------ //
+	public static int mouseX, mouseY;   // Je sais pas si c'est le plus propre de faire ça comme ça mais au pire osef
+	public static boolean mousePressed = false; 
 	public static GameContainer container;
 	public static Dungeon dungeon;
     public static SpriteSheet spritesheet;
@@ -78,4 +80,6 @@ public class Constants {
 			}
 		}
 	}
+	
+	
 }

@@ -42,7 +42,8 @@ public class Test extends BasicGame {
 	
 	public void keyReleased(int key, char c) {
 		if (key == Constants.KEY_Exit) {
-			container.exit();
+			if (dungeon.hero.inInventory())	dungeon.hero.toggleInventory();
+			else container.exit();
 		}
 	}
 	
@@ -93,5 +94,19 @@ public class Test extends BasicGame {
 		case "O" : dungeon.hero.setDirection(6); break;
 		case "NO": dungeon.hero.setDirection(7); break;
 		}		
+	}
+	
+	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+		Constants.mouseX = newx;
+		Constants.mouseY = newy;
+
+	}
+	
+	public void mousePressed(int button, int x, int y) {
+		if (button==0) Constants.mousePressed = true;
+	}
+	
+	public void mouseReleased(int button, int x, int y) {
+		if (button==0) Constants.mousePressed = false;
 	}
 }

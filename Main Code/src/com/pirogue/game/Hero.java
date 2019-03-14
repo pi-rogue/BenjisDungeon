@@ -180,4 +180,7 @@ public class Hero {
 		inventory.setVisible(!inventory.isVisible());
 	}
 	
+	public boolean inInventory() {
+		return inventory.isVisible();
+	}
 }

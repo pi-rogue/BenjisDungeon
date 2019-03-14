@@ -66,8 +66,8 @@
 
 # En commun
 
-1366x768x32
+1366x768x32 *current*
 1280x720x32
-1360x768x32
+1360x768x32  (mais askip c'est pas un classique)
 800x600x32
 640x480x32
