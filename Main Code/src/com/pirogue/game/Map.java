@@ -68,8 +68,11 @@ public class Map {
 				//test Block généré: cela permet de savoir quel type de block afficher
 				if(this.grille[i][j] == true) {
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						int random = (int)(Math.random() * Constants.Sols.length); //nb aléatoire entre 0 et 30 exclu
-						this.Blocks[i][j] = Constants.Sols[random];
+						if (Math.random() > 0.7) { // 70% de tiles n'ont pas de défauts (à changer peut être)
+							int random = 1 + (int)(Math.random() * (Constants.Sols.length-1)); //nb aléatoire entre 1 et Sols.length (exclu)
+							this.Blocks[i][j] = Constants.Sols[random];
+						}
+						else {this.Blocks[i][j] = Constants.Sols[0];}
 					}
 					if(this.grille[i-1][j] == false && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
 						if(this.Blocks[i][j-1].equals(Constants.Droite)) {

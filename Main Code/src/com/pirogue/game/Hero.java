@@ -5,6 +5,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public class Hero {
@@ -17,16 +18,17 @@ public class Hero {
 	private Dungeon dungeon;
 	private Inventory inventory;
 	
-	public Hero(int x, int y, SpriteSheet spriteSheet) {
+	public Hero(int x, int y) throws SlickException {
 		this.inventory = new Inventory();
 		this.dungeon = Constants.dungeon;
 		this.map = dungeon.getCurrentFloor();
 		this.x = x;
 		this.y = y;
+		SpriteSheet spriteSheet = new SpriteSheet(Constants.heroSprite, Constants.blockSize, Constants.blockSize);
 		int IMGwidth = spriteSheet.getWidth();
 		int IMGheight = spriteSheet.getHeight();
-		this.width = spriteSheet.getSprite(0, 0).getWidth();
-		this.height = (int) spriteSheet.getSprite(0,0).getHeight();
+		this.width = Constants.blockSize;
+		this.height = Constants.blockSize;
 			
 		animations = new Animation[IMGheight/width][2];
 		for (int n=0; n<IMGheight/height; n++) {

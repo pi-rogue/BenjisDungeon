@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
 public class Dungeon {
 
@@ -32,8 +31,7 @@ public class Dungeon {
 	}
 
 	public void spawnHero() throws SlickException {
-		this.hero = new Hero(this.getCurrentFloor().spawnX*Constants.blockSize, this.getCurrentFloor().spawnY*Constants.blockSize,
-				new SpriteSheet("assets/sprites/test.png", Constants.blockSize, Constants.blockSize));
+		this.hero = new Hero(this.getCurrentFloor().spawnX*Constants.blockSize, this.getCurrentFloor().spawnY*Constants.blockSize);
 
 		// Affichage du bloc de spawn //
 //		this.getCurrentFloor().Blocks[getCurrentFloor().spawnX][getCurrentFloor().spawnY] = new Tile(collidesheet.getSprite(3, 1), collidesheet.getSprite(2, 0));

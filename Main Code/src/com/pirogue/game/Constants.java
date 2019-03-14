@@ -15,16 +15,18 @@ public class Constants {
 	public static boolean VERTICAL_SYNC = false;  // Askip ça évite des problèmes d'affichage (synchronisation verticale)
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	public static int FPS_MAX = 200;   // Ca évite de faire chauffer les bons pcs qui tournent à 2000 fps
-	public static String tileset = "assets/map/test_tileset_wiwi.png";
-	public static String collide = "assets/map/test_collide_wiwi.png";
-	public static String ground = "assets/map/ground_biaisé.png";
+	public static int SCREEN_WIDTH = 1360; // Voir résolutions compatibles dans Trash Code > Resolutions.txt
+	public static int SCREEN_HEIGHT = 768; // On pourra faire un sélecteur plus tard quand on aura une page de settings
+	public static String tileset = "assets/map/64x64/test_tileset_wiwi.png";
+	public static String collide = "assets/map/64x64/test_collide_wiwi.png";
+	public static String ground = "assets/map/64x64/new_insane_ground.png";
+	public static String heroSprite = "assets/sprites/64x64/test.png";
 	
 	/* MAP */
 	public static int mapWidth = 150;
 	public static int mapHeight = 150;
 	public static int roomsRatio = 1000;
-	public static int blockSize = 32;
-	    	// En soi on pourrait aussi mettre ici le seuil de cases qui peuvent se superposer quand on génère une map, faut voir avec Kiki
+	public static int blockSize = 64;
 	
 	
 	// ------ Keyboard Configuration ------ //
@@ -36,19 +38,18 @@ public class Constants {
 	public static int KEY_Right = Input.KEY_D;
 	public static int KEY_Inventory = Input.KEY_V;
 	
-	// Variables //   (je savais pas comment les appeler en fait c'est des constantes mais qui changent à chaque démarrage du jeu ou propres au pc)
+	// ------ Variables ------ //
 	public static GameContainer container;
 	public static Dungeon dungeon;
-	public static int SCREEN_WIDTH = 1360; // Voir résolutions compatibles dans Trash Code > Resolutions.txt
-	public static int SCREEN_HEIGHT = 768; // On pourra faire un sélecteur plus tard quand on aura une page de settings
     public static SpriteSheet spritesheet;
 	public static SpriteSheet collidesheet;
-	
-	//les différents types de tuiles
-	public static Tile Droite, Gauche, Bas, Haut, AngleHG, AngleHD, AngleBG, AngleBD, CoinHG, CoinHD, CoinBG, CoinBD, Inter1, Inter2;
+	public static Tile Droite, Gauche, Bas, Haut,
+						AngleHG, AngleHD, AngleBG, AngleBD,
+						CoinHG, CoinHD, CoinBG, CoinBD,
+						Inter1, Inter2;
 	public static Tile[] Sols;
 	
-	//initiallisation des spritesheets
+	// ------ Initialization ------ //
 	public static void init() throws SlickException {
 		spritesheet = new SpriteSheet(tileset, blockSize, blockSize);
 		collidesheet = new SpriteSheet(collide, blockSize, blockSize);
