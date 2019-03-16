@@ -12,7 +12,7 @@ public class Constants {
 	
 	/* GLOBAL */
 	public static boolean SHOW_FPS = true;
-	public static boolean FULLSCREEN = true;
+	public static boolean FULLSCREEN = false;
 	public static boolean VERTICAL_SYNC = false;  // Askip ça évite des problèmes d'affichage (synchronisation verticale)
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	public static int FPS_MAX = 200;   // Ca évite de faire chauffer les bons pcs qui tournent à 2000 fps
@@ -22,6 +22,7 @@ public class Constants {
 	public static String collide = "assets/map/64x64/test_collide_wiwi.png";
 	public static String ground = "assets/map/64x64/new_insane_ground.png";
 	public static String heroSprite = "assets/sprites/64x64/mage.png";
+	public static String mobSprite = "assets/sprites/64x64/test.png";
 	
 	/* INVENTORY */
 	public static String inventoryBackground = "assets/gui/gui_inventory.png";
@@ -35,7 +36,6 @@ public class Constants {
 	public static Color leftHand = new Color(0,255,255);
 	public static Color rightHand = new Color(255,0,255);
 	public static Color invCell = new Color(128,128,128);
-	
 	
 	/* MAP */
 	public static int mapWidth = 150;
@@ -58,6 +58,7 @@ public class Constants {
 	public static boolean mousePressed = false; 
 	public static GameContainer container;
 	public static Dungeon dungeon;
+	public static int nbFloors=1;
     public static SpriteSheet spritesheet;
 	public static SpriteSheet collidesheet;
 	public static Tile Droite, Gauche, Bas, Haut,

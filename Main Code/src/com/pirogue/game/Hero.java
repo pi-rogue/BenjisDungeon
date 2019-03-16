@@ -10,13 +10,14 @@ import org.newdawn.slick.SpriteSheet;
 
 public class Hero {
 	
-	private float velocity = 0.5f; // Je sais pas vous mais chez moi ça fait n'importe quoi dès qu'on passe en dessous de 0.5f jsp pourquoi
-	private int x,y, width,height, direction;
-	private boolean moving = false;
-	private Animation[][] animations; // Tableau 2D parce que pour chaque direction on a deux anims (en déplacement ou non)
-	private Map map;
-	private Dungeon dungeon;
-	private Inventory inventory;
+	protected float velocity = 0.5f; // Je sais pas vous mais chez moi ça fait n'importe quoi dès qu'on passe en dessous de 0.5f jsp pourquoi
+	protected int x,y, width,height;
+	protected int direction;
+	protected boolean moving = false;
+	protected Animation[][] animations; // Tableau 2D parce que pour chaque direction on a deux anims (en déplacement ou non)
+	protected Map map;
+	protected Dungeon dungeon;
+	protected Inventory inventory;
 	
 	public Hero(int x, int y) throws SlickException {
 		this.inventory = new Inventory();
