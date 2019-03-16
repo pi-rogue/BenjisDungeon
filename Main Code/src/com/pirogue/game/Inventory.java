@@ -65,7 +65,6 @@ public class Inventory {
 					if (cellsImg.getColor(i, y).equals(pixel)) cellHeight++;
 					else break;
 				}
-				System.out.println(i+" ; "+j+"    -    "+cellWidth + " " + cellHeight);
 				if (cellWidth==Constants.cellSize && cellHeight==Constants.cellSize) {
 					Rectangle rect = new Rectangle(i+backgroundX , j+backgroundY, cellWidth, cellHeight);
 					if (pixel.equals(Constants.invCell)) {
@@ -81,12 +80,7 @@ public class Inventory {
 					
 				}
 			}
-		}System.out.println("");}
-		
-		System.out.println("####### " + inventorySize + " ######");
-		for (int i=0; i<6; i++) System.out.println(cellsEquipment[i]);
-		System.out.println("");
-		for (int i=0; i<cells.size(); i++ ) System.out.println(cells.get(i));
+		}}
 	}
 
 	public boolean isVisible() {
