@@ -1,5 +1,6 @@
 package com.pirogue.game;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -20,8 +21,21 @@ public class Constants {
 	public static String tileset = "assets/map/64x64/test_tileset_wiwi.png";
 	public static String collide = "assets/map/64x64/test_collide_wiwi.png";
 	public static String ground = "assets/map/64x64/new_insane_ground.png";
-	public static String heroSprite = "assets/sprites/64x64/test.png";
+	public static String heroSprite = "assets/sprites/64x64/mage.png";
 	public static String mobSprite = "assets/sprites/64x64/test.png";
+	
+	/* INVENTORY */
+	public static String inventoryBackground = "assets/gui/gui_inventory.png";
+	public static String inventoryCells = "assets/gui/cells_inventory.png";
+	public static String inventorySelected = "assets/gui/selected.png";
+	public static int cellSize = 64;
+	public static Color head = new Color(255,0,0);
+	public static Color chest = new Color(0,255,0);
+	public static Color legs = new Color(0,0,255);
+	public static Color foots = new Color(255,255,0);
+	public static Color leftHand = new Color(0,255,255);
+	public static Color rightHand = new Color(255,0,255);
+	public static Color invCell = new Color(128,128,128);
 	
 	/* MAP */
 	public static int mapWidth = 150;
@@ -37,7 +51,7 @@ public class Constants {
 	public static int KEY_Left = Input.KEY_Q;
 	public static int KEY_Down = Input.KEY_S;
 	public static int KEY_Right = Input.KEY_D;
-	public static int KEY_Inventory = Input.KEY_V;
+	public static int KEY_Inventory = Input.KEY_TAB;
 	
 	// ------ Variables ------ //
 	public static int mouseX, mouseY;   // Je sais pas si c'est le plus propre de faire ça comme ça mais au pire osef
