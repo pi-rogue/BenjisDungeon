@@ -21,5 +21,5 @@
 - [ ] Ajuster le gameplay pour des games de 15/20 min
 - [ ] Multijoueur, classements, compétitions mondiales, puis interplanétaires (les martiens ils pourront pas test)
 - [ ] Faire un code bien lisible et propre
-- [ ] Optimisation de l'affichage (~60FpS ce serait plutôt cool)
+- [x] Optimisation de l'affichage (~60FpS ce serait plutôt cool)
 - [ ] Devenir riche
