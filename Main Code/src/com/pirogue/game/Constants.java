@@ -11,7 +11,7 @@ public class Constants {
 	
 	/* GLOBAL */
 	public static boolean SHOW_FPS = true;
-	public static boolean FULLSCREEN = true;
+	public static boolean FULLSCREEN = false;
 	public static boolean VERTICAL_SYNC = false;  // Askip ça évite des problèmes d'affichage (synchronisation verticale)
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	public static int FPS_MAX = 200;   // Ca évite de faire chauffer les bons pcs qui tournent à 2000 fps
@@ -43,6 +43,7 @@ public class Constants {
 	public static boolean mousePressed = false; 
 	public static GameContainer container;
 	public static Dungeon dungeon;
+	public static int nbFloors=1;
     public static SpriteSheet spritesheet;
 	public static SpriteSheet collidesheet;
 	public static Tile Droite, Gauche, Bas, Haut,

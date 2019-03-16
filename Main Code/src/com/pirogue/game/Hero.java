@@ -11,7 +11,8 @@ import org.newdawn.slick.SpriteSheet;
 public class Hero {
 	
 	private float velocity = 0.5f; // Je sais pas vous mais chez moi ça fait n'importe quoi dès qu'on passe en dessous de 0.5f jsp pourquoi
-	private int x,y, width,height, direction;
+	private int x,y, width,height;
+	protected int direction;
 	private boolean moving = false;
 	private Animation[][] animations; // Tableau 2D parce que pour chaque direction on a deux anims (en déplacement ou non)
 	private Map map;

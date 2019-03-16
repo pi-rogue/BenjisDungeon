@@ -20,14 +20,17 @@ public class Dungeon {
 		this.container = Constants.container;
 		this.currentFloor = 0;
 		
-		generateFloor();
+		generateFloor(Constants.nbFloors);
 		
 		// Je pense que le mieux serait finalement de générer dès le début
 		// un nombre fixe d'étages random entre 7 - 10 par exemple avec un boss au dernier
 	}
 	
-	public void generateFloor() {
-		floors.add(new Map(floorWidth, floorHeight));
+	public void generateFloor(int j) {
+		for(int i=0; i<j; i++) {
+			floors.add(new Map(floorWidth, floorHeight));
+			System.out.println("new floor");
+		}
 	}
 
 	public void spawnHero() throws SlickException {
