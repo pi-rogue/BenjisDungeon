@@ -2,6 +2,9 @@ package com.pirogue.game;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
+import com.pirogue.mob.Mob;
 
 public class Map {
 	
@@ -150,6 +153,13 @@ public class Map {
 	}
 
 
+	public void spawnMob(int j) throws SlickException {
+		Mob mob[] = new Mob[j];
+		for(int i=0; i<j; i++) {
+			mob[i] = new Mob(75 + (int)(Math.random() * ((125 - 75) + 1)),75 + (int)(Math.random() * ((125 - 75) + 1)));
+		}
+	}
+	
 	public void render(Graphics g) {
 		render(g, 0,0);
 	}

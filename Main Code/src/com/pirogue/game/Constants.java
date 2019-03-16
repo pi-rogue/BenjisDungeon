@@ -21,6 +21,7 @@ public class Constants {
 	public static String collide = "assets/map/64x64/test_collide_wiwi.png";
 	public static String ground = "assets/map/64x64/new_insane_ground.png";
 	public static String heroSprite = "assets/sprites/64x64/test.png";
+	public static String mobSprite = "assets/sprites/64x64/test.png";
 	
 	/* MAP */
 	public static int mapWidth = 150;
