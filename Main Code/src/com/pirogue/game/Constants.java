@@ -59,13 +59,13 @@ public class Constants {
 	public static GameContainer container;
 	public static Dungeon dungeon;
 	public static int nbFloors=1;
-	public static int nbMob=100;
+	public static int nbMob=350;
     public static SpriteSheet spritesheet;
 	public static SpriteSheet collidesheet;
 	public static Tile Droite, Gauche, Bas, Haut,
 						AngleHG, AngleHD, AngleBG, AngleBD,
 						CoinHG, CoinHD, CoinBG, CoinBD,
-						Inter1, Inter2;
+						Inter1, Inter2, Vide;
 	public static Tile[] Sols;
 	
 	// ------ Initialization ------ //
@@ -86,6 +86,7 @@ public class Constants {
 		CoinBD = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(0,2));
 		Inter1 = new Tile(spritesheet.getSprite(2, 0),collidesheet.getSprite(2,0));
 		Inter2 = new Tile(spritesheet.getSprite(2, 1),collidesheet.getSprite(2,1));
+		Vide = new Tile(spritesheet.getSprite(3, 1),collidesheet.getSprite(3, 1));
 		
 		SpriteSheet groundsheet = new SpriteSheet(ground, blockSize, blockSize);
 		Sols = new Tile[groundsheet.getVerticalCount() * groundsheet.getHorizontalCount()];

@@ -29,7 +29,7 @@ public class Map {
 		for(int i=0; i<width; i++) {
 			for(int j=0; j<height; j++) {
 				this.grille[i][j] = false;		//initialisation des 2 tableaux
-				this.Blocks[i][j] = new Tile(Constants.spritesheet.getSprite(3, 1),Constants.collidesheet.getSprite(3, 1)); //"Vide";
+				this.Blocks[i][j] = Constants.Vide;
 			}
 		}
 
@@ -157,8 +157,10 @@ public class Map {
 	public void spawnMob(int j) throws SlickException {
 		int x, y;
 		for(int i=0; i<j; i++) {
-			x = 75 + (int)(Math.random() * ((125 - 75) + 1));
-			y = 75 + (int)(Math.random() * ((125 - 75) + 1));
+			do{
+				x = 1 + (int)(Math.random() * ((Constants.mapWidth-1 - 1) + 1));
+				y = 1 + (int)(Math.random() * ((Constants.mapHeight-1 - 1) + 1));
+			}while(Blocks[x][y].equals(Constants.Droite) || Blocks[x][y].equals(Constants.Vide) || Blocks[x][y].equals(Constants.Gauche) || Blocks[x][y].equals(Constants.Bas) || Blocks[x][y].equals(Constants.Haut) || Blocks[x][y].equals(Constants.AngleHG) || Blocks[x][y].equals(Constants.AngleHD) || Blocks[x][y].equals(Constants.AngleBG) || Blocks[x][y].equals(Constants.AngleBD) || Blocks[x][y].equals(Constants.CoinHG) || Blocks[x][y].equals(Constants.CoinHD) || Blocks[x][y].equals(Constants.CoinBG) || Blocks[x][y].equals(Constants.CoinBD) || Blocks[x][y].equals(Constants.Inter1) || Blocks[x][y].equals(Constants.Inter2));
 			tabMob[i] = new Mob(x, y);
 		}
 	}

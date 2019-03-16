@@ -34,7 +34,7 @@ public class Mob {
 	}
 
 	public void render(Graphics g, int offsetX, int offsetY) {
-		g.drawAnimation(animations[direction][moving ? 1:0], this.posX-offsetX, this.posY-offsetY);
+		g.drawAnimation(animations[direction][moving ? 1:0], this.posX-offsetX + Constants.SCREEN_WIDTH/2, this.posY-offsetY + Constants.SCREEN_HEIGHT/2);
 	}
 	
 	public void pathfind() {
