@@ -1,7 +1,6 @@
 package com.pirogue.classes;
 
 import org.newdawn.slick.SlickException;
-import com.pirogue.game.Hero;
 
 public class Warrior extends Hero{
 

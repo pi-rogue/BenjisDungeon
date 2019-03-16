@@ -1,4 +1,4 @@
-package com.pirogue.game;
+package com.pirogue.classes;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -7,6 +7,11 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+
+import com.pirogue.game.Constants;
+import com.pirogue.game.Dungeon;
+import com.pirogue.game.Inventory;
+import com.pirogue.game.Map;
 
 public class Hero {
 	

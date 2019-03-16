@@ -6,6 +6,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import com.pirogue.classes.Hero;
+
 public class Dungeon {
 
 	protected ArrayList<Map> floors = new ArrayList<Map>();
@@ -35,10 +37,6 @@ public class Dungeon {
 
 	public void spawnHero() throws SlickException {
 		this.hero = new Hero(this.getCurrentFloor().spawnX*Constants.blockSize, this.getCurrentFloor().spawnY*Constants.blockSize);
-
-		// Affichage du bloc de spawn //
-//		this.getCurrentFloor().Blocks[getCurrentFloor().spawnX][getCurrentFloor().spawnY] = new Tile(collidesheet.getSprite(3, 1), collidesheet.getSprite(2, 0));
-
 	}
 	
 	public Map getCurrentFloor() {
@@ -47,9 +45,10 @@ public class Dungeon {
 	
 	public void render(Graphics g) {
 		getCurrentFloor().render(g, hero.getX() - Constants.SCREEN_WIDTH/2, hero.getY() - Constants.SCREEN_HEIGHT/2);
-		hero.render(g);
 		for(int i=0; i<Constants.nbMob; i++) {
-			this.getCurrentFloor().tabMob[i].render(g, this.hero.x, this.hero.y);
+			this.getCurrentFloor().tabMob[i].render(g, this.hero.getX(), this.hero.getY());
 		}
+		
+		hero.render(g); // Render du héros en dernier pour qu'il soit par dessus tout
 	}	
 }

@@ -10,8 +10,8 @@ public class Map {
 	
 	private boolean debugView; // Permet d'afficher les collisions pour debug
 	
-	protected int width, height;
-	protected float blockSize;
+	public int width, height;
+	public float blockSize;
 	protected boolean grille[][];
 	protected Tile Blocks[][];
 	private int salleX=0, salleY=0, tailleSalleX=0, tailleSalleY=0;
