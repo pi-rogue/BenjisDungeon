@@ -14,7 +14,7 @@ public class Dungeon {
 	public GameContainer container;
 	public int currentFloor;
 	
-	public Dungeon() {
+	public Dungeon() throws SlickException {
 		this.floorWidth = Constants.mapWidth;
 		this.floorHeight = Constants.mapHeight;
 		this.container = Constants.container;
@@ -26,10 +26,10 @@ public class Dungeon {
 		// un nombre fixe d'étages random entre 7 - 10 par exemple avec un boss au dernier
 	}
 	
-	public void generateFloor(int j) {
+	public void generateFloor(int j) throws SlickException {
 		for(int i=0; i<j; i++) {
 			floors.add(new Map(floorWidth, floorHeight));
-			System.out.println("new floor");
+			getCurrentFloor().spawnMob(Constants.nbMob);
 		}
 	}
 
@@ -48,5 +48,8 @@ public class Dungeon {
 	public void render(Graphics g) {
 		getCurrentFloor().render(g, hero.getX() - Constants.SCREEN_WIDTH/2, hero.getY() - Constants.SCREEN_HEIGHT/2);
 		hero.render(g);
+		for(int i=0; i<Constants.nbMob; i++) {
+			this.getCurrentFloor().tabMob[i].render(g, this.hero.x, this.hero.y);
+		}
 	}	
 }

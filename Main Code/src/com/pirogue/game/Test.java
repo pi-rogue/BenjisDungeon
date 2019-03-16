@@ -38,7 +38,6 @@ public class Test extends BasicGame {
 		this.dungeon = new Dungeon();
 		Constants.dungeon = this.dungeon;
 		this.dungeon.spawnHero();
-		this.dungeon.getCurrentFloor().spawnMob(100);
 	}
 	
 	public void keyReleased(int key, char c) {

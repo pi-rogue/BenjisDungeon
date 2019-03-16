@@ -16,6 +16,7 @@ public class Map {
 	protected Tile Blocks[][];
 	private int salleX=0, salleY=0, tailleSalleX=0, tailleSalleY=0;
 	public int spawnX,spawnY;
+	public Mob tabMob[] = new Mob[Constants.nbMob];
 	 
 
 	public Map(int width, int height) {
@@ -154,9 +155,11 @@ public class Map {
 
 
 	public void spawnMob(int j) throws SlickException {
-		Mob mob[] = new Mob[j];
+		int x, y;
 		for(int i=0; i<j; i++) {
-			mob[i] = new Mob(75 + (int)(Math.random() * ((125 - 75) + 1)),75 + (int)(Math.random() * ((125 - 75) + 1)));
+			x = 75 + (int)(Math.random() * ((125 - 75) + 1));
+			y = 75 + (int)(Math.random() * ((125 - 75) + 1));
+			tabMob[i] = new Mob(x, y);
 		}
 	}
 	

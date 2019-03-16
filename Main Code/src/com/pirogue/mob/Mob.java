@@ -33,8 +33,8 @@ public class Mob {
 		}
 	}
 
-	public void render(Graphics g) {
-		g.drawAnimation(animations[direction][moving ? 1:0], (Constants.SCREEN_WIDTH-Constants.blockSize)/2, (Constants.SCREEN_HEIGHT-Constants.blockSize)/2);
+	public void render(Graphics g, int offsetX, int offsetY) {
+		g.drawAnimation(animations[direction][moving ? 1:0], this.posX-offsetX, this.posY-offsetY);
 	}
 	
 	public void pathfind() {

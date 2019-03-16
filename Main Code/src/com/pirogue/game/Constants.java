@@ -45,6 +45,7 @@ public class Constants {
 	public static GameContainer container;
 	public static Dungeon dungeon;
 	public static int nbFloors=1;
+	public static int nbMob=100;
     public static SpriteSheet spritesheet;
 	public static SpriteSheet collidesheet;
 	public static Tile Droite, Gauche, Bas, Haut,
