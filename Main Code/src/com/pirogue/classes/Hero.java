@@ -9,9 +9,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import com.pirogue.game.Constants;
-import com.pirogue.game.Dungeon;
 import com.pirogue.game.Inventory;
-import com.pirogue.game.Map;
 
 public class Hero {
 	
@@ -20,30 +18,26 @@ public class Hero {
 	protected int direction;
 	protected boolean moving = false;
 	protected Animation[][] animations; // Tableau 2D parce que pour chaque direction on a deux anims (en déplacement ou non)
-	protected Map map;
-	protected Dungeon dungeon;
 	protected Inventory inventory;
 	
 	public Hero(int x, int y) throws SlickException {
 		this.inventory = new Inventory();
-		this.dungeon = Constants.dungeon;
-		this.map = dungeon.getCurrentFloor();
 		this.x = x;
 		this.y = y;
 		SpriteSheet spriteSheet = new SpriteSheet(Constants.heroSprite, Constants.blockSize, Constants.blockSize);
 		int IMGwidth = spriteSheet.getWidth();
 		int IMGheight = spriteSheet.getHeight();
-		this.width = Constants.blockSize;
-		this.height = Constants.blockSize;
+		this.width = Constants.blockSize-2;
+		this.height = Constants.blockSize-2;
 			
-		animations = new Animation[IMGheight/width][2];
-		for (int n=0; n<IMGheight/height; n++) {
+		animations = new Animation[IMGheight/Constants.blockSize][2];
+		for (int n=0; n<IMGheight/Constants.blockSize; n++) {
 			Animation anim = new Animation();
 			Animation animMoving = new Animation();
 			
 			anim.addFrame(spriteSheet.getSprite(0, n), 100); // Image quand le perso est immobile
 			
-			for (int i=1; i<IMGwidth/width; i++) {
+			for (int i=1; i<IMGwidth/Constants.blockSize; i++) {
 				animMoving.addFrame(spriteSheet.getSprite(i, n), 100); // Images quand le perso se déplace
 			}
 			
@@ -57,7 +51,7 @@ public class Hero {
 			inventory.render(g);
 		}
 		else {
-			g.drawAnimation(animations[direction][moving ? 1:0], (Constants.SCREEN_WIDTH-width)/2, (Constants.SCREEN_HEIGHT-height)/2);
+			g.drawAnimation(animations[direction][moving ? 1:0], (Constants.SCREEN_WIDTH-Constants.blockSize)/2, (Constants.SCREEN_HEIGHT-Constants.blockSize)/2);
 		}
 	}
 
@@ -80,8 +74,8 @@ public class Hero {
 			// Si on sort de la map ben en fait non
 			if (futureX<0) futureX=0;
 			if (futureY<0) futureY=0;
-			if (futureX>map.width*map.blockSize-width) futureX=map.width*map.blockSize-width;
-			if (futureY>map.height*map.blockSize-height) futureY=map.height*map.blockSize-height;
+			if (futureX>Constants.mapWidth*Constants.blockSize-width) futureX=Constants.mapWidth*Constants.blockSize-width;
+			if (futureY>Constants.mapHeight*Constants.blockSize-height) futureY=Constants.mapHeight*Constants.blockSize-height;
 
 			// Vérification des collisions
 			// On numérote les quatres coins du héros comme ça: 
@@ -153,9 +147,9 @@ public class Hero {
 					break;
 				}
 				 
-				img = map.getCollideImage((int)(cornerX/width), (int)(cornerY/height)); 
+				img = Constants.dungeon.getCurrentFloor().getCollideImage((int)(cornerX/Constants.blockSize), (int)(cornerY/Constants.blockSize)); 
 				if (img != null) {
-					Color color = img.getColor((int)(cornerX % width), (int)(cornerY % height));
+					Color color = img.getColor((int)(cornerX % Constants.blockSize), (int)(cornerY % Constants.blockSize));
 					if (color.getRed()==255 && color.getGreen()==0 && color.getBlue()==0) {
 						return true;
 					}

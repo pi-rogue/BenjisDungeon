@@ -18,9 +18,8 @@ public class Constants {
 	public static int FPS_MAX = 200;   // Ca évite de faire chauffer les bons pcs qui tournent à 2000 fps
 	public static int SCREEN_WIDTH = 1366; // Voir résolutions compatibles dans Trash Code > Resolutions.txt
 	public static int SCREEN_HEIGHT = 768; // On pourra faire un sélecteur plus tard quand on aura une page de settings
-	public static String tileset = "assets/map/64x64/test_tileset_wiwi.png";
-	public static String collide = "assets/map/64x64/test_collide_wiwi.png";
-	public static String ground = "assets/map/64x64/new_insane_ground.png";
+	public static String tileset = "assets/map/64x64/tileset.png";
+	public static String collide = "assets/map/64x64/collide.png";
 	public static String heroSprite = "assets/sprites/64x64/mage.png";
 	public static String mobSprite = "assets/sprites/64x64/test.png";
 	
@@ -66,36 +65,41 @@ public class Constants {
 						AngleHG, AngleHD, AngleBG, AngleBD,
 						CoinHG, CoinHD, CoinBG, CoinBD,
 						Inter1, Inter2, Vide;
-	public static Tile[] Sols;
+	public static Tile[] Sols, Murs;
 	
 	// ------ Initialization ------ //
 	public static void init() throws SlickException {
 		spritesheet = new SpriteSheet(tileset, blockSize, blockSize);
 		collidesheet = new SpriteSheet(collide, blockSize, blockSize);
-		Droite = new Tile(spritesheet.getSprite(0, 1),collidesheet.getSprite(0,1));
-		Gauche = new Tile(spritesheet.getSprite(1, 1),collidesheet.getSprite(1,1));
-		Bas = new Tile(spritesheet.getSprite(1, 0),collidesheet.getSprite(1,0));
-		Haut = new Tile(spritesheet.getSprite(0, 0),collidesheet.getSprite(0,0));
-		AngleHG = new Tile(spritesheet.getSprite(3, 3),collidesheet.getSprite(3,3));
-		AngleHD = new Tile(spritesheet.getSprite(3, 2),collidesheet.getSprite(3,2));
-		AngleBG = new Tile(spritesheet.getSprite(2, 3),collidesheet.getSprite(2,3));
-		AngleBD = new Tile(spritesheet.getSprite(2, 2),collidesheet.getSprite(2,2));
-		CoinHG = new Tile(spritesheet.getSprite(1, 3),collidesheet.getSprite(1,3));
-		CoinHD = new Tile(spritesheet.getSprite(0, 3),collidesheet.getSprite(0,3));
-		CoinBG = new Tile(spritesheet.getSprite(1, 2),collidesheet.getSprite(1,2));
-		CoinBD = new Tile(spritesheet.getSprite(0, 2),collidesheet.getSprite(0,2));
-		Inter1 = new Tile(spritesheet.getSprite(2, 0),collidesheet.getSprite(2,0));
-		Inter2 = new Tile(spritesheet.getSprite(2, 1),collidesheet.getSprite(2,1));
-		Vide = new Tile(spritesheet.getSprite(3, 1),collidesheet.getSprite(3, 1));
+		Droite = 	new Tile(spritesheet.getSprite(0, 6),collidesheet.getSprite(0, 6));
+		Gauche = 	new Tile(spritesheet.getSprite(1, 6),collidesheet.getSprite(1, 6));
+		Bas = 		new Tile(spritesheet.getSprite(2, 5),collidesheet.getSprite(2, 5));
+		Haut = 		new Tile(spritesheet.getSprite(3, 5),collidesheet.getSprite(3, 5));
+		AngleHG = 	new Tile(spritesheet.getSprite(2, 7),collidesheet.getSprite(2, 7));
+		AngleHD = 	new Tile(spritesheet.getSprite(3, 7),collidesheet.getSprite(3, 7));
+		AngleBG = 	new Tile(spritesheet.getSprite(2, 8),collidesheet.getSprite(2, 8));
+		AngleBD = 	new Tile(spritesheet.getSprite(3, 8),collidesheet.getSprite(3, 8));
+		CoinHG = 	new Tile(spritesheet.getSprite(1, 8),collidesheet.getSprite(1, 8));
+		CoinHD = 	new Tile(spritesheet.getSprite(0, 8),collidesheet.getSprite(0, 8));
+		CoinBG = 	new Tile(spritesheet.getSprite(1, 7),collidesheet.getSprite(1, 7));
+		CoinBD = 	new Tile(spritesheet.getSprite(0, 7),collidesheet.getSprite(0, 7));
+		Inter1 = 	new Tile(spritesheet.getSprite(3, 6),collidesheet.getSprite(3, 6));
+		Inter2 = 	new Tile(spritesheet.getSprite(2, 6),collidesheet.getSprite(2, 6));
+		Vide = 		new Tile(spritesheet.getSprite(0, 9),collidesheet.getSprite(0, 9));
+		Sols = new Tile[20]; // C'est hardcodé ici ça me plaît moyen mais c'est mieux d'avoir tout réuni sur un seul tileset
+		Murs = new Tile[4]; // On a plusieurs murs horizontaux différents aussi :)
 		
-		SpriteSheet groundsheet = new SpriteSheet(ground, blockSize, blockSize);
-		Sols = new Tile[groundsheet.getVerticalCount() * groundsheet.getHorizontalCount()];
 		int n=0;
-		for (int i=0; i<groundsheet.getHorizontalCount(); i++) {
-			for (int j=0; j<groundsheet.getVerticalCount(); j++) {
-				Sols[n] = new Tile(groundsheet.getSprite(i, j),collidesheet.getSprite(3,0));
+		for (int i=0; i<4; i++) {
+			for (int j=0; j<5; j++) {
+				Sols[n] = new Tile(spritesheet.getSprite(i, j),collidesheet.getSprite(i,j));
 				n++;
 			}
+		}
+		n=0;
+		for (int i=0; i<spritesheet.getHorizontalCount(); i++) {
+			Murs[n] = new Tile(spritesheet.getSprite(i, 5),collidesheet.getSprite(i, 5));
+			n++;
 		}
 	}
 	

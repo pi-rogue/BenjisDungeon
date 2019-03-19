@@ -127,17 +127,17 @@ public class Map {
 						this.Blocks[i][j] = Constants.CoinHD;
 					}
 					if(this.grille[i-1][j-1] == false && this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						this.Blocks[i][j] = Constants.AngleHG;
+						this.Blocks[i][j] = Constants.AngleBD;
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i-1][j+1] == false && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i][j-1] == true) {
 						this.Blocks[i][j] = Constants.AngleHD;
 					}
 					if(this.grille[i-1][j] == true && this.grille[i-1][j+1] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == false && this.grille[i+1][j] == true && this.grille[i+1][j-1] == true && this.grille[i][j-1] == true) {
-						if(this.Blocks[i][j].equals(Constants.AngleHG)) {
+						if(this.Blocks[i][j].equals(Constants.AngleBD)) {
 							this.Blocks[i][j] = Constants.Inter1;
 						}
 						else {
-							this.Blocks[i][j] = Constants.AngleBD;
+							this.Blocks[i][j] = Constants.AngleHG;
 						}
 					}
 					if(this.grille[i-1][j-1] == true && this.grille[i-1][j] == true && this.grille[i][j+1] == true && this.grille[i+1][j+1] == true && this.grille[i+1][j] == true && this.grille[i+1][j-1] == false && this.grille[i][j-1] == true) {
@@ -160,7 +160,7 @@ public class Map {
 			do{
 				x = 1 + (int)(Math.random() * ((Constants.mapWidth-1 - 1) + 1));
 				y = 1 + (int)(Math.random() * ((Constants.mapHeight-1 - 1) + 1));
-			}while(Blocks[x][y].equals(Constants.Droite) || Blocks[x][y].equals(Constants.Vide) || Blocks[x][y].equals(Constants.Gauche) || Blocks[x][y].equals(Constants.Bas) || Blocks[x][y].equals(Constants.Haut) || Blocks[x][y].equals(Constants.AngleHG) || Blocks[x][y].equals(Constants.AngleHD) || Blocks[x][y].equals(Constants.AngleBG) || Blocks[x][y].equals(Constants.AngleBD) || Blocks[x][y].equals(Constants.CoinHG) || Blocks[x][y].equals(Constants.CoinHD) || Blocks[x][y].equals(Constants.CoinBG) || Blocks[x][y].equals(Constants.CoinBD) || Blocks[x][y].equals(Constants.Inter1) || Blocks[x][y].equals(Constants.Inter2));
+			}while(Blocks[x][y].equals(Constants.Droite) || Blocks[x][y].equals(Constants.Vide) || Blocks[x][y].equals(Constants.Gauche) || Blocks[x][y].equals(Constants.Bas) || Blocks[x][y].equals(Constants.Haut) || Blocks[x][y].equals(Constants.AngleBD) || Blocks[x][y].equals(Constants.AngleHD) || Blocks[x][y].equals(Constants.AngleBG) || Blocks[x][y].equals(Constants.AngleHG) || Blocks[x][y].equals(Constants.CoinHG) || Blocks[x][y].equals(Constants.CoinHD) || Blocks[x][y].equals(Constants.CoinBG) || Blocks[x][y].equals(Constants.CoinBD) || Blocks[x][y].equals(Constants.Inter1) || Blocks[x][y].equals(Constants.Inter2));
 			tabMob[i] = new Mob(x, y);
 		}
 	}
