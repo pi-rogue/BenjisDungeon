@@ -111,7 +111,7 @@ public class main {
 	
 	
 	
-	
+	//double health, double health_level
 	
 	
 	Head Hat_common = new Head(10,5);
