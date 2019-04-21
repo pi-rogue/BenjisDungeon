@@ -6,7 +6,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import com.pirogue.classes.Hero;
+import com.pirogue.entity.Hero;
+import com.pirogue.entity.classes.Rogue;
 
 public class Dungeon {
 
@@ -36,7 +37,7 @@ public class Dungeon {
 	}
 
 	public void spawnHero() throws SlickException {
-		this.hero = new Hero(this.getCurrentFloor().spawnX*Constants.blockSize, this.getCurrentFloor().spawnY*Constants.blockSize);
+		this.hero = new Rogue(this.getCurrentFloor().spawnX, this.getCurrentFloor().spawnY);
 	}
 	
 	public Map getCurrentFloor() {

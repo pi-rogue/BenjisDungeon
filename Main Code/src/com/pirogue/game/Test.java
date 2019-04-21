@@ -81,19 +81,20 @@ public class Test extends BasicGame {
 		dungeon.hero.update(container, delta);
 				
 		String arrowsDir = arrowsDirection();
-		if (arrowsDir.equals("")) dungeon.hero.setMoving(false); // Pour le momentum on a juste à ajouter une petite variable ici
-		else dungeon.hero.setMoving(true);                       // qui s'incrémente et on rajoute dans la condition : compteur>10
-		
-		switch (arrowsDir) {
-		case "N" : dungeon.hero.setDirection(0); break;
-		case "NE": dungeon.hero.setDirection(1); break;
-		case "E" : dungeon.hero.setDirection(2); break;
-		case "SE": dungeon.hero.setDirection(3); break;
-		case "S" : dungeon.hero.setDirection(4); break;
-		case "SO": dungeon.hero.setDirection(5); break;
-		case "O" : dungeon.hero.setDirection(6); break;
-		case "NO": dungeon.hero.setDirection(7); break;
-		}		
+		if (arrowsDir.equals(""))
+			dungeon.hero.setMoving(-1);
+		else { // Pour le momentum on a juste à ajouter dans cette ligne un elseif avec la condition compteur>10
+			switch (arrowsDir) {
+			case "N" : dungeon.hero.setMoving(0); break;
+			case "NE": dungeon.hero.setMoving(1); break;
+			case "E" : dungeon.hero.setMoving(2); break;
+			case "SE": dungeon.hero.setMoving(3); break;
+			case "S" : dungeon.hero.setMoving(4); break;
+			case "SO": dungeon.hero.setMoving(5); break;
+			case "O" : dungeon.hero.setMoving(6); break;
+			case "NO": dungeon.hero.setMoving(7); break;
+			}
+		}
 	}
 	
 	public void mouseMoved(int oldx, int oldy, int newx, int newy) {

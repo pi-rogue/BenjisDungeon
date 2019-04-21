@@ -4,7 +4,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import com.pirogue.mob.Mob;
+import com.pirogue.entity.Mob;
+import com.pirogue.entity.mob.Slime;
 
 public class Map {
 	
@@ -156,12 +157,13 @@ public class Map {
 
 	public void spawnMob(int j) throws SlickException {
 		int x, y;
+		String[] colors = {"red", "green", "blue"};
 		for(int i=0; i<j; i++) {
-			do{
+			do {
 				x = 1 + (int)(Math.random() * ((Constants.mapWidth-1 - 1) + 1));
 				y = 1 + (int)(Math.random() * ((Constants.mapHeight-1 - 1) + 1));
-			}while(Blocks[x][y].equals(Constants.Droite) || Blocks[x][y].equals(Constants.Vide) || Blocks[x][y].equals(Constants.Gauche) || Blocks[x][y].equals(Constants.Bas) || Blocks[x][y].equals(Constants.Haut) || Blocks[x][y].equals(Constants.AngleBD) || Blocks[x][y].equals(Constants.AngleHD) || Blocks[x][y].equals(Constants.AngleBG) || Blocks[x][y].equals(Constants.AngleHG) || Blocks[x][y].equals(Constants.CoinHG) || Blocks[x][y].equals(Constants.CoinHD) || Blocks[x][y].equals(Constants.CoinBG) || Blocks[x][y].equals(Constants.CoinBD) || Blocks[x][y].equals(Constants.Inter1) || Blocks[x][y].equals(Constants.Inter2));
-			tabMob[i] = new Mob(x, y);
+			} while(Blocks[x][y].equals(Constants.Droite) || Blocks[x][y].equals(Constants.Vide) || Blocks[x][y].equals(Constants.Gauche) || Blocks[x][y].equals(Constants.Bas) || Blocks[x][y].equals(Constants.Haut) || Blocks[x][y].equals(Constants.AngleBD) || Blocks[x][y].equals(Constants.AngleHD) || Blocks[x][y].equals(Constants.AngleBG) || Blocks[x][y].equals(Constants.AngleHG) || Blocks[x][y].equals(Constants.CoinHG) || Blocks[x][y].equals(Constants.CoinHD) || Blocks[x][y].equals(Constants.CoinBG) || Blocks[x][y].equals(Constants.CoinBD) || Blocks[x][y].equals(Constants.Inter1) || Blocks[x][y].equals(Constants.Inter2));
+			tabMob[i] = new Slime(x, y, colors[(int)(Math.random() * 3)]); 
 		}
 	}
 	
