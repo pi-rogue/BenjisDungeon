@@ -61,7 +61,7 @@ public class Constants {
 	public static GameContainer container;
 	public static Dungeon dungeon;
 	public static int nbFloors=1;
-	public static int nbMob=350;
+	public static int nbMob=300;
 	public static HashMap<String, Animation[]> animations = new HashMap<String, Animation[]>(); // Contient toutes les animations de tous les mobs/joueurs
 	public static Tile Droite, Gauche, Bas, Haut,
 						AngleHG, AngleHD, AngleBG, AngleBD,
