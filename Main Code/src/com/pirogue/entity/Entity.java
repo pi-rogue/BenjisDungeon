@@ -11,11 +11,12 @@ import com.pirogue.game.Constants;
 public abstract class Entity {
 	
 	protected float velocity = 0.5f; // Je sais pas vous mais chez moi ça fait n'importe quoi dès qu'on passe en dessous de 0.5f jsp pourquoi
-	protected int x,y, width,height;
+	public int x,y, width,height;
 	protected int facing;
 	protected int moving = -1;
 	protected Animation[] restAnims;
 	protected Animation[] movingAnims;
+	protected boolean isColliding = false;
 	
 	public Entity(int x, int y) {
 		this.x = x*Constants.blockSize;

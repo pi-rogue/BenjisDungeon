@@ -23,18 +23,6 @@ public class Slime extends Mob {
 	protected void updateFacing() {
 		facing = 0; // Il n'y a pas de direction pour les slimes
 	}
-	
-	@Override
-	public void pathfind() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void aggro() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void attack() {
