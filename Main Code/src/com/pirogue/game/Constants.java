@@ -11,7 +11,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public class Constants {
-
 	// ---------- Settings ---------- //
 	
 	/* GLOBAL */
@@ -54,9 +53,12 @@ public class Constants {
 	public static int KEY_Down = Input.KEY_S;
 	public static int KEY_Right = Input.KEY_D;
 	public static int KEY_Inventory = Input.KEY_TAB;
+	//public static int AxeX = Input.
+	
 	
 	// ------ Variables ------ //
 	public static int mouseX, mouseY;
+	public static boolean debug = false;
 	public static boolean mousePressed = false;
 	public static GameContainer container;
 	public static Dungeon dungeon;

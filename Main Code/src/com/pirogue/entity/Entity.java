@@ -21,13 +21,17 @@ public abstract class Entity {
 	public Entity(int x, int y) {
 		this.x = x*Constants.blockSize;
 		this.y = y*Constants.blockSize;
-		this.width = Constants.blockSize;
-		this.height = Constants.blockSize;
+		this.width = Constants.blockSize-4;
+		this.height = Constants.blockSize-4;
 		this.restAnims = Constants.animations.get("default");
 		this.movingAnims = Constants.animations.get("default");
 	}
 	
 	public void render(Graphics g, int offsetX, int offsetY) {
+		if (Constants.debug) {
+			g.setColor(new Color(1f, 1f, 1f));
+			g.drawRect(this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2, this.width, this.height);
+		}
 		try {
 			if (moving==-1)
 				g.drawAnimation(restAnims[facing], this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2);

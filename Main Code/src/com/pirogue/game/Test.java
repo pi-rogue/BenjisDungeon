@@ -50,6 +50,7 @@ public class Test extends BasicGame {
 	public void keyPressed(int key, char c) {
 		if (key == Constants.KEY_DebugView) {
 			dungeon.getCurrentFloor().toggleDebugView();
+			Constants.debug = !Constants.debug;
 		}
 		else if (key == Constants.KEY_Inventory) {
 			dungeon.hero.toggleInventory();
