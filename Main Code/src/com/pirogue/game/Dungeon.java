@@ -46,10 +46,7 @@ public class Dungeon {
 	
 	public void render(Graphics g) {
 		getCurrentFloor().render(g, hero.getX() - Constants.SCREEN_WIDTH/2, hero.getY() - Constants.SCREEN_HEIGHT/2);
-		for(int i=0; i<Constants.nbMob; i++) {
-			this.getCurrentFloor().tabMob[i].render(g, this.hero.getX(), this.hero.getY());
-		}
-		
+		getCurrentFloor().renderMobs(g, hero.getX(), hero.getY());
 		hero.render(g); // Render du héros en dernier pour qu'il soit par dessus tout
 	}	
 }

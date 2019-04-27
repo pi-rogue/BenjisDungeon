@@ -23,7 +23,7 @@ public abstract class Hero extends Entity {
 	}
 	
 	public void render(Graphics g) {
-		super.render(g, x+Constants.blockSize/2, y+Constants.blockSize/2);
+		super.render(g, x, y);
 		for (Item item : inventory.equipment) {
 			g.drawAnimation(item.getAnimation()[facing], (Constants.SCREEN_WIDTH-Constants.blockSize)/2, (Constants.SCREEN_HEIGHT-Constants.blockSize)/2);
 		}

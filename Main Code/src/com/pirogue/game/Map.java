@@ -199,6 +199,20 @@ public class Map {
 		}
 	}
 	
+	public void renderMobs(Graphics g, int heroX, int heroY) {
+		// On n'affiche que les mobs qui sont dans l'écran pour améliorer les perfs
+		int Xi=heroX-Constants.SCREEN_WIDTH/2;
+		int Xf=heroX+Constants.SCREEN_WIDTH/2;
+		int Yi=heroY-Constants.SCREEN_WIDTH/2;
+		int Yf=heroY+Constants.SCREEN_WIDTH/2;
+		
+		for(int i=0; i<Constants.nbMob; i++) {
+			if (tabMob[i].getX()>=Xi && tabMob[i].getX()<=Xf && tabMob[i].getY()>=Yi && tabMob[i].getY()<=Yf ) {
+				tabMob[i].render(g, heroX, heroY);
+			}
+		}
+	}
+	
 	public void toggleDebugView() {
 		debugView = !debugView;
 	}

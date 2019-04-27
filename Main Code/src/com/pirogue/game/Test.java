@@ -13,12 +13,13 @@ public class Test extends BasicGame {
 
 	private GameContainer container;
 	private Dungeon dungeon;
+    private Console console;
 
 	public Test() {
 		super("Test Game");
 	}
 
-	
+
 	public static void main(String[] args) throws SlickException {
 		System.setProperty("org.lwjgl.librarypath", new File("lib/natives").getAbsolutePath()); // A laisser, pour qu'il trouve les libraries
 		AppGameContainer application = new AppGameContainer(new Test(), Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false); // Demarre le jeu avec une fenêtre de 640x480
@@ -29,35 +30,47 @@ public class Test extends BasicGame {
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		Constants.init();
-		Constants.container = container; // On le met ici pour pouvoir y accéder de partout
-		this.container = container;
-		container.setShowFPS(Constants.SHOW_FPS);
-		container.setVSync(Constants.VERTICAL_SYNC);
-		container.setMaximumLogicUpdateInterval(Constants.DELTA_MAX);
-		this.dungeon = new Dungeon();
-		Constants.dungeon = this.dungeon;
-		this.dungeon.spawnHero();
+        Constants.init();
+        Constants.container = container; // On le met ici pour pouvoir y accéder de partout
+        this.container = container;
+        container.setShowFPS(Constants.SHOW_FPS);
+        container.setVSync(Constants.VERTICAL_SYNC);
+        container.setMaximumLogicUpdateInterval(Constants.DELTA_MAX);
+        console = new Console();
+        this.dungeon = new Dungeon();
+        Constants.dungeon = this.dungeon;
+        this.dungeon.spawnHero();
 	}
-	
+
 	public void keyReleased(int key, char c) {
 		if (key == Constants.KEY_Exit) {
 			if (dungeon.hero.inInventory())	dungeon.hero.toggleInventory();
-			else container.exit();
+            else if (Constants.inConsole) Constants.inConsole=false;
+			else container.exit(); // TODO: Mettre un menu à la place de quitter directement
 		}
 	}
-	
+
 	public void keyPressed(int key, char c) {
-		if (key == Constants.KEY_DebugView) {
-			dungeon.getCurrentFloor().toggleDebugView();
-			Constants.debug = !Constants.debug;
-		}
-		else if (key == Constants.KEY_Inventory) {
-			dungeon.hero.toggleInventory();
-		}
+        if (key == Constants.KEY_Console) {
+            Constants.inConsole=!Constants.inConsole;
+        }
+
+        else if (Constants.inConsole) { // Si la console est ouverte
+            console.keyPressed(key, c); // On transmet tous les inputs clavier à la console
+        }
+
+		else { // Sinon c'est le comportement normal
+            if (key == Constants.KEY_DebugView) {
+                dungeon.getCurrentFloor().toggleDebugView();
+    			Constants.debug = !Constants.debug;
+    		}
+    		else if (key == Constants.KEY_Inventory) {
+    			dungeon.hero.toggleInventory();
+    		}
+        }
 
 	}
-	
+
 	private String arrowsDirection() {
 		Input input = this.container.getInput();
 
@@ -66,15 +79,16 @@ public class Test extends BasicGame {
 		if (input.isKeyDown(Constants.KEY_Up)) {directionV += "N";}
 		if (input.isKeyDown(Constants.KEY_Down)) {directionV += "S";}
 		if (input.isKeyDown(Constants.KEY_Right)) {directionH += "E";}
-		if (input.isKeyDown(Constants.KEY_Left)) {directionH += "O";}		
+		if (input.isKeyDown(Constants.KEY_Left)) {directionH += "O";}
 		if (directionV.length()>1) directionV = "";
 		if (directionH.length()>1) directionH = "";
 		return directionV + directionH;
 	}
-	
+
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		dungeon.render(g);
+        if (Constants.inConsole) console.render(g);
 	}
 
 	@Override
@@ -84,9 +98,9 @@ public class Test extends BasicGame {
 			dungeon.getCurrentFloor().tabMob[i].pathfinding(this.dungeon.hero.x,this.dungeon.hero.y);
 			dungeon.getCurrentFloor().tabMob[i].update(container, delta);
 		}
-				
+
 		String arrowsDir = arrowsDirection();
-		if (arrowsDir.equals(""))
+		if (arrowsDir.equals("") || Constants.inConsole)
 			dungeon.hero.setMoving(-1);
 		else { // Pour le momentum on a juste à ajouter dans cette ligne un elseif avec la condition compteur>10
 			switch (arrowsDir) {
@@ -101,17 +115,17 @@ public class Test extends BasicGame {
 			}
 		}
 	}
-	
+
 	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
 		Constants.mouseX = newx;
 		Constants.mouseY = newy;
 
 	}
-	
+
 	public void mousePressed(int button, int x, int y) {
 		if (button==0) Constants.mousePressed = true;
 	}
-	
+
 	public void mouseReleased(int button, int x, int y) {
 		if (button==0) Constants.mousePressed = false;
 	}

@@ -10,8 +10,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public class Constants {
+
 	// ---------- Settings ---------- //
-	
+
 	/* GLOBAL */
 	public static boolean SHOW_FPS = true;
 	public static boolean FULLSCREEN = false;
@@ -22,12 +23,12 @@ public class Constants {
 	public static int SCREEN_HEIGHT = 768; // On pourra faire un sélecteur plus tard quand on aura une page de settings
 	public static String tileset = "assets/map/tileset.png";
 	public static String collide = "assets/map/collide.png";
-	
+
 	/* INVENTORY */
 	public static String inventoryBackground = "assets/gui/gui_inventory.png";
 	public static String inventoryCells = "assets/gui/cells_inventory.png";
 	public static String inventorySelected = "assets/gui/selected.png";
-	public static int cellSize = 64; // Les seules cases reconnues sur le background sont les carrés de cette taille 
+	public static int cellSize = 64; // Les seules cases reconnues sur le background sont les carrés de cette taille
 	public static Color head = new Color(255,0,0);
 	public static Color chest = new Color(0,255,0);
 	public static Color legs = new Color(0,0,255);
@@ -36,14 +37,14 @@ public class Constants {
 	public static Color rightHand = new Color(255,0,255);
 	public static Color invCell = new Color(128,128,128);
 	public static Color heroCell = new Color(216,216,216);
-	
+
 	/* MAP */
 	public static int mapWidth = 150;
 	public static int mapHeight = 150;
 	public static int roomsRatio = 1000;
 	public static int blockSize = 64;
-	
-	
+
+
 	// ------ Keyboard Configuration ------ //
 	public static int KEY_DebugView = Input.KEY_A;
 	public static int KEY_Exit = Input.KEY_ESCAPE;
@@ -52,13 +53,15 @@ public class Constants {
 	public static int KEY_Down = Input.KEY_S;
 	public static int KEY_Right = Input.KEY_D;
 	public static int KEY_Inventory = Input.KEY_TAB;
+	public static int KEY_Console = Input.KEY_APOSTROPHE;
 	//public static int AxeX = Input.
-	
-	
+
+
 	// ------ Variables ------ //
 	public static int mouseX, mouseY;
 	public static boolean debug = false;
 	public static boolean mousePressed = false;
+	public static boolean inConsole = false;
 	public static GameContainer container;
 	public static Dungeon dungeon;
 	public static int nbFloors=1;
@@ -69,7 +72,7 @@ public class Constants {
 						CoinHG, CoinHD, CoinBG, CoinBD,
 						Inter1, Inter2, Vide;
 	public static Tile[] Sols, Murs;
-	
+
 	// ------ Initialization ------ //
 	public static void init() throws SlickException {
 		SpriteSheet tilesheet = new SpriteSheet(tileset, blockSize, blockSize);
@@ -91,7 +94,7 @@ public class Constants {
 		Vide = 		new Tile(tilesheet.getSprite(0, 9),collidesheet.getSprite(0, 9));
 		Sols = new Tile[20]; // C'est hardcodé ici ça me plaît moyen mais c'est mieux d'avoir tout réuni sur un seul tileset
 		Murs = new Tile[4]; // On a plusieurs murs horizontaux différents aussi :)
-		
+
 		int n=0;
 		for (int i=0; i<4; i++) {
 			for (int j=0; j<5; j++) {
@@ -104,7 +107,7 @@ public class Constants {
 			Murs[n] = new Tile(tilesheet.getSprite(i, 5),collidesheet.getSprite(i, 5));
 			n++;
 		}
-		
+
 		initAnimations(new File("src/assets/sprites"));
 	}
 

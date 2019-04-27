@@ -9,6 +9,7 @@ public class Slime extends Mob {
 
 	public Slime(int x, int y, String color) {
 		super(x, y);
+		this.velocity = 0.25f; // La moitié de celle du héros
 		this._color = color;
 		refreshAnimations();
 	}

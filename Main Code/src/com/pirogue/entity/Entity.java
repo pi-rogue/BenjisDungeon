@@ -30,16 +30,16 @@ public abstract class Entity {
 	public void render(Graphics g, int offsetX, int offsetY) {
 		if (Constants.debug) {
 			g.setColor(new Color(1f, 1f, 1f));
-			g.drawRect(this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2, this.width, this.height);
+			g.drawRect(this.x-offsetX +(Constants.SCREEN_WIDTH-this.width)/2 , this.y-offsetY +(Constants.SCREEN_HEIGHT-this.height)/2, this.width, this.height);
 		}
 		try {
 			if (moving==-1)
-				g.drawAnimation(restAnims[facing], this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2);
+				g.drawAnimation(restAnims[facing], this.x-offsetX + (Constants.SCREEN_WIDTH-this.width)/2, this.y-offsetY + (Constants.SCREEN_HEIGHT-this.height)/2);
 			else
-				g.drawAnimation(movingAnims[facing], this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2);
+				g.drawAnimation(movingAnims[facing], this.x-offsetX + (Constants.SCREEN_WIDTH-this.width)/2, this.y-offsetY + (Constants.SCREEN_HEIGHT-this.height)/2);
 		}
 		catch (java.lang.NullPointerException | java.lang.IndexOutOfBoundsException e) {
-			g.drawAnimation(Constants.animations.get("missing")[0], this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2);
+			g.drawAnimation(Constants.animations.get("missing")[0], this.x-offsetX + (Constants.SCREEN_WIDTH-this.width)/2, this.y-offsetY + (Constants.SCREEN_HEIGHT-this.height)/2);
 		}
 	}
 
