@@ -38,7 +38,7 @@ public abstract class Entity {
 			else
 				g.drawAnimation(movingAnims[facing], this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2);
 		}
-		catch (java.lang.NullPointerException e, java.lang.IndexOutOfBoundsException f) {
+		catch (java.lang.NullPointerException | java.lang.IndexOutOfBoundsException e) {
 			g.drawAnimation(Constants.animations.get("missing")[0], this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2);
 		}
 	}
