@@ -16,8 +16,6 @@ public abstract class Hero extends Entity {
 	
 	public Hero(int x, int y, String _class) throws SlickException {
 		super(x, y);
-		this.width = Constants.blockSize-2;
-		this.height = Constants.blockSize-2;
 		this._class = _class;
 		this.inventory = new Inventory();
 		refreshAnimations();
