@@ -14,7 +14,7 @@ public abstract class Mob extends Entity {
 		distY = this.y - heroY;
 		//cpt++;
 		//if(cpt>200) {System.out.println(distX+"   "+distY); cpt=0;}
-		
+		this.moving = -1;
 		if(aggro()) {
 			prio tabPrio[] = new prio[4];
 			if(Math.abs(distY)<=Math.abs(distX) && distX>=0) {tabPrio[0]=prio.gauche; tabPrio[1]=prio.haut; tabPrio[2]=prio.bas; tabPrio[3]=prio.droite;}	
@@ -26,7 +26,7 @@ public abstract class Mob extends Entity {
 	}
 	
 	protected boolean aggro() {
-		if(Math.sqrt(distX*distX+distY*distY)<500) return true;
+		if(Math.sqrt(distX*distX+distY*distY)<350) return true;
 		return false;
 	}
 	
