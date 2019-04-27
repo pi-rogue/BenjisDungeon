@@ -54,7 +54,7 @@ public class Test extends BasicGame {
 			Constants.inConsole=!Constants.inConsole;
 		}
 
-		if (Constants.inConsole) {
+		else if (Constants.inConsole) {
 			console.keyPressed(key, c);	
 			
 		}
