@@ -9,43 +9,47 @@ import com.pirogue.game.Animation;
 import com.pirogue.game.Constants;
 
 public abstract class Entity {
-	
+
 	protected float velocity = 0.5f; // Je sais pas vous mais chez moi ça fait n'importe quoi dès qu'on passe en dessous de 0.5f jsp pourquoi
-	protected int x,y, width,height;
+	public int x,y, width,height;
 	protected int facing;
 	protected int moving = -1;
 	protected Animation[] restAnims;
 	protected Animation[] movingAnims;
-	
+	protected boolean isColliding = false;
+
 	public Entity(int x, int y) {
 		this.x = x*Constants.blockSize;
 		this.y = y*Constants.blockSize;
-		this.width = Constants.blockSize;
-		this.height = Constants.blockSize;
+		this.width = Constants.blockSize-4;
+		this.height = Constants.blockSize-4;
 		this.restAnims = Constants.animations.get("default");
 		this.movingAnims = Constants.animations.get("default_moving");
 	}
-	
+
 	public void render(Graphics g, int offsetX, int offsetY) {
-		System.out.println(facing);
+		if (Constants.debug) {
+			g.setColor(new Color(1f, 1f, 1f));
+			g.drawRect(this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2, this.width, this.height);
+		}
 		try {
 			if (moving==-1)
 				g.drawAnimation(restAnims[facing], this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2);
 			else
 				g.drawAnimation(movingAnims[facing], this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2);
 		}
-		catch (java.lang.NullPointerException e) {
+		catch (java.lang.NullPointerException e, java.lang.IndexOutOfBoundsException f) {
 			g.drawAnimation(Constants.animations.get("missing")[0], this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2);
 		}
 	}
-	
+
 	public void update(GameContainer container, int delta) {
 		updateFacing();
-		
+
 		if (moving!=-1) {
 			float futureX = x;
 			float futureY = y;
-			
+
 			switch (moving) {
 			case 0:	futureY -= velocity * delta; break;                               // N
 			case 2:	futureX += velocity * delta; break;                               // E
@@ -64,11 +68,11 @@ public abstract class Entity {
 			if (futureY>Constants.mapHeight*Constants.blockSize-height) futureY=Constants.mapHeight*Constants.blockSize-height;
 
 			// Vérification des collisions
-			// On numérote les quatres coins de l'entitée comme ça: 
+			// On numérote les quatres coins de l'entitée comme ça:
 			// 0 | 1
 			// -----
 			// 2 | 3
-			boolean[] corners = {false, false, false, false}; // Liste des coins à checker			
+			boolean[] corners = {false, false, false, false}; // Liste des coins à checker
 
 			switch (moving) { // Pour alléger on check que certains coins selon la direction (3 coins pour un déplacement diagonal, 2 sinon)
 			case 0: corners[0]=true; corners[1]=true; break;
@@ -80,7 +84,7 @@ public abstract class Entity {
 			case 6: corners[2]=true; corners[0]=true; break;
 			case 7: corners[2]=true; corners[0]=true; corners[1]=true; break;
 			}
-			
+
 			if (isColliding(corners, futureX, futureY)) {
 				switch (moving) { // Quand on se déplace en diagonale on peut quand meme glisser sur un mur ou non
 				case 1:
@@ -132,8 +136,8 @@ public abstract class Entity {
 					cornerY = futureY+height/2;
 					break;
 				}
-				 
-				img = Constants.dungeon.getCurrentFloor().getCollideImage((int)(cornerX/Constants.blockSize), (int)(cornerY/Constants.blockSize)); 
+
+				img = Constants.dungeon.getCurrentFloor().getCollideImage((int)(cornerX/Constants.blockSize), (int)(cornerY/Constants.blockSize));
 				if (img != null) {
 					Color color = img.getColor((int)(cornerX % Constants.blockSize), (int)(cornerY % Constants.blockSize));
 					if (color.getRed()==255 && color.getGreen()==0 && color.getBlue()==0) {
@@ -149,19 +153,19 @@ public abstract class Entity {
 
 	protected abstract void refreshAnimations();
 	protected abstract void updateFacing();
-	
+
 	public void setFacing(int facing) {
 		this.facing = facing;
 	}
-	
+
 	public void setMoving(int moving) {
 		this.moving = moving;
 	}
-	
+
 	public int getX() {
 		return this.x;
 	}
-	
+
 	public int getY() {
 		return this.y;
 	}

@@ -10,7 +10,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public class Constants {
-
 	// ---------- Settings ---------- //
 	
 	/* GLOBAL */
@@ -53,14 +52,17 @@ public class Constants {
 	public static int KEY_Down = Input.KEY_S;
 	public static int KEY_Right = Input.KEY_D;
 	public static int KEY_Inventory = Input.KEY_TAB;
+	//public static int AxeX = Input.
+	
 	
 	// ------ Variables ------ //
 	public static int mouseX, mouseY;
+	public static boolean debug = false;
 	public static boolean mousePressed = false;
 	public static GameContainer container;
 	public static Dungeon dungeon;
 	public static int nbFloors=1;
-	public static int nbMob=350;
+	public static int nbMob=300;
 	public static HashMap<String, Animation[]> animations = new HashMap<String, Animation[]>(); // Contient toutes les animations de tous les mobs/joueurs
 	public static Tile Droite, Gauche, Bas, Haut,
 						AngleHG, AngleHD, AngleBG, AngleBD,

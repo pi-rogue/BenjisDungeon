@@ -50,6 +50,7 @@ public class Test extends BasicGame {
 	public void keyPressed(int key, char c) {
 		if (key == Constants.KEY_DebugView) {
 			dungeon.getCurrentFloor().toggleDebugView();
+			Constants.debug = !Constants.debug;
 		}
 		else if (key == Constants.KEY_Inventory) {
 			dungeon.hero.toggleInventory();
@@ -79,6 +80,10 @@ public class Test extends BasicGame {
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
 		dungeon.hero.update(container, delta);
+		for(int i=0; i<Constants.nbMob; i++) {
+			dungeon.getCurrentFloor().tabMob[i].pathfinding(this.dungeon.hero.x,this.dungeon.hero.y);
+			dungeon.getCurrentFloor().tabMob[i].update(container, delta);
+		}
 				
 		String arrowsDir = arrowsDirection();
 		if (arrowsDir.equals(""))
