@@ -1,18 +1,19 @@
 package com.pirogue.entity;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import com.pirogue.game.Animation;
 import com.pirogue.game.Constants;
 import com.pirogue.game.Inventory;
+import com.pirogue.items.Item;
 
 public abstract class Hero extends Entity {
 	
 	protected Inventory inventory;
 	private String _class;
-	private Animation[] inventoryAnims;
+	private Animation[][] inventoryAnims;
 	
 	public Hero(int x, int y, String _class) throws SlickException {
 		super(x, y);
@@ -24,26 +25,37 @@ public abstract class Hero extends Entity {
 	}
 	
 	public void render(Graphics g) {
+		super.render(g, x+Constants.blockSize/2, y+Constants.blockSize/2);
+		for (Item item : inventory.equipment) {
+			g.drawAnimation(item.getAnimation()[facing], (Constants.SCREEN_WIDTH-Constants.blockSize)/2, (Constants.SCREEN_HEIGHT-Constants.blockSize)/2);
+		}
 		if (inventory.isVisible()) {
 			inventory.render(g);
 			Rectangle cell = inventory.getHeroCell();
-			g.drawAnimation(inventoryAnims[facing], cell.getMinX(), cell.getMinY());
+			for (Animation[] animation : inventoryAnims) {
+				g.drawAnimation(animation[facing], cell.getMinX(), cell.getMinY());
+			}
 		}
-		else
-			super.render(g, x+Constants.blockSize/2, y+Constants.blockSize/2);
 	}
 
 	protected void refreshAnimations() {
-		restAnims = Constants.animations.get(_class + " rest " + inventory.getEquipment());
-		movingAnims = Constants.animations.get(_class + " moving " + inventory.getEquipment());
-		inventoryAnims = new Animation[restAnims.length];
+		restAnims = Constants.animations.get(_class + " body");
+		movingAnims = Constants.animations.get(_class + " body");
+		inventoryAnims = new Animation[7][restAnims.length];
 		
-		for (int n=0; n<inventoryAnims.length; n++) {
-			Animation anim = new Animation();
-			for (int i=0; i<restAnims[n].getFrameCount(); i++) {
-				anim.addFrame(restAnims[n].getImage(i).getScaledCopy((int)inventory.getHeroCell().getWidth(), (int)inventory.getHeroCell().getHeight()), restAnims[n].getDuration(i));
+		Animation[] anims = new Animation[restAnims.length];
+		for (int n=0; n<restAnims.length; n++) {
+			anims[n] = restAnims[n].getScaledCopy(inventory.getHeroCell().getWidth(), inventory.getHeroCell().getHeight());
+		}
+		inventoryAnims[0] = anims;
+		
+		for (int i=0; i<6; i++) {
+			Animation[] originalAnims = inventory.equipment[i].getAnimation();
+			anims = new Animation[originalAnims.length];
+			for (int n=0; n<originalAnims.length; n++) {
+				anims[n] = originalAnims[n].getScaledCopy(inventory.getHeroCell().getWidth(), inventory.getHeroCell().getHeight());
 			}
-			inventoryAnims[n] = anim;
+			inventoryAnims[i+1] = anims; 
 		}
 	}
 	

@@ -1,11 +1,11 @@
 package com.pirogue.entity;
 
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import com.pirogue.game.Animation;
 import com.pirogue.game.Constants;
 
 public abstract class Entity {
@@ -23,10 +23,11 @@ public abstract class Entity {
 		this.width = Constants.blockSize;
 		this.height = Constants.blockSize;
 		this.restAnims = Constants.animations.get("default");
-		this.movingAnims = Constants.animations.get("default");
+		this.movingAnims = Constants.animations.get("default_moving");
 	}
 	
 	public void render(Graphics g, int offsetX, int offsetY) {
+		System.out.println(facing);
 		try {
 			if (moving==-1)
 				g.drawAnimation(restAnims[facing], this.x-offsetX + Constants.SCREEN_WIDTH/2, this.y-offsetY + Constants.SCREEN_HEIGHT/2);
@@ -50,10 +51,10 @@ public abstract class Entity {
 			case 2:	futureX += velocity * delta; break;                               // E
 			case 4:	futureY += velocity * delta; break;                               // S
 			case 6:	futureX -= velocity * delta; break;                               // O
-			case 1:	futureX += velocity * delta; futureY -= velocity * delta; break;  // NE
-			case 3:	futureX += velocity * delta; futureY += velocity * delta; break;  // SE
-			case 5:	futureX -= velocity * delta; futureY += velocity * delta; break;  // SO
-			case 7:	futureX -= velocity * delta; futureY -= velocity * delta; break;  // NO
+			case 1:	futureX += velocity * delta * 0.707; futureY -= velocity * delta * 0.707; break;  // NE
+			case 3:	futureX += velocity * delta * 0.707; futureY += velocity * delta * 0.707; break;  // SE
+			case 5:	futureX -= velocity * delta * 0.707; futureY += velocity * delta * 0.707; break;  // SO
+			case 7:	futureX -= velocity * delta * 0.707; futureY -= velocity * delta * 0.707; break;  // NO
 			}
 
 			// Si on sort de la map ben en fait non (au cas où)
