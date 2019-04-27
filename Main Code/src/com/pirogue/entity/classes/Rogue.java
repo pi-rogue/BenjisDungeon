@@ -9,7 +9,7 @@ public class Rogue extends Hero {
 
 	public Rogue(int x, int y) throws SlickException {
 		super(x, y, "rogue");
-		this.inventory.equipment[5] = new Daggers();
+		this.inventory.equipment[5] = new Daggers("bloody_daggers"); // Commence avec une arme dans sa main droite
 		refreshAnimations();
 	}
 }

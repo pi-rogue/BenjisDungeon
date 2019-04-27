@@ -5,8 +5,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
-import com.pirogue.game.Animation;
 import com.pirogue.game.Constants;
+import com.pirogue.game.util.Animation;
 
 public abstract class Entity {
 

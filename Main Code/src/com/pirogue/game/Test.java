@@ -42,14 +42,6 @@ public class Test extends BasicGame {
         this.dungeon.spawnHero();
 	}
 
-	public void keyReleased(int key, char c) {
-		if (key == Constants.KEY_Exit) {
-			if (dungeon.hero.inInventory())	dungeon.hero.toggleInventory();
-            else if (Constants.inConsole) Constants.inConsole=false;
-			else container.exit(); // TODO: Mettre un menu à la place de quitter directement
-		}
-	}
-
 	public void keyPressed(int key, char c) {
         if (key == Constants.KEY_Console) {
             Constants.inConsole=!Constants.inConsole;
@@ -67,8 +59,16 @@ public class Test extends BasicGame {
     		else if (key == Constants.KEY_Inventory) {
     			dungeon.hero.toggleInventory();
     		}
+    		else if (key == Constants.KEY_Attack) {
+    			dungeon.hero.attack();
+    		}
         }
-
+        
+		if (key == Constants.KEY_Exit) { // Dans tous les cas si c'est <escape>
+			if (dungeon.hero.inInventory())	dungeon.hero.toggleInventory();
+            else if (Constants.inConsole) Constants.inConsole=false;
+			else container.exit(); // TODO: Mettre un menu à la place de quitter directement
+		}
 	}
 
 	private String arrowsDirection() {
@@ -98,7 +98,7 @@ public class Test extends BasicGame {
 			dungeon.getCurrentFloor().tabMob[i].pathfinding(this.dungeon.hero.x,this.dungeon.hero.y);
 			dungeon.getCurrentFloor().tabMob[i].update(container, delta);
 		}
-
+		
 		String arrowsDir = arrowsDirection();
 		if (arrowsDir.equals("") || Constants.inConsole)
 			dungeon.hero.setMoving(-1);

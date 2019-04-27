@@ -1,13 +1,12 @@
 package com.pirogue.game;
 
-import java.io.File;
-import java.util.HashMap;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+
+import com.pirogue.game.util.AnimationsContainer;
 
 public class Constants {
 
@@ -15,7 +14,7 @@ public class Constants {
 
 	/* GLOBAL */
 	public static boolean SHOW_FPS = true;
-	public static boolean FULLSCREEN = false;
+	public static boolean FULLSCREEN = true;
 	public static boolean VERTICAL_SYNC = false;
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	public static int FPS_MAX = 200;   // Ca évite de faire chauffer les bons pcs qui tournent à 2000 fps
@@ -54,6 +53,7 @@ public class Constants {
 	public static int KEY_Right = Input.KEY_D;
 	public static int KEY_Inventory = Input.KEY_TAB;
 	public static int KEY_Console = Input.KEY_APOSTROPHE;
+	public static int KEY_Attack = Input.KEY_E;
 	//public static int AxeX = Input.
 
 
@@ -66,7 +66,7 @@ public class Constants {
 	public static Dungeon dungeon;
 	public static int nbFloors=1;
 	public static int nbMob=300;
-	public static HashMap<String, Animation[]> animations = new HashMap<String, Animation[]>(); // Contient toutes les animations de tous les mobs/joueurs
+	public static AnimationsContainer animations; // Contient toutes les animations de tous les mobs/joueurs
 	public static Tile Droite, Gauche, Bas, Haut,
 						AngleHG, AngleHD, AngleBG, AngleBD,
 						CoinHG, CoinHD, CoinBG, CoinBD,
@@ -75,6 +75,9 @@ public class Constants {
 
 	// ------ Initialization ------ //
 	public static void init() throws SlickException {
+		animations = new AnimationsContainer();
+		
+		
 		SpriteSheet tilesheet = new SpriteSheet(tileset, blockSize, blockSize);
 		SpriteSheet collidesheet = new SpriteSheet(collide, blockSize, blockSize);
 		Droite = 	new Tile(tilesheet.getSprite(0, 6),collidesheet.getSprite(0, 6));
@@ -106,33 +109,6 @@ public class Constants {
 		for (int i=0; i<tilesheet.getHorizontalCount(); i++) {
 			Murs[n] = new Tile(tilesheet.getSprite(i, 5),collidesheet.getSprite(i, 5));
 			n++;
-		}
-
-		initAnimations(new File("src/assets/sprites"));
-	}
-
-	public static void initAnimations(File currentFile) throws SlickException {
-		for (File file : currentFile.listFiles()) {
-			if (file.isDirectory())
-				initAnimations(file);
-			else {
-				String key = String.join(" ", file.getPath().substring(19, file.getPath().indexOf(".")).split("\\\\"));
-				key = key.split(" ", 2)[1];
-				SpriteSheet sprite = new SpriteSheet(file.getPath(), blockSize * (key.matches(" attack ")?2:1), blockSize);
-				int duration = key.matches("slime") ? 200 : 100;
-				int spriteImgWidth = sprite.getWidth();
-				int spriteImgHeight = sprite.getHeight();
-				Animation[] anims = new Animation[spriteImgHeight/blockSize];
-
-				for (int n=0; n<spriteImgHeight/blockSize; n++) {
-					Animation anim = new Animation();
-					for (int i=0; i<spriteImgWidth/blockSize; i++) {
-						anim.addFrame(sprite.getSprite(i, n), duration);
-					}
-					anims[n] = anim;
-				}
-				animations.put(key, anims);
-			}
 		}
 	}
 }

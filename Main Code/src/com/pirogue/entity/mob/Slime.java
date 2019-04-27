@@ -18,6 +18,7 @@ public class Slime extends Mob {
 	protected void refreshAnimations() {
 		restAnims = Constants.animations.get("slime rest " + _color);
 		movingAnims = Constants.animations.get("slime moving " + _color);
+		for (int n=0; n<restAnims.length; n++) movingAnims[n].setPingPong(true);
 	}
 
 	@Override

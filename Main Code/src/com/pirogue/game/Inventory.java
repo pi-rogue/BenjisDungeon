@@ -117,10 +117,6 @@ public class Inventory {
 		return this.inventorySize;
 	}
 	
-	public String getEquipment() {
-		return String.join(" ", equipment[0].getID(), equipment[1].getID(), equipment[2].getID(), equipment[3].getID(), equipment[4].getID(), equipment[5].getID());
-	}
-
 	public Rectangle getHeroCell() {
 		return heroCell;
 	}
