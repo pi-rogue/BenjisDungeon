@@ -11,16 +11,7 @@ public class List {
 	
 	private int i,level_max=29;
 	{
-		for(i=0;i<=199999;i++)
-		{
-			try {
-				Items[i] = new EmptyItem();
-				System.out.println(i);
-			} catch (SlickException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		
 	for(i=0;i<=level_max;i++)
 	
 	{

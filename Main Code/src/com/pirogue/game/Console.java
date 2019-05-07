@@ -85,6 +85,10 @@ public class Console {
 			}
 			else
 			{
+				if((obj.Items[(int)ID])==null)
+					break;
+				else
+				{
 				System.out.println(ID);
 				
 				Inventory.objects[n] = obj.Items[(int)ID];			
@@ -99,4 +103,4 @@ public class Console {
 	};*/
 
 
-}}
+}}}
