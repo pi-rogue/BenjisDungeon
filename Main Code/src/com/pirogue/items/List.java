@@ -1,4 +1,6 @@
 package com.pirogue.items;
+import org.newdawn.slick.SlickException;
+
 import com.pirogue.items.Item;
 
 public class List {
@@ -9,9 +11,11 @@ public class List {
 	private int i,level_max=30;
 	{
 	for(i=0;i<=level_max;i++)
+	
 	{
-	Items[i] = new Axe("Farmer_Axe_common_"+Integer.toString(i),i,"Farmer_Axe",11,1.1,0,0,0.8,0,0,i);
-	Items[100+i] = new Axe("Farmer_Axe_unusual_"+Integer.toString(i),100+i,"Farmer_Axe",13,1.4,0,0,0.8,0,0,i);
+	try {
+		Items[i] = new Axe("Farmer_Axe_common_"+Integer.toString(i),i,"Farmer_Axe",11,1.1,0,0,0.8,0,0,i);
+		Items[100+i] = new Axe("Farmer_Axe_unusual_"+Integer.toString(i),100+i,"Farmer_Axe",13,1.4,0,0,0.8,0,0,i);
 	Items[200+i] = new Axe("Farmer_Axe_rare_"+Integer.toString(i),200+i,"Farmer_Axe",15,1.8,0,0,0.8,0,0,i);
 	Items[300+i] = new Axe("Farmer_Axe_epic_"+Integer.toString(i),300+i,"Farmer_Axe",17,2.2,0,0,0.8,0,0,i);
 	
@@ -203,9 +207,11 @@ public class List {
 	Items[131400+i] = new Feet("Slippers_rare_"+Integer.toString(i),131400+i,"Slippers",20,7,i);
 	Items[131500+i] = new Feet("Slippers_epic_"+Integer.toString(i),131500+i,"Slippers",30,8,i);
 
-
+	} catch (SlickException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
 	}
 }
-
+}
 
