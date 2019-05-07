@@ -23,7 +23,7 @@ public class Inventory {
 	private Rectangle[] cellsEquipment;
 	private Rectangle heroCell;
 
-	public Item[] objects;
+	public static Item[] objects;
 	public Item[] equipment;
 	
 	public Inventory() throws SlickException {
