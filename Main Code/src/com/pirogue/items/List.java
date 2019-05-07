@@ -6,16 +6,27 @@ import com.pirogue.items.Item;
 public class List {
 
 	//double damage,double damage_level,double power,double power_level,double attack_speed,double heal ,double health_level,int level	
-	public static Item Items[];
+	public Item[] Items = new Item[200000];
 	
-	private int i,level_max=30;
+	
+	private int i,level_max=29;
 	{
+		for(i=0;i<=199999;i++)
+		{
+			try {
+				Items[i] = new EmptyItem();
+				System.out.println(i);
+			} catch (SlickException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	for(i=0;i<=level_max;i++)
 	
 	{
 	try {
-		Items[i] = new Axe("Farmer_Axe_common_"+Integer.toString(i),i,"Farmer_Axe",11,1.1,0,0,0.8,0,0,i);
-		Items[100+i] = new Axe("Farmer_Axe_unusual_"+Integer.toString(i),100+i,"Farmer_Axe",13,1.4,0,0,0.8,0,0,i);
+	/*Items[i] = new Axe("Farmer_Axe_common_"+Integer.toString(i),i,"Farmer_Axe",11,1.1,0,0,0.8,0,0,i);
+	Items[100+i] = new Axe("Farmer_Axe_unusual_"+Integer.toString(i),100+i,"Farmer_Axe",13,1.4,0,0,0.8,0,0,i);
 	Items[200+i] = new Axe("Farmer_Axe_rare_"+Integer.toString(i),200+i,"Farmer_Axe",15,1.8,0,0,0.8,0,0,i);
 	Items[300+i] = new Axe("Farmer_Axe_epic_"+Integer.toString(i),300+i,"Farmer_Axe",17,2.2,0,0,0.8,0,0,i);
 	
@@ -29,10 +40,10 @@ public class List {
 	Items[1000+i] = new Axe("Basic_Axe_rare_"+Integer.toString(i),1000+i,"Basic_Axe",19,3.2,0,0,0.8,0,0,i);
 	Items[1100+i] = new Axe("Basic_Axe_epic_"+Integer.toString(i),1100+i,"Basic_Axe",23,4.2,0,0,0.8,0,0,i);
 	
-	Items[1200+i] = new Axe("Ancient_Axe_common_"+Integer.toString(i),1200+i,"Ancient_Axe",13,2.2,0,0,0.8,0,0,i);
-	Items[1300+i] = new Axe("Ancient_Axe_unusual_"+Integer.toString(i),1300+i,"Ancient_Axe",16,2.7,0,0,0.8,0,0,i);
-	Items[1400+i] = new Axe("Ancient_Axe_rare_"+Integer.toString(i),1400+i,"Ancient_Axe",19,3.2,0,0,0.8,0,0,i);
-	Items[1500+i] = new Axe("Ancient_Axe_epic_"+Integer.toString(i),1500+i,"Ancient_Axe",23,4.2,0,0,0.8,0,0,i);
+	Items[1200+i] = new Axe("ancient_daggers_Axe_common_"+Integer.toString(i),1200+i,"ancient_daggers_Axe",13,2.2,0,0,0.8,0,0,i);
+	Items[1300+i] = new Axe("ancient_daggers_Axe_unusual_"+Integer.toString(i),1300+i,"ancient_daggers_Axe",16,2.7,0,0,0.8,0,0,i);
+	Items[1400+i] = new Axe("ancient_daggers_Axe_rare_"+Integer.toString(i),1400+i,"ancient_daggers_Axe",19,3.2,0,0,0.8,0,0,i);
+	Items[1500+i] = new Axe("ancient_daggers_Axe_epic_"+Integer.toString(i),1500+i,"ancient_daggers_Axe",23,4.2,0,0,0.8,0,0,i);
 	
 	
 	Items[10000+i] = new Swords("Farmer_Sword_common_"+Integer.toString(i),10000+i,"Farmer_Sword",10,1,0,0,1,0,0,i);
@@ -50,10 +61,10 @@ public class List {
 	Items[11000+i] = new Swords("Basic_Sword_rare_"+Integer.toString(i),11000+i,"Basic_Sword",18,3,0,0,1,0,0,i);
 	Items[11100+i] = new Swords("Basic_Sword_epic_"+Integer.toString(i),11100+i,"Basic_Sword",22,4,0,0,1,0,0,i);
 	
-	Items[11200+i] = new Swords("Ancient_Sword_common_"+Integer.toString(i),11200+i,"Ancient_Sword",12,2,0,0,1,0,0,i);
-	Items[11300+i] = new Swords("Ancient_Sword_unusual_"+Integer.toString(i),11300+i,"Ancient_Sword",15,2.5,0,0,1,0,0,i);
-	Items[11400+i] = new Swords("Ancient_Sword_rare_"+Integer.toString(i),11400+i,"Ancient_Sword",18,3,0,0,1,0,0,i);
-	Items[11500+i] = new Swords("Ancient_Sword_epic_"+Integer.toString(i),11500+i,"Ancient_Sword",22,4,0,0,1,0,0,i);
+	Items[11200+i] = new Swords("ancient_daggers_Sword_common_"+Integer.toString(i),11200+i,"ancient_daggers_Sword",12,2,0,0,1,0,0,i);
+	Items[11300+i] = new Swords("ancient_daggers_Sword_unusual_"+Integer.toString(i),11300+i,"ancient_daggers_Sword",15,2.5,0,0,1,0,0,i);
+	Items[11400+i] = new Swords("ancient_daggers_Sword_rare_"+Integer.toString(i),11400+i,"ancient_daggers_Sword",18,3,0,0,1,0,0,i);
+	Items[11500+i] = new Swords("ancient_daggers_Sword_epic_"+Integer.toString(i),11500+i,"ancient_daggers_Sword",22,4,0,0,1,0,0,i);
 	
 	
 	Items[20000+i] = new Staff("Basic_Staff_common_"+Integer.toString(i),20000+i,"Basic_Staff",8,1,10,0.3,0.5,0,0,i);
@@ -66,10 +77,10 @@ public class List {
 	Items[20600+i] = new Staff("Void_Staff_rare_"+Integer.toString(i),20600+i,"Void_Staff",10,1.2,24,0.3,0.5,0,0,i);
 	Items[20700+i] = new Staff("Void_Staff_epic_"+Integer.toString(i),20700+i,"Void_Staff",12,1.3,36,0.3,0.5,0,0,i);
 	
-	Items[20800+i] = new Staff("Ancient_Staff_common_"+Integer.toString(i),20800+i,"Ancient_Staff",8,1,12,0.3,0.5,0,0,i);
-	Items[20900+i] = new Staff("Ancient_Staff_unusual_"+Integer.toString(i),20900+i,"Ancient_Staff",9,1.1,24,0.3,0.5,0,0,i);
-	Items[21000+i] = new Staff("Ancient_Staff_rare_"+Integer.toString(i),21000+i,"Ancient_Staff",10,1.2,36,0.3,0.5,0,0,i);
-	Items[21100+i] = new Staff("Ancient_Staff_epic_"+Integer.toString(i),21100+i,"Ancient_Staff",12,1.3,50,0.3,0.5,0,0,i);	
+	Items[20800+i] = new Staff("ancient_daggers_Staff_common_"+Integer.toString(i),20800+i,"ancient_daggers_Staff",8,1,12,0.3,0.5,0,0,i);
+	Items[20900+i] = new Staff("ancient_daggers_Staff_unusual_"+Integer.toString(i),20900+i,"ancient_daggers_Staff",9,1.1,24,0.3,0.5,0,0,i);
+	Items[21000+i] = new Staff("ancient_daggers_Staff_rare_"+Integer.toString(i),21000+i,"ancient_daggers_Staff",10,1.2,36,0.3,0.5,0,0,i);
+	Items[21100+i] = new Staff("ancient_daggers_Staff_epic_"+Integer.toString(i),21100+i,"ancient_daggers_Staff",12,1.3,50,0.3,0.5,0,0,i);	
 		
 	Items[21200+i] = new Staff("Corrupted_Staff_common_"+Integer.toString(i),21200+i,"Corrupted_Staff",8,1,20,0.3,0.5,-10,-6,i);
 	Items[21300+i] = new Staff("Corrupted_Staff_unusual_"+Integer.toString(i),21300+i,"Corrupted_Staff",9,1.1,30,0.3,0.5,-10,-6,i);
@@ -97,26 +108,26 @@ public class List {
 	Items[31400+i] = new Bow("Poisonned_Bow_rare_"+Integer.toString(i),31400+i,"Poisonned_Bow",24,3.6,0,0,1,0,0,i);
 	Items[31500+i] = new Bow("Poisonned_Bow_epic_"+Integer.toString(i),31500+i,"Poisonned_Bow",28,4.4,0,0,1,0,0,i);
 	
-	
-	Items[40000+i] = new Daggers("Basic_Daggers_common_"+Integer.toString(i),40000+i,"Basic_Daggers",8,4.2,0,0,1,0,0,i);
-	Items[40100+i] = new Daggers("Basic_Daggers_unusual_"+Integer.toString(i),40100+i,"Basic_Daggers",10,4.8,0,0,1,0,0,i);
-	Items[40200+i] = new Daggers("Basic_Daggers_rare_"+Integer.toString(i),40200+i,"Basic_Daggers",12,5.4,0,0,1,0,0,i);
-	Items[40300+i] = new Daggers("Basic_Daggers_epic_"+Integer.toString(i),40300+i,"Basic_Daggers",14,6,0,0,1,0,0,i);
+	*/
+	Items[40000+i] = new Daggers("basic_daggers_common_"+Integer.toString(i),40000+i,"basic_daggers",8,4.2,0,0,1,0,0,i);
+	Items[40100+i] = new Daggers("basic_daggers_unusual_"+Integer.toString(i),40100+i,"basic_daggers",10,4.8,0,0,1,0,0,i);
+	Items[40200+i] = new Daggers("basic_daggers_rare_"+Integer.toString(i),40200+i,"basic_daggers",12,5.4,0,0,1,0,0,i);
+	Items[40300+i] = new Daggers("basic_daggers_epic_"+Integer.toString(i),40300+i,"basic_daggers",14,6,0,0,1,0,0,i);
 
-	Items[40400+i] = new Daggers("Assassin_Daggers_common_"+Integer.toString(i),40400+i,"Assassin_Daggers",16,4.2,0,0,1,0,0,i);
-	Items[40500+i] = new Daggers("Assassin_Daggers_unusual_"+Integer.toString(i),40500+i,"Assassin_Daggers",20,4.8,0,0,1,0,0,i);
-	Items[40600+i] = new Daggers("Assassin_Daggers_rare_"+Integer.toString(i),40600+i,"Assassin_Daggers",24,5.4,0,0,1,0,0,i);
-	Items[40700+i] = new Daggers("Assassin_Daggers_epic_"+Integer.toString(i),40700+i,"Assassin_Daggers",18,6,0,0,1,0,0,i);
+	Items[40400+i] = new Daggers("assassin_daggers_common_"+Integer.toString(i),40400+i,"assassin_daggers",16,4.2,0,0,1,0,0,i);
+	Items[40500+i] = new Daggers("assassin_daggers_unusual_"+Integer.toString(i),40500+i,"assassin_daggers",20,4.8,0,0,1,0,0,i);
+	Items[40600+i] = new Daggers("assassin_daggers_rare_"+Integer.toString(i),40600+i,"assassin_daggers",24,5.4,0,0,1,0,0,i);
+	Items[40700+i] = new Daggers("assassin_daggers_epic_"+Integer.toString(i),40700+i,"assassin_daggers",18,6,0,0,1,0,0,i);
 
-	Items[40800+i] = new Daggers("Bloody_Daggers_common_"+Integer.toString(i),40800+i,"Bloody_Daggers",8,4.2,0,0,1,0,0,i);
-	Items[40900+i] = new Daggers("Bloody_Daggers_unusual_"+Integer.toString(i),40900+i,"Bloody_Daggers",10,4.8,0,0,1,0,0,i);
-	Items[41000+i] = new Daggers("Bloody_Daggers_rare_"+Integer.toString(i),41000+i,"Bloody_Daggers",12,5.4,0,0,1,0,0,i);
-	Items[41100+i] = new Daggers("Bloody_Daggers_epic_"+Integer.toString(i),41100+i,"Bloody_Daggers",14,6,0,0,1,0,0,i);
+	Items[40800+i] = new Daggers("bloody_daggers_common_"+Integer.toString(i),40800+i,"bloody_daggers",8,4.2,0,0,1,0,0,i);
+	Items[40900+i] = new Daggers("bloody_daggers_unusual_"+Integer.toString(i),40900+i,"bloody_daggers",10,4.8,0,0,1,0,0,i);
+	Items[41000+i] = new Daggers("bloody_daggers_rare_"+Integer.toString(i),41000+i,"bloody_daggers",12,5.4,0,0,1,0,0,i);
+	Items[41100+i] = new Daggers("bloody_daggers_epic_"+Integer.toString(i),41100+i,"bloody_daggers",14,6,0,0,1,0,0,i);
 
-	Items[41200+i] = new Daggers("Ancient_Daggers_common_"+Integer.toString(i),41200+i,"Ancient_Daggers",9,4.2,0,0,1,0,0,i);
-	Items[41300+i] = new Daggers("Ancient_Daggers_unusual_"+Integer.toString(i),41300+i,"Ancient_Daggers",11,4.8,0,0,1,0,0,i);
-	Items[41400+i] = new Daggers("Ancient_Daggers_rare_"+Integer.toString(i),41400+i,"Ancient_Daggers",13,5.4,0,0,1,0,0,i);
-	Items[41500+i] = new Daggers("Ancient_Daggers_epic_"+Integer.toString(i),41500+i,"Ancient_Daggers",15,6,0,0,1,0,0,i);
+	Items[41200+i] = new Daggers("ancient_daggers_common_"+Integer.toString(i),41200+i,"ancient_daggers",9,4.2,0,0,1,0,0,i);
+	Items[41300+i] = new Daggers("ancient_daggers_unusual_"+Integer.toString(i),41300+i,"ancient_daggers",11,4.8,0,0,1,0,0,i);
+	Items[41400+i] = new Daggers("ancient_daggers_rare_"+Integer.toString(i),41400+i,"ancient_daggers",13,5.4,0,0,1,0,0,i);
+	Items[41500+i] = new Daggers("ancient_daggers_epic_"+Integer.toString(i),41500+i,"ancient_daggers",15,6,0,0,1,0,0,i);
 	
 	
 	
@@ -124,7 +135,7 @@ public class List {
 	//double health, double health_level
 	
 	
-	Items[100000+i] = new Head("Hat_common_"+Integer.toString(i),100000+i,"Hat",10,5,i);
+	/*Items[100000+i] = new Head("Hat_common_"+Integer.toString(i),100000+i,"Hat",10,5,i);
 	Items[100100+i] = new Head("Hat_unusual_"+Integer.toString(i),100100+i,"Hat",15,6,i);
 	Items[100200+i] = new Head("Hat_rare_"+Integer.toString(i),100200+i,"Hat",20,7,i);
 	Items[100300+i] = new Head("Hat_epic_"+Integer.toString(i),100300+i,"Hat",30,8,i);
@@ -206,7 +217,7 @@ public class List {
 	Items[131300+i] = new Feet("Slippers_unusual_"+Integer.toString(i),131300+i,"Slippers",15,6,i);
 	Items[131400+i] = new Feet("Slippers_rare_"+Integer.toString(i),131400+i,"Slippers",20,7,i);
 	Items[131500+i] = new Feet("Slippers_epic_"+Integer.toString(i),131500+i,"Slippers",30,8,i);
-
+*/
 	} catch (SlickException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

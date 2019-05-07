@@ -8,8 +8,10 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import com.pirogue.items.Daggers;
 import com.pirogue.items.EmptyItem;
 import com.pirogue.items.Item;
+import com.pirogue.items.List;
 
 
 public class Inventory {
@@ -39,13 +41,14 @@ public class Inventory {
 		this.backgroundY = (Constants.SCREEN_HEIGHT-background.getHeight())/2;		
 		
 		loadCells();
-		this.objects = new Item[inventorySize];
+		Inventory.objects = new Item[inventorySize];
 		for (int n=0; n<inventorySize; n++) {
 			objects[n] = new EmptyItem();
 		}
 		for (int n=0; n<6; n++) {
 			equipment[n] = new EmptyItem();
 		}
+
 }
 	
 	public void render(Graphics g) {

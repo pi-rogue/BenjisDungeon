@@ -21,8 +21,12 @@ public abstract class Item {
 	public int range;
 	
 	//abstract void spell();
-
-	public Item(String name,String ID, String type,  Image texture,int range,double damage,double damage_level,double power,double power_level,double attack_speed,double heal ,double health_level,int level) {
+	public Item()
+	{
+		
+	}
+	
+	public Item(String name,String ID, String type,  Image texture,int range,double damage,double damage_level,double power,double power_level,double attack_speed,double health ,double health_level,int level) {
 		this.name=name;
 		this.ID = ID;
 		this.type = type;
@@ -44,5 +48,48 @@ public abstract class Item {
 
 	public Image getTexture() {
 		return texture;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public int getRange() {
+		return range;
+	}
+	
+	public double getDamage() {
+		return damage;
+	}
+	
+	public double getDamage_level() {
+		return damage_level;
+			}
+	
+	public double getPower() {
+		return power;
+	}
+	
+	public double getPower_level() {
+		return power_level;
+			}
+	
+	public double getHealth() {
+		return health;
+	}
+	
+	public double getHealth_level() {
+		return health_level;
+			}
+	public int getLevel() {
+		return level;
+	}
+	
+	public double getAttack_speed() {
+		return attack_speed;
 	}
 }

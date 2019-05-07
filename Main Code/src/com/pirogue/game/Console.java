@@ -7,12 +7,16 @@ import org.newdawn.slick.SlickException;
 
 import com.pirogue.items.List;
 import com.pirogue.game.Inventory;
+import com.pirogue.items.Axe;
+import com.pirogue.items.Daggers;
 import com.pirogue.items.EmptyItem;
+import com.pirogue.items.Item;
 
 public class Console {
 	
 	
 	public String enteredString;
+	List obj = new List();
 	
 	public Console() {
 		this.enteredString = "";
@@ -53,25 +57,38 @@ public class Console {
 	
 	void executeCommand(String command) throws SlickException {
 		
-		int n=0;
+		//int n=0;
 		
 		if (command.equals("walid")) System.out.println("OK. OP MODE ENABLED");
 			
 		String[] word = command.split(" ");
-		word[1]=word[1].toLowerCase();
 		switch(word[0]) {
 		case "/give" :
+			int n=0;
+			double ID;
 			while((!(Inventory.objects[n] instanceof EmptyItem)))
 			{
 				n++;
 			}
-			if (word[1]=="empty")
+			if (word[1].equals("empty") || word[1].equals(""))
 			{
 				break;
 			}
-			Inventory.objects[n]=List.Items[Integer.parseInt(word[1])];
-			
-			break;
+			else
+			{
+				word[1]=word[1].replaceAll("[^0-9\\.]", "");
+				ID = Double.parseDouble(word[1]);
+				
+			if(ID>=200000)
+			{
+				break;
+			}
+			else
+			{
+				System.out.println(ID);
+				
+				Inventory.objects[n] = obj.Items[(int)ID];			
+			}
 		}
 		
 	}
@@ -82,4 +99,4 @@ public class Console {
 	};*/
 
 
-}
+}}
