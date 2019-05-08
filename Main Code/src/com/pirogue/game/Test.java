@@ -50,24 +50,18 @@ public class Test extends BasicGame {
         }
 
         else if (Constants.inConsole) { // Si la console est ouverte
-            try {
-				console.keyPressed(key, c);
-					} catch (SlickException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} // On transmet tous les inputs clavier à la console
+        	// On transmet tous les inputs clavier à la console en filtrant certaines touches
+        	if (key!=Input.KEY_LSHIFT  && key!=Input.KEY_RSHIFT &&
+        		key!=Input.KEY_LALT    && key!=Input.KEY_RALT   &&
+   				key!=Input.KEY_CAPITAL && key!=Input.KEY_TAB) console.keyPressed(key, c);
         }
 
 		else { // Sinon c'est le comportement normal
             if (key == Constants.KEY_DebugView) {
-                dungeon.getCurrentFloor().toggleDebugView();
-    			Constants.debug = !Constants.debug;
+                Constants.debug = !Constants.debug;
     		}
     		else if (key == Constants.KEY_Inventory) {
     			dungeon.hero.toggleInventory();
-    		}
-    		else if (key == Constants.KEY_Attack) {
-    			dungeon.hero.attack();
     		}
         }
         
@@ -83,10 +77,10 @@ public class Test extends BasicGame {
 
 		String directionV = ""; // verticale
 		String directionH = ""; // horizontale
-		if (input.isKeyDown(Constants.KEY_Up)) {directionV += "N";}
-		if (input.isKeyDown(Constants.KEY_Down)) {directionV += "S";}
-		if (input.isKeyDown(Constants.KEY_Right)) {directionH += "E";}
-		if (input.isKeyDown(Constants.KEY_Left)) {directionH += "O";}
+		if (input.isKeyDown(Constants.KEY_Up   )) directionV += "N";
+		if (input.isKeyDown(Constants.KEY_Down )) directionV += "S";
+		if (input.isKeyDown(Constants.KEY_Left )) directionH += "O";
+		if (input.isKeyDown(Constants.KEY_Right)) directionH += "E";
 		if (directionV.length()>1) directionV = "";
 		if (directionH.length()>1) directionH = "";
 		return directionV + directionH;
@@ -95,21 +89,31 @@ public class Test extends BasicGame {
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		dungeon.render(g);
-        if (Constants.inConsole) console.render(g);
+        console.render(g);
 	}
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
+		// -- Update mouse input -- //
+		Input input = container.getInput();
+		if (!Constants.mousePressed && input.isMousePressed(Constants.KEY_Attack)) dungeon.hero.attack();
+		Constants.mousePressed = input.isMouseButtonDown(0);
+		Constants.mouseX = input.getMouseX();
+		Constants.mouseY = input.getMouseY();
+		
+		// -- Update hero and mobs -- //
 		dungeon.hero.update(container, delta);
 		for(int i=0; i<Constants.nbMob; i++) {
 			dungeon.getCurrentFloor().tabMob[i].pathfinding(this.dungeon.hero.x,this.dungeon.hero.y);
 			dungeon.getCurrentFloor().tabMob[i].update(container, delta);
 		}
 		
+		// -- Update arrows input -- //
 		String arrowsDir = arrowsDirection();
+		console.update(delta, arrowsDir);
 		if (arrowsDir.equals("") || Constants.inConsole)
 			dungeon.hero.setMoving(-1);
-		else { // Pour le momentum on a juste à ajouter dans cette ligne un elseif avec la condition compteur>10
+		else { // TODO: Pour le momentum on a juste à ajouter dans cette ligne un elseif avec la condition compteur>10
 			switch (arrowsDir) {
 			case "N" : dungeon.hero.setMoving(0); break;
 			case "NE": dungeon.hero.setMoving(1); break;
@@ -121,19 +125,5 @@ public class Test extends BasicGame {
 			case "NO": dungeon.hero.setMoving(7); break;
 			}
 		}
-	}
-
-	public void mouseMoved(int oldx, int oldy, int newx, int newy) {
-		Constants.mouseX = newx;
-		Constants.mouseY = newy;
-
-	}
-
-	public void mousePressed(int button, int x, int y) {
-		if (button==0) Constants.mousePressed = true;
-	}
-
-	public void mouseReleased(int button, int x, int y) {
-		if (button==0) Constants.mousePressed = false;
 	}
 }

@@ -10,7 +10,7 @@ import com.pirogue.game.Constants;
 
 public class AnimationsContainer extends HashMap<String, Animation[]> {
 
-	private static final long serialVersionUID = -1488664563812300023L;
+	private static final long serialVersionUID = -5410647083482878529L;
 
 	public AnimationsContainer() throws SlickException {
 			this.initAnimations(new File("src/assets/sprites"));
@@ -34,7 +34,7 @@ public class AnimationsContainer extends HashMap<String, Animation[]> {
 				key = key.split(" ", 2)[1];
 				
 				int cellWidth = Constants.blockSize * (key.matches("attack .*") ? 2:1); // Permet de gérer les spritesheets bizarres de wiwi
-				int cellHeight = Constants.blockSize; // Si on a plus tard des spritesheets avec une hauteur plus grande
+				int cellHeight = Constants.blockSize; // Si on a plus tard des spritesheets avec une hauteur plus grande (pour l'attaque vers le haut par exemple ?)
 				int duration = key.matches(".*slime.*") ? 150 : 100;
 				SpriteSheet sprite = new SpriteSheet(file.getPath(), cellWidth, cellHeight);
 				int spriteImgWidth = sprite.getWidth();

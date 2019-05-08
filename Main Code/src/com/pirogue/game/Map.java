@@ -9,10 +9,8 @@ import com.pirogue.entity.mob.Slime;
 
 public class Map {
 	
-	private boolean debugView; // Permet d'afficher les collisions pour debug
-	
 	public int width, height;
-	public float blockSize;
+	public int blockSize;
 	protected boolean grille[][];
 	protected Tile Blocks[][];
 	private int salleX=0, salleY=0, tailleSalleX=0, tailleSalleY=0;
@@ -189,7 +187,7 @@ public class Map {
 		for (int x=Xi; x<Xf; x++) {
 			for (int y=Yi; y<Yf; y++) {
 				Image texture;
-				if (this.debugView) texture = Blocks[x][y].getCollide();
+				if (Constants.debug) texture = Blocks[x][y].getCollide();
 				else texture = Blocks[x][y].getTexture();
 				
 				if (texture != null) {
@@ -201,19 +199,15 @@ public class Map {
 	
 	public void renderMobs(Graphics g, int heroX, int heroY) {
 		// On n'affiche que les mobs qui sont dans l'écran pour améliorer les perfs
-		int Xi=heroX-Constants.SCREEN_WIDTH/2;
-		int Xf=heroX+Constants.SCREEN_WIDTH/2;
-		int Yi=heroY-Constants.SCREEN_WIDTH/2;
-		int Yf=heroY+Constants.SCREEN_WIDTH/2;
+		int Xi=heroX-blockSize-Constants.SCREEN_WIDTH/2;
+		int Xf=heroX+blockSize+Constants.SCREEN_WIDTH/2;
+		int Yi=heroY-blockSize-Constants.SCREEN_WIDTH/2;
+		int Yf=heroY+blockSize+Constants.SCREEN_WIDTH/2;
 		
 		for(int i=0; i<Constants.nbMob; i++) {
 			if (tabMob[i].getX()>=Xi && tabMob[i].getX()<=Xf && tabMob[i].getY()>=Yi && tabMob[i].getY()<=Yf ) {
 				tabMob[i].render(g, heroX, heroY);
 			}
 		}
-	}
-	
-	public void toggleDebugView() {
-		debugView = !debugView;
 	}
 }

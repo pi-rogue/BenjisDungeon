@@ -1,11 +1,8 @@
 package com.pirogue.items;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-
 public class EmptyItem extends Item {
 
-	public EmptyItem() throws SlickException {
-		super("EmptyItem","empty", "none", new Image("assets/items/empty.png"),0,0,0,0,0,0,0,0,0);
+	public EmptyItem() {
+		super("EmptyItem","empty", "none", "empty",0,0,0,0,0,0,0,0,0);
 	}
 }

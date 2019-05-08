@@ -1,6 +1,7 @@
 package com.pirogue.items;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 public abstract class Item {
 
@@ -9,6 +10,7 @@ public abstract class Item {
 	public String rarity;
 	public String type;
 	private Image texture;
+	private String acces;
 	public double power;
 	public double power_level;
 	public double damage;
@@ -26,11 +28,16 @@ public abstract class Item {
 		
 	}
 	
-	public Item(String name,String ID, String type,  Image texture,int range,double damage,double damage_level,double power,double power_level,double attack_speed,double health ,double health_level,int level) {
+	public Item(String name,String ID, String type, String acces,int range,double damage,double damage_level,double power,double power_level,double attack_speed,double health ,double health_level,int level) {
 		this.name=name;
 		this.ID = ID;
 		this.type = type;
-		this.texture = texture;
+		this.acces = acces;
+		try {
+			this.texture = new Image("assets/items/" + acces + ".png");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 		this.damage = damage + (damage_level * (level-1));
 		this.damage_level = damage_level;
 		this.power = power + (power_level * (level-1));
@@ -48,6 +55,10 @@ public abstract class Item {
 
 	public Image getTexture() {
 		return texture;
+	}
+	
+	public String getAcces() {
+		return acces;
 	}
 	
 	public String getName() {

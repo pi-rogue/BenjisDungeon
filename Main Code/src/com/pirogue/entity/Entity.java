@@ -51,14 +51,14 @@ public abstract class Entity {
 			float futureY = y;
 
 			switch (moving) {
-			case 0:	futureY -= velocity * delta; break;                               // N
-			case 2:	futureX += velocity * delta; break;                               // E
-			case 4:	futureY += velocity * delta; break;                               // S
-			case 6:	futureX -= velocity * delta; break;                               // O
-			case 1:	futureX += velocity * delta * 0.707; futureY -= velocity * delta * 0.707; break;  // NE
-			case 3:	futureX += velocity * delta * 0.707; futureY += velocity * delta * 0.707; break;  // SE
-			case 5:	futureX -= velocity * delta * 0.707; futureY += velocity * delta * 0.707; break;  // SO
-			case 7:	futureX -= velocity * delta * 0.707; futureY -= velocity * delta * 0.707; break;  // NO
+			case 0:	futureY -= velocity * delta;          break;                               // N
+			case 2:	futureX += velocity * 1.344f * delta; break;                               // E
+			case 4:	futureY += velocity * 1.344f * delta; break;                               // S
+			case 6:	futureX -= velocity * delta;          break;                               // O
+			case 1:	futureX += velocity * delta * 0.950f; futureY -= velocity * delta * 0.707f; break;  // NE
+			case 3:	futureX += velocity * delta * 0.950f; futureY += velocity * delta * 0.950f; break;  // SE
+			case 5:	futureX -= velocity * delta * 0.707f; futureY += velocity * delta * 0.950f; break;  // SO
+			case 7:	futureX -= velocity * delta * 0.707f; futureY -= velocity * delta * 0.707f; break;  // NO
 			}
 
 			// Si on sort de la map ben en fait non (au cas où)
@@ -136,7 +136,7 @@ public abstract class Entity {
 					cornerY = futureY+height/2;
 					break;
 				}
-
+				
 				img = Constants.dungeon.getCurrentFloor().getCollideImage((int)(cornerX/Constants.blockSize), (int)(cornerY/Constants.blockSize));
 				if (img != null) {
 					Color color = img.getColor((int)(cornerX % Constants.blockSize), (int)(cornerY % Constants.blockSize));
