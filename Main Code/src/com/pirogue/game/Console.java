@@ -16,10 +16,14 @@ public class Console {
 	
 	
 	public String enteredString;
+	public String historic;
+	public String line;
 	List obj = new List();
 	
 	public Console() {
 		this.enteredString = "";
+		this.historic = " \n \n \n \n \n \n \n \n \n \n \n";
+		this.line = ">";
 	}
 	
 	void render(Graphics g) throws SlickException
@@ -28,7 +32,9 @@ public class Console {
 		g.setColor(test);
 		g.fillRect(0, 0, 500, 300);
 		g.setColor(Color.white);
-		g.drawString(enteredString,0,30);
+		g.drawString(enteredString,20,270);
+		g.drawString(historic,10,10);
+		g.drawString(line, 8, 270);
 	
 	
 /*		Font font = new UnicodeFont(new java.awt.Font("DejaVu Serif", java.awt.Font.PLAIN, 20));
@@ -42,6 +48,7 @@ public class Console {
 		//Input input = Constants.container.getInput();
 	}
 	
+	
 	void keyPressed(int key, char c) throws SlickException {
 		if (key == Input.KEY_BACK)
 		{
@@ -50,10 +57,27 @@ public class Console {
 		}}
 		else if (key == Input.KEY_RETURN) {
 			this.executeCommand(enteredString);
+			this.historic=historic+"\n"+enteredString;
 			this.enteredString="";
+			
 		}
+		
 		else enteredString+=c;
-	}
+		int p;
+		String[] commandes = historic.split("\n");
+		p=commandes.length;
+		System.out.println(p);
+		if((p)>13){
+		this.historic="";
+		for(int i=2;i<p;i++)
+		{
+			historic+= "\n" + commandes[i] ;
+			
+		}
+		}
+	
+		}
+	
 	
 	void executeCommand(String command) throws SlickException {
 		

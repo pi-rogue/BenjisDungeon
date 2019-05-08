@@ -45,10 +45,17 @@ public class Test extends BasicGame {
 	public void keyPressed(int key, char c) {
         if (key == Constants.KEY_Console) {
             Constants.inConsole=!Constants.inConsole;
+            this.console.enteredString="";
+            this.console.historic=" \n \n \n \n \n \n \n \n \n \n \n";
         }
 
         else if (Constants.inConsole) { // Si la console est ouverte
-            console.keyPressed(key, c); // On transmet tous les inputs clavier à la console
+            try {
+				console.keyPressed(key, c);
+					} catch (SlickException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} // On transmet tous les inputs clavier à la console
         }
 
 		else { // Sinon c'est le comportement normal
