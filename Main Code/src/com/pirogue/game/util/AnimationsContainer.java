@@ -35,7 +35,7 @@ public class AnimationsContainer extends HashMap<String, Animation[]> {
 				
 				int cellWidth = Constants.blockSize * (key.matches("attack .*") ? 2:1); // Permet de gérer les spritesheets bizarres de wiwi
 				int cellHeight = Constants.blockSize; // Si on a plus tard des spritesheets avec une hauteur plus grande (pour l'attaque vers le haut par exemple ?)
-				int duration = key.matches(".*slime.*") ? 150 : 100;
+				int duration = key.matches(".*slime.*") ? 150 : key.matches("attack .*") ? 65 : 100; //On teste si c'est slime ou attack, puis on met des valeurs de duration de l'attaque 
 				SpriteSheet sprite = new SpriteSheet(file.getPath(), cellWidth, cellHeight);
 				int spriteImgWidth = sprite.getWidth();
 				int spriteImgHeight = sprite.getHeight();
