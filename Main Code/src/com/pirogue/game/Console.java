@@ -22,7 +22,7 @@ public class Console {
 	
 	public Console() {
 		this.enteredString = "";
-		this.historic = " \n \n \n \n \n \n \n \n \n \n \n";
+		this.historic = " \n \n \n \n \n \n \n \n \n \n \n type your command";
 		this.line = ">";
 	}
 	
@@ -68,6 +68,7 @@ public class Console {
 		p=commandes.length;
 		System.out.println(p);
 		if((p)>13){
+			p=14;
 		this.historic="";
 		for(int i=2;i<p;i++)
 		{
@@ -82,9 +83,10 @@ public class Console {
 	void executeCommand(String command) throws SlickException {
 		
 		//int n=0;
-		
-		if (command.equals("walid")) System.out.println("OK. OP MODE ENABLED");
-			
+		if(enteredString.contentEquals("/walid"))
+		{
+		this.historic=historic+"\n OK. OP MODE ENABLED";
+		}	
 		String[] word = command.split(" ");
 		switch(word[0]) {
 		case "/give" :

@@ -46,7 +46,7 @@ public class Test extends BasicGame {
         if (key == Constants.KEY_Console) {
             Constants.inConsole=!Constants.inConsole;
             this.console.enteredString="";
-            this.console.historic=" \n \n \n \n \n \n \n \n \n \n \n";
+            this.console.historic=" \n \n \n \n \n \n \n \n \n \n \n \ntype your command";
         }
 
         else if (Constants.inConsole) { // Si la console est ouverte
