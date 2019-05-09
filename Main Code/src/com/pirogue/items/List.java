@@ -1,7 +1,4 @@
 package com.pirogue.items;
-import org.newdawn.slick.SlickException;
-
-import com.pirogue.items.Item;
 
 public class List {
 
@@ -15,7 +12,6 @@ public class List {
 	for(i=0;i<=level_max;i++)
 	
 	{
-	try {
 	/*Items[i] = new Axe("Farmer_Axe_common_"+Integer.toString(i),i,"Farmer_Axe",11,1.1,0,0,0.8,0,0,i);
 	Items[100+i] = new Axe("Farmer_Axe_unusual_"+Integer.toString(i),100+i,"Farmer_Axe",13,1.4,0,0,0.8,0,0,i);
 	Items[200+i] = new Axe("Farmer_Axe_rare_"+Integer.toString(i),200+i,"Farmer_Axe",15,1.8,0,0,0.8,0,0,i);
@@ -119,100 +115,6 @@ public class List {
 	Items[41300+i] = new Daggers("ancient_daggers_unusual_"+Integer.toString(i),41300+i,"ancient_daggers",11,4.8,0,0,1,0,0,i);
 	Items[41400+i] = new Daggers("ancient_daggers_rare_"+Integer.toString(i),41400+i,"ancient_daggers",13,5.4,0,0,1,0,0,i);
 	Items[41500+i] = new Daggers("ancient_daggers_epic_"+Integer.toString(i),41500+i,"ancient_daggers",15,6,0,0,1,0,0,i);
-	
-	
-	
-	
-	//double health, double health_level
-	
-	
-	/*Items[100000+i] = new Head("Hat_common_"+Integer.toString(i),100000+i,"Hat",10,5,i);
-	Items[100100+i] = new Head("Hat_unusual_"+Integer.toString(i),100100+i,"Hat",15,6,i);
-	Items[100200+i] = new Head("Hat_rare_"+Integer.toString(i),100200+i,"Hat",20,7,i);
-	Items[100300+i] = new Head("Hat_epic_"+Integer.toString(i),100300+i,"Hat",30,8,i);
-	
-	Items[100400+i] = new Head("Helmet_common_"+Integer.toString(i),100400+i,"Helmet",15,8,i);
-	Items[100500+i] = new Head("Helmet_unusual_"+Integer.toString(i),100500+i,"Helmet",25,9,i);
-	Items[100600+i] = new Head("Helmet_rare_"+Integer.toString(i),100600+i,"Helmet",35,10,i);
-	Items[100700+i] = new Head("Helmet_epic_"+Integer.toString(i),100700+i,"Helmet",50,12,i);
-
-	Items[100800+i] = new Head("Helm_common_"+Integer.toString(i),100800+i,"Helm",12,6.5,i);
-	Items[100900+i] = new Head("Helm_unusual_"+Integer.toString(i),100900+i,"Helm",19,7.5,i);
-	Items[101000+i] = new Head("Helm_rare_"+Integer.toString(i),101000+i,"Helm",26,8.5,i);
-	Items[101100+i] = new Head("Helm_epic_"+Integer.toString(i),101100+i,"Helm",40,9.5,i);
-	
-	Items[101200+i] = new Head("Hood_common_"+Integer.toString(i),101200+i,"Hood",10,5,i);
-	Items[101300+i] = new Head("Hood_unusual_"+Integer.toString(i),101300+i,"Hood",15,6,i);
-	Items[101400+i] = new Head("Hood_rare_"+Integer.toString(i),101400+i,"Hood",20,7,i);
-	Items[101500+i] = new Head("Hood_epic_"+Integer.toString(i),101500+i,"Hood",30,8,i);
-	
-	
-	Items[110000+i] = new Chestplate("Breastplate_common_"+Integer.toString(i),110000+i,"Breastplate",20,8,i);
-	Items[110100+i] = new Chestplate("Breastplate_unusual_"+Integer.toString(i),110100+i,"Breastplate",30,9,i);
-	Items[110200+i] = new Chestplate("Breastplate_rare_"+Integer.toString(i),110200+i,"Breastplate",40,10,i);
-	Items[110300+i] = new Chestplate("Breastplate_epic_"+Integer.toString(i),110300+i,"Breastplate",50,12,i);
-	
-	Items[110400+i] = new Chestplate("Vest_common_"+Integer.toString(i),110400+i,"Vest",10,5,i);
-	Items[110500+i] = new Chestplate("Vest_unusual_"+Integer.toString(i),110500+i,"Vest",15,6,i);
-	Items[110600+i] = new Chestplate("Vest_rare_"+Integer.toString(i),110600+i,"Vest",20,7,i);
-	Items[110700+i] = new Chestplate("Vest_epic_"+Integer.toString(i),110700+i,"Vest",30,8,i);
-	
-	Items[110800+i] = new Chestplate("Chain_Mail_common_"+Integer.toString(i),110800+i,"Chain_Mail",12,6.5,i);
-	Items[110900+i] = new Chestplate("Chain_Mail_unusual_"+Integer.toString(i),110900+i,"Chain_Mail",19,7.5,i);
-	Items[111000+i] = new Chestplate("Chain_Mail_rare_"+Integer.toString(i),111000+i,"Chain_Mail",26,8.5,i);
-	Items[111100+i] = new Chestplate("Chain_Mail_epic_"+Integer.toString(i),111100+i,"Chain_Mail",40,9.5,i);
-	
-	Items[111200+i] = new Chestplate("Dress_common_"+Integer.toString(i),111200+i,"Dress",10,5,i);
-	Items[111300+i] = new Chestplate("Dress_unusual_"+Integer.toString(i),111300+i,"Dress",15,6,i);
-	Items[111400+i] = new Chestplate("Dress_rare_"+Integer.toString(i),111400+i,"Dress",20,7,i);
-	Items[111500+i] = new Chestplate("Dress_epic_"+Integer.toString(i),111500+i,"Dress",30,8,i);
-	
-	
-	Items[120000+i] = new Legs("Legguard_common_"+Integer.toString(i),120000+i,"Legguard",20,8,i);
-	Items[120100+i] = new Legs("Legguard_unusual_"+Integer.toString(i),120100+i,"Legguard",30,9,i);
-	Items[120200+i] = new Legs("Legguard_rare_"+Integer.toString(i),120200+i,"Legguard",40,10,i);
-	Items[120300+i] = new Legs("Legguard_epic_"+Integer.toString(i),120300+i,"Legguard",50,12,i);
-	
-	Items[120400+i] = new Legs("Leggings_common_"+Integer.toString(i),120400+i,"Leggings",12,6.5,i);
-	Items[120500+i] = new Legs("Leggings_unusual_"+Integer.toString(i),120500+i,"Leggings",19,7.5,i);
-	Items[120600+i] = new Legs("Leggings_rare_"+Integer.toString(i),120600+i,"Leggings",26,8.5,i);
-	Items[120700+i] = new Legs("Leggings_epic_"+Integer.toString(i),120700+i,"Leggings",40,9.5,i);
-	
-	Items[120800+i] = new Legs("Pants_common_"+Integer.toString(i),120800+i,"Pants",10,5,i);
-	Items[120900+i] = new Legs("Pants_unusual_"+Integer.toString(i),120900+i,"Pants",15,6,i);
-	Items[121000+i] = new Legs("Pants_rare_"+Integer.toString(i),121000+i,"Pants",20,7,i);
-	Items[121100+i] = new Legs("Pants_epic_"+Integer.toString(i),121100+i,"Pants",30,8,i);
-	
-	Items[121200+i] = new Legs("Breeches_common_"+Integer.toString(i),121200+i,"Breeches",10,5,i);
-	Items[121300+i] = new Legs("Breeches_unusual_"+Integer.toString(i),121300+i,"Breeches",15,6,i);
-	Items[121400+i] = new Legs("Breeches_rare_"+Integer.toString(i),121400+i,"Breeches",20,7,i);
-	Items[121500+i] = new Legs("Breeches_epic_"+Integer.toString(i),121500+i,"Breeches",30,8,i);
-	
-	
-	Items[130000+i] = new Feet("Greaves_common_"+Integer.toString(i),130000+i,"Greaves",15,5,i);
-	Items[130100+i] = new Feet("Greaves_unusual_"+Integer.toString(i),130100+i,"Greaves",25,6,i);
-	Items[130200+i] = new Feet("Greaves_rare_"+Integer.toString(i),130200+i,"Greaves",35,7,i);
-	Items[130300+i] = new Feet("Greaves_epic_"+Integer.toString(i),130300+i,"Greaves",50,8,i);
-	
-	Items[130400+i] = new Feet("Footguard_common_"+Integer.toString(i),130400+i,"Footguard",12,8,i);
-	Items[130500+i] = new Feet("Footguard_unusual_"+Integer.toString(i),130500+i,"Footguard",19,9,i);
-	Items[130600+i] = new Feet("Footguard_rare_"+Integer.toString(i),130600+i,"Footguard",26,10,i);
-	Items[130700+i] = new Feet("Footguard_epic_"+Integer.toString(i),130700+i,"Footguard",40,12,i);
-	
-	Items[130800+i] = new Feet("Boots_common_"+Integer.toString(i),130800+i,"Boots",10,6.5,i);
-	Items[130900+i] = new Feet("Boots_unusual_"+Integer.toString(i),130900+i,"Boots",15,7.5,i);
-	Items[131000+i] = new Feet("Boots_rare_"+Integer.toString(i),131000+i,"Boots",20,8.5,i);
-	Items[131100+i] = new Feet("Boots_epic_"+Integer.toString(i),131100+i,"Boots",30,9.5,i);
-	
-	Items[131200+i] = new Feet("Slippers_common_"+Integer.toString(i),131200+i,"Slippers",10,5,i);
-	Items[131300+i] = new Feet("Slippers_unusual_"+Integer.toString(i),131300+i,"Slippers",15,6,i);
-	Items[131400+i] = new Feet("Slippers_rare_"+Integer.toString(i),131400+i,"Slippers",20,7,i);
-	Items[131500+i] = new Feet("Slippers_epic_"+Integer.toString(i),131500+i,"Slippers",30,8,i);
-*/
-	} catch (SlickException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
 	}
 }
 }

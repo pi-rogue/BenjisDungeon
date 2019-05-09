@@ -14,7 +14,7 @@ public class Constants {
 
 	/* GLOBAL */
 	public static boolean SHOW_FPS = true;
-	public static boolean FULLSCREEN = true;
+	public static boolean FULLSCREEN = false;
 	public static boolean VERTICAL_SYNC = false;
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	public static int FPS_MAX = 200;   // Ca évite de faire chauffer les bons pcs qui tournent à 2000 fps
@@ -40,8 +40,9 @@ public class Constants {
 	/* MAP */
 	public static int mapWidth = 150;
 	public static int mapHeight = 150;
-	public static int roomsRatio = 1000;
+	public static int roomsRatio = 100000;
 	public static int blockSize = 64;
+
 
 
 	// ------ Keyboard Configuration ------ //
@@ -53,8 +54,8 @@ public class Constants {
 	public static int KEY_Right = Input.KEY_D;
 	public static int KEY_Inventory = Input.KEY_TAB;
 	public static int KEY_Console = Input.KEY_APOSTROPHE;
-	public static int KEY_Attack = Input.KEY_E;
-	//public static int AxeX = Input.
+	public static int KEY_Attack = Input.MOUSE_LEFT_BUTTON;
+	//public static int AxeX = Input.                A enlever si personne ne s'en sert svp
 
 
 	// ------ Variables ------ //
@@ -65,7 +66,7 @@ public class Constants {
 	public static GameContainer container;
 	public static Dungeon dungeon;
 	public static int nbFloors=1;
-	public static int nbMob=300;
+	public static int nbMob=0;
 	public static AnimationsContainer animations; // Contient toutes les animations de tous les mobs/joueurs
 	public static Tile Droite, Gauche, Bas, Haut,
 						AngleHG, AngleHD, AngleBG, AngleBD,
@@ -80,21 +81,21 @@ public class Constants {
 		
 		SpriteSheet tilesheet = new SpriteSheet(tileset, blockSize, blockSize);
 		SpriteSheet collidesheet = new SpriteSheet(collide, blockSize, blockSize);
-		Droite = 	new Tile(tilesheet.getSprite(0, 6),collidesheet.getSprite(0, 6));
-		Gauche = 	new Tile(tilesheet.getSprite(1, 6),collidesheet.getSprite(1, 6));
-		Bas = 		new Tile(tilesheet.getSprite(2, 5),collidesheet.getSprite(2, 5));
-		Haut = 		new Tile(tilesheet.getSprite(3, 5),collidesheet.getSprite(3, 5));
-		AngleHG = 	new Tile(tilesheet.getSprite(2, 7),collidesheet.getSprite(2, 7));
-		AngleHD = 	new Tile(tilesheet.getSprite(3, 7),collidesheet.getSprite(3, 7));
-		AngleBG = 	new Tile(tilesheet.getSprite(2, 8),collidesheet.getSprite(2, 8));
-		AngleBD = 	new Tile(tilesheet.getSprite(3, 8),collidesheet.getSprite(3, 8));
-		CoinHG = 	new Tile(tilesheet.getSprite(1, 8),collidesheet.getSprite(1, 8));
-		CoinHD = 	new Tile(tilesheet.getSprite(0, 8),collidesheet.getSprite(0, 8));
-		CoinBG = 	new Tile(tilesheet.getSprite(1, 7),collidesheet.getSprite(1, 7));
-		CoinBD = 	new Tile(tilesheet.getSprite(0, 7),collidesheet.getSprite(0, 7));
-		Inter1 = 	new Tile(tilesheet.getSprite(3, 6),collidesheet.getSprite(3, 6));
-		Inter2 = 	new Tile(tilesheet.getSprite(2, 6),collidesheet.getSprite(2, 6));
-		Vide = 		new Tile(tilesheet.getSprite(0, 9),collidesheet.getSprite(0, 9));
+        Droite =    new Tile(tilesheet.getSprite(0, 6),collidesheet.getSprite(0, 6));
+        Gauche =    new Tile(tilesheet.getSprite(1, 6),collidesheet.getSprite(1, 6));
+        Bas =       new Tile(tilesheet.getSprite(2, 5),collidesheet.getSprite(2, 5));
+        Haut =      new Tile(tilesheet.getSprite(3, 5),collidesheet.getSprite(3, 5));
+        AngleHG =   new Tile(tilesheet.getSprite(2, 7),collidesheet.getSprite(2, 7));
+        AngleHD =   new Tile(tilesheet.getSprite(3, 7),collidesheet.getSprite(3, 7));
+        AngleBG =   new Tile(tilesheet.getSprite(2, 8),collidesheet.getSprite(2, 8));
+        AngleBD =   new Tile(tilesheet.getSprite(3, 8),collidesheet.getSprite(3, 8));
+        CoinHG =    new Tile(tilesheet.getSprite(1, 8),collidesheet.getSprite(1, 8));
+        CoinHD =    new Tile(tilesheet.getSprite(0, 8),collidesheet.getSprite(0, 8));
+        CoinBG =    new Tile(tilesheet.getSprite(1, 7),collidesheet.getSprite(1, 7));
+        CoinBD =    new Tile(tilesheet.getSprite(0, 7),collidesheet.getSprite(0, 7));
+        Inter1 =    new Tile(tilesheet.getSprite(3, 6),collidesheet.getSprite(3, 6));
+        Inter2 =    new Tile(tilesheet.getSprite(2, 6),collidesheet.getSprite(2, 6));
+        Vide =      new Tile(tilesheet.getSprite(0, 9),collidesheet.getSprite(0, 9));
 		Sols = new Tile[20]; // C'est hardcodé ici ça me plaît moyen mais c'est mieux d'avoir tout réuni sur un seul tileset
 		Murs = new Tile[4]; // On a plusieurs murs horizontaux différents aussi :)
 

@@ -5,16 +5,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import com.pirogue.items.List;
-import com.pirogue.game.Inventory;
-import com.pirogue.items.Axe;
-import com.pirogue.items.Daggers;
 import com.pirogue.items.EmptyItem;
-import com.pirogue.items.Item;
+import com.pirogue.items.List;
 
 public class Console {
 	
-	
+	private int delta;
+	private String arrowDir;
 	public String enteredString;
 	public String historic;
 	public String line;
@@ -26,16 +23,29 @@ public class Console {
 		this.line = ">";
 	}
 	
+	public void update(int delta, String arrowDir) {
+		this.delta = delta;
+		this.arrowDir = arrowDir;
+	}
+	
 	void render(Graphics g) throws SlickException
 	{
-		Color test = new Color(0f,0f,0f,0.35f);
-		g.setColor(test);
-		g.fillRect(0, 0, 500, 300);
-		g.setColor(Color.white);
-		g.drawString(enteredString,20,270);
-		g.drawString(historic,10,10);
-		g.drawString(line, 8, 270);
-	
+		if (Constants.inConsole) {
+			Color test = new Color(0f,0f,0f,0.35f);
+			g.setColor(test);
+			g.fillRect(0, 0, 500, 300);
+			g.setColor(Color.white);
+			g.drawString(enteredString,20,270);
+			g.drawString(historic,10,10);
+			g.drawString(line, 8, 270);
+		}
+		if (Constants.debug) {
+			g.drawString("delta: " + delta, 100, 10);
+			g.drawString("mousePressed: " + Constants.mousePressed, Constants.SCREEN_WIDTH-500, 10);
+			g.drawString("mouseX: " + Constants.mouseX, Constants.SCREEN_WIDTH-300, 10);
+			g.drawString("mouseY: " + Constants.mouseY, Constants.SCREEN_WIDTH-150, 10);
+			g.drawString("arrowDir: " + arrowDir, Constants.SCREEN_WIDTH/2-100, 10);
+		}
 	
 /*		Font font = new UnicodeFont(new java.awt.Font("DejaVu Serif", java.awt.Font.PLAIN, 20));
 		TextField zoneDeSaisie = null;
@@ -49,7 +59,7 @@ public class Console {
 	}
 	
 	
-	void keyPressed(int key, char c) throws SlickException {
+	void keyPressed(int key, char c) {
 		if (key == Input.KEY_BACK)
 		{
 			if (enteredString.length()>0) {
@@ -80,7 +90,7 @@ public class Console {
 		}
 	
 	
-	void executeCommand(String command) throws SlickException {
+	void executeCommand(String command) {
 		
 		//int n=0;
 		if(enteredString.contentEquals("/walid"))
@@ -90,9 +100,9 @@ public class Console {
 		String[] word = command.split(" ");
 		switch(word[0]) {
 		case "/give" :
-			int n=0;
+			int n=6;
 			double ID;
-			while((!(Inventory.objects[n] instanceof EmptyItem)))
+			while((!(Constants.dungeon.hero.inventory.objects[n] instanceof EmptyItem)))
 			{
 				n++;
 			}
@@ -117,7 +127,7 @@ public class Console {
 				{
 				System.out.println(ID);
 				
-				Inventory.objects[n] = obj.Items[(int)ID];			
+				Constants.dungeon.hero.inventory.objects[n] = obj.Items[(int)ID];			
 			}
 		}
 		
