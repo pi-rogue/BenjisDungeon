@@ -14,7 +14,7 @@ public class Constants {
 
 	/* GLOBAL */
 	public static boolean SHOW_FPS = true;
-	public static boolean FULLSCREEN = false;
+	public static boolean FULLSCREEN = true;
 	public static boolean VERTICAL_SYNC = false;
 	public static int DELTA_MAX = 20;       // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	public static int FPS_MAX = 200;   // Ca évite de faire chauffer les bons pcs qui tournent à 2000 fps
@@ -40,7 +40,7 @@ public class Constants {
 	/* MAP */
 	public static int mapWidth = 150;
 	public static int mapHeight = 150;
-	public static int roomsRatio = 100000;
+	public static int roomsRatio = 1000;
 	public static int blockSize = 64;
 
 
@@ -66,7 +66,7 @@ public class Constants {
 	public static GameContainer container;
 	public static Dungeon dungeon;
 	public static int nbFloors=1;
-	public static int nbMob=0;
+	public static int nbMob=300;
 	public static AnimationsContainer animations; // Contient toutes les animations de tous les mobs/joueurs
 	public static Tile Droite, Gauche, Bas, Haut,
 						AngleHG, AngleHD, AngleBG, AngleBD,
