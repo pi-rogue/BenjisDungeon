@@ -10,7 +10,6 @@ import com.pirogue.entity.mob.Slime;
 public class Map {
 	
 	public int width, height;
-	public int blockSize;
 	protected boolean grille[][];
 	protected Tile Blocks[][];
 	private int salleX=0, salleY=0, tailleSalleX=0, tailleSalleY=0;
@@ -23,7 +22,6 @@ public class Map {
 		this.height = height;
 		this.Blocks = new Tile[width][height];
 		this.grille = new boolean[width][height];
-		this.blockSize = Constants.blockSize;
 		
 		for(int i=0; i<width; i++) {
 			for(int j=0; j<height; j++) {
@@ -157,11 +155,11 @@ public class Map {
 		int x, y;
 		String[] colors = {"red", "green", "blue"};
 		for(int i=0; i<j; i++) {
-			do {
+			do { // On choisit des coordonnées aléatoires jusqu'à ce qu'elles soient valides
 				x = 1 + (int)(Math.random() * ((Constants.mapWidth-1 - 1) + 1));
 				y = 1 + (int)(Math.random() * ((Constants.mapHeight-1 - 1) + 1));
 			} while(Blocks[x][y].equals(Constants.Droite) || Blocks[x][y].equals(Constants.Vide) || Blocks[x][y].equals(Constants.Gauche) || Blocks[x][y].equals(Constants.Bas) || Blocks[x][y].equals(Constants.Haut) || Blocks[x][y].equals(Constants.AngleBD) || Blocks[x][y].equals(Constants.AngleHD) || Blocks[x][y].equals(Constants.AngleBG) || Blocks[x][y].equals(Constants.AngleHG) || Blocks[x][y].equals(Constants.CoinHG) || Blocks[x][y].equals(Constants.CoinHD) || Blocks[x][y].equals(Constants.CoinBG) || Blocks[x][y].equals(Constants.CoinBD) || Blocks[x][y].equals(Constants.Inter1) || Blocks[x][y].equals(Constants.Inter2));
-			tabMob[i] = new Slime(x, y, colors[(int)(Math.random() * 3)]); 
+			tabMob[i] = new Slime(x, y, colors[(int)(Math.random() * 3)]); // Et on fait spawn un Slime de couleur random
 		}
 	}
 	
@@ -177,13 +175,14 @@ public class Map {
 		return Blocks[x][y].getCollide();
 	}
 
-	public void render(Graphics g, float offsetX, float offsetY) {
-		int Xi=(Constants.dungeon.hero.getX()-Constants.SCREEN_WIDTH/2)/Constants.blockSize -1;
-		int Yi=(Constants.dungeon.hero.getY()-Constants.SCREEN_HEIGHT/2)/Constants.blockSize -1;
-		int Xf=(Constants.dungeon.hero.getX()+Constants.SCREEN_WIDTH/2)/Constants.blockSize +1;
-		int Yf=(Constants.dungeon.hero.getY()+Constants.SCREEN_HEIGHT/2)/Constants.blockSize +1;
-		if (Xi<0) Xi=0; if (Xf>width) Xf=width;
-		if (Yi<0) Yi=0; if (Yf>height) Yf=height;
+	public void render(Graphics g, int heroX, int heroY) {
+		// On n'affiche que les Tiles qui sont dans l'écran (+1 bloc au cas où) pour améliorer les perfs
+		int Xi=(heroX-Constants.SCREEN_WIDTH/2)/Constants.blockSize -1;
+		int Yi=(heroY-Constants.SCREEN_HEIGHT/2)/Constants.blockSize -1;
+		int Xf=(heroX+Constants.SCREEN_WIDTH/2)/Constants.blockSize +1;
+		int Yf=(heroY+Constants.SCREEN_HEIGHT/2)/Constants.blockSize +1;
+		if (Xi<0) Xi=0; if (Xf>width) Xf=width;    // On s'assure de bien rester dans les bornes de la map
+		if (Yi<0) Yi=0; if (Yf>height) Yf=height;  // 
 		for (int x=Xi; x<Xf; x++) {
 			for (int y=Yi; y<Yf; y++) {
 				Image texture;
@@ -191,18 +190,18 @@ public class Map {
 				else texture = Blocks[x][y].getTexture();
 				
 				if (texture != null) {
-					g.drawImage(texture, x*blockSize-offsetX, y*blockSize-offsetY);
+					g.drawImage(texture, x*Constants.blockSize - (heroX - Constants.SCREEN_WIDTH/2), y*Constants.blockSize - (heroY - Constants.SCREEN_WIDTH/2));
 				}
 			}
 		}
 	}
 	
 	public void renderMobs(Graphics g, int heroX, int heroY) {
-		// On n'affiche que les mobs qui sont dans l'écran pour améliorer les perfs
-		int Xi=heroX-blockSize-Constants.SCREEN_WIDTH/2;
-		int Xf=heroX+blockSize+Constants.SCREEN_WIDTH/2;
-		int Yi=heroY-blockSize-Constants.SCREEN_WIDTH/2;
-		int Yf=heroY+blockSize+Constants.SCREEN_WIDTH/2;
+		// On n'affiche que les mobs qui sont dans l'écran (+1 bloc au cas où) pour améliorer les perfs
+		int Xi=heroX-Constants.SCREEN_WIDTH/2-Constants.blockSize;
+		int Yi=heroY-Constants.SCREEN_WIDTH/2-Constants.blockSize;
+		int Xf=heroX+Constants.SCREEN_WIDTH/2+Constants.blockSize;
+		int Yf=heroY+Constants.SCREEN_WIDTH/2+Constants.blockSize;
 		
 		for(int i=0; i<Constants.nbMob; i++) {
 			if (tabMob[i].getX()>=Xi && tabMob[i].getX()<=Xf && tabMob[i].getY()>=Yi && tabMob[i].getY()<=Yf ) {

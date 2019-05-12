@@ -1,0 +1,31 @@
+Hero.java
+    Quand on aura plusieurs attaques il faudra ajouter une dimention au tableau attackAnims ou faire plusieurs variables : 'autoAnims', 'ultiAnims', etc
+    Gérer les deux mains (en alternent entre chaque arme ?)
+    Ajouter des fonctions dans Animation.java pour tout simplifier
+    (Je crois qu'il y a un petit bug d'animation si on attaque et on ouvre l'inventaire direct)
+
+Test.java
+    Mettre un menu à la place de quitter directement
+    Changer la condition si on veut pouvoir laisser appuyé pour attaquer en boucle (et ne pas spammer)
+    Attention ça peut poser des problèmes quand on pourra tuer les mobs (à moins d'update sans arrêt Constants.nbMobs)
+
+AnimationsContainer.java
+    Optimisation possible: retourner un null et vérifier si c'est null avant d'afficher pour éviter d'afficher des images vides
+
+Constants.java
+    Implémenter proprement les murs horizontaux (en créant un Tile.equals par type de bloc plutot que par objet (je me comprends))
+
+Inventory.java
+    Shift click
+
+Entity.java
+    Ajouter les collisions avec les autres entités
+
+
+
+inverser avec une case vide
+click a coté et revenir sur une case
+
+
+
+IL RESTE A COMMENTER : Map (la génération d'un étage), Mob, Slime, prio, Console, com.pirogue.items, com.pirogue.classes

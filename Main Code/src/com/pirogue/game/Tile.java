@@ -3,14 +3,14 @@ package com.pirogue.game;
 import org.newdawn.slick.Image;
 
 public class Tile {
-	private Image texture; // Je pense qu'en faisant comme ça il peut y avoir des problèmes de perf sur
-	private Image collide; // des grandes maps, si c'est le cas on peut le régler easy j'ai déjà une idée
-
-	public Tile() {
-		this.texture = null;
-		this.collide = null;
-	}
+	/*
+	 * Un Tile représente un bloc sur une Map. Il contient une texture et 
+	 * une image de collision, ce qui simplifie grandement le code.
+	 */
 	
+	private Image texture;
+	private Image collide;
+
 	public Tile(Image texture, Image collide) {
 		this.texture = texture;
 		this.collide = collide;
@@ -25,6 +25,7 @@ public class Tile {
 	}
 	
 	public boolean equals(Tile tile) {
+		/* Vérifie si deux Tiles sont identiques, c'est à dire si elles ont la même texture et la même image de collision */
 		if (this.texture==null && tile.getTexture()==null && this.collide==null && tile.getCollide()==null) return true;
 		if (this.texture==null && tile.getTexture()==null) return this.collide.equals(tile.getCollide());
 		if (this.collide==null && tile.getCollide()==null) return this.texture.equals(tile.getTexture());

@@ -5,30 +5,18 @@ import org.newdawn.slick.SlickException;
 
 public abstract class Item {
 
-	private String ID;
-	public String name;
-	public String rarity;
-	public String type;
+	private String ID, name, rarity, type, acces;
 	private Image texture;
-	private String acces;
-	public double power;
-	public double power_level;
-	public double damage;
-	public double damage_level;
-	public double health;
-	public double health_level;	
-	public int level;
-	public double attack_speed;
+	public double power, power_level,
+				  damage, damage_level,
+				  health, health_level,
+				  attack_speed;
+	public int level, range;
+	
 	//abstract void damage(); 
-	public int range;
-	
 	//abstract void spell();
-	public Item()
-	{
-		
-	}
 	
-	public Item(String name,String ID, String type, String acces,int range,double damage,double damage_level,double power,double power_level,double attack_speed,double health ,double health_level,int level) {
+	public Item(String name, String ID, String type, String acces,int range,double damage,double damage_level,double power,double power_level,double attack_speed,double health ,double health_level,int level) {
 		this.name=name;
 		this.ID = ID;
 		this.type = type;
@@ -48,6 +36,9 @@ public abstract class Item {
 		this.level=level;
 		
 	}
+	
+	
+	// -- Getters -- //
 	
 	public String getID() {
 		return ID;
@@ -69,6 +60,10 @@ public abstract class Item {
 		return type;
 	}
 	
+	public String getRarity() {
+		return rarity;
+	}
+	
 	public int getRange() {
 		return range;
 	}
@@ -79,7 +74,7 @@ public abstract class Item {
 	
 	public double getDamage_level() {
 		return damage_level;
-			}
+	}
 	
 	public double getPower() {
 		return power;
@@ -87,7 +82,7 @@ public abstract class Item {
 	
 	public double getPower_level() {
 		return power_level;
-			}
+	}
 	
 	public double getHealth() {
 		return health;
@@ -95,7 +90,8 @@ public abstract class Item {
 	
 	public double getHealth_level() {
 		return health_level;
-			}
+	}
+	
 	public int getLevel() {
 		return level;
 	}

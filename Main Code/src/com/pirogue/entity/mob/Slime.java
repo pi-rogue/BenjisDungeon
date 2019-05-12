@@ -9,21 +9,17 @@ public class Slime extends Mob {
 
 	public Slime(int x, int y, String color) {
 		super(x, y);
-		this.velocity = 0.25f; // La moitié de celle du héros
+		this.velocity = 0.15f; 
 		this._color = color;
+		this.facing = 0; // Il n'y a pas de direction pour les slimes
 		refreshAnimations();
 	}
 	
 	@Override
 	protected void refreshAnimations() {
-		restAnims = Constants.animations.get("slime rest " + _color);
-		movingAnims = Constants.animations.get("slime moving " + _color);
+		restAnims = Constants.animations.get("mobs slime rest " + _color);
+		movingAnims = Constants.animations.get("mobs slime moving " + _color);
 		for (int n=0; n<restAnims.length; n++) movingAnims[n].setPingPong(true);
-	}
-
-	@Override
-	protected void updateFacing() {
-		facing = 0; // Il n'y a pas de direction pour les slimes
 	}
 
 	@Override

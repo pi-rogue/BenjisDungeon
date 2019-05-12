@@ -15,93 +15,114 @@ import com.pirogue.items.Item;
 
 
 public class Inventory {
+	/*
+	 * Les cases de l'inventaire sont détectées directement sur l'image cellsImg, et un Rectangle est créé pour chaque case
+	 * dans la variable cells, avec un Item qui lui est associé dans la variable objects. Les 6 premières valeurs des tableaux
+	 * cells et objects sont réservées aux 6 pièces d'équipement selon l'ordre suivant :
+	 *   0: Head
+	 *   1: Chest
+	 *   2: Legs
+	 *   3: Foots
+	 *   4: Left Hand
+	 *   5: Right Hand
+	 */
 
-	private boolean isVisible = false;
-	private int backgroundX, backgroundY;
-	public int inventorySize=0;
-	
+	private int backgroundX, backgroundY; // Coordonnées du coin haut gauche du background
 	private Image background, cellsImg, selected;
-	private ArrayList<Rectangle> cells;
+	private ArrayList<Rectangle> cells = new ArrayList<Rectangle>();
 	private Rectangle heroCell;
 
+	public int inventorySize=0; // Nombre de cases disponibles dans l'inventaire, calculé dans loadCells() en fonction de cellsImg
+	private boolean isVisible = false;
 	public Item[] objects;
-	public Item selectedItem;
+	public Item selectedItem = new EmptyItem();
 	private int selectedItemIndex = -1;
-	private boolean wasClicked = false;
-	
+	private boolean mouseWasPressed = false;
+		
 	public Inventory() throws SlickException {
-		this.cellsImg = new Image(Constants.inventoryCells);
-		this.background = new Image(Constants.inventoryBackground);
-		this.selected = new Image(Constants.inventorySelected);
-		this.selectedItem = new EmptyItem();
-
-		this.cells = new ArrayList<Rectangle>();
+		this.cellsImg = new Image(Constants.inventoryCells); // Image sur laquelle se trouvent les cases à détecter
+		this.background = new Image(Constants.inventoryBackground); // Image de fond à afficher directement
+		this.selected = new Image(Constants.inventorySelected); // Image à afficher quand la souris passe sur une case
 		this.backgroundX = (Constants.SCREEN_WIDTH-background.getWidth())/2;
 		this.backgroundY = (Constants.SCREEN_HEIGHT-background.getHeight())/2;		
 		
 		loadCells();
-		objects = new Item[inventorySize + 6];
+		objects = new Item[inventorySize+6];
 		for (int n=0; n<inventorySize+6; n++) {
 			objects[n] = new EmptyItem();
 		}
 }
 	
 	public boolean update() {
-		// La valeur retournée est 'true' si il faut rafraichir les animations, 'false' sinon (permet de ne pas refresh si il n'y a pas besoin)
-		Input input = Constants.container.getInput();
+		/* Cette méthode retourne true si il faut refresh les animations (i.e. si l'équipement a été modifié), false sinon */
+		Input input = Constants.container.getInput(); // Permet de récupérer les inputs clavier (pour le shift + click)
+		boolean refresh = false;
 		
-		if (input.isKeyDown(Input.KEY_LSHIFT) && Constants.mousePressed && !wasClicked) { // ----- Shift + click
-			wasClicked = Constants.mousePressed;
-			System.out.println("Shift click !"); // TODO
-		}
-		else if (Constants.mousePressed && !wasClicked && selectedItemIndex==-1) { // ------------ Drag
-			wasClicked = Constants.mousePressed;
-			int n=0;
-			for (Rectangle rect : cells) {
-				if (rect.contains(Constants.mouseX, Constants.mouseY)) {
-					selectedItem = objects[n];
-					objects[n] = new EmptyItem();
-					selectedItemIndex = n;
-					return (n<6 ? true : false);
-				}
-				n++;
-			}
-		}
-		else if (!Constants.mousePressed && wasClicked) { // ------------------------------------- Drop
-			wasClicked = Constants.mousePressed;
-			int n=0;
-			for (Rectangle rect : cells) {
-				if (rect.contains(Constants.mouseX, Constants.mouseY)) {
+		int n=0;
+		for (Rectangle rect : cells) { // Pour chaque rectangle on regarde si la souris est dedans
+			if (rect.contains(Constants.mouseX, Constants.mouseY)) { // Si la souris est dedans, alors la variable n sera l'indice de l'objet sur lequel on a cliqué
+				if (input.isKeyDown(Input.KEY_LSHIFT) && Constants.mousePressed && !mouseWasPressed) { // ----- Shift + click
+					int destination;
+					for (destination=6; destination<inventorySize+6; destination++) { // Par défaut, on choisit la première case vide de l'inventaire
+						if (objects[destination] instanceof EmptyItem) break;
+					}
+					if (n>=6) {
+						switch (objects[n].getType()) { // Si c'est un équipement, on prend la case appropriée
+						case "weapon": destination = (!(objects[5] instanceof EmptyItem) && objects[4] instanceof EmptyItem ? 4 : 5); break; // On choisit dans quelle main mettre l'arme selon les armes déjà présentes
+						case "head":   destination = 0; break;
+						case "chest":  destination = 1; break;
+						case "legs":   destination = 2; break;
+						case "boots":  destination = 3; break;
+						}
+					}
+					
 					Item tmp = objects[n];
-					objects[n] = selectedItem;
-					objects[selectedItemIndex] = tmp;
-					selectedItem = new EmptyItem();
-					selectedItemIndex = -1;
-					return (n<6 ? true : false);
+					objects[n] = objects[destination];
+					objects[destination] = tmp;				
+					mouseWasPressed = Constants.mousePressed;
+					return n<6 || destination<6;
 				}
-				n++;
-			}
-			
-			if (!(selectedItem instanceof EmptyItem) && selectedItemIndex!=-1) { // Si il y a eu un problème et le selectedItem est pas vide, on remet l'item à sa place
-				objects[selectedItemIndex] = selectedItem;
-				selectedItem = new EmptyItem();
-				selectedItemIndex=-1;
-			}
-			else { // Cas impossible mais on le met au cas où pour ne pas perdre d'item
-				System.out.println("Il y a un probleme dans Inventory.update !");
-				for (n=6; n<inventorySize; n++) {
-					if (objects[n] instanceof EmptyItem) {
-						objects[n] = selectedItem;
+				else if (Constants.mousePressed && !mouseWasPressed && selectedItemIndex==-1) { // ------------ Drag
+					if (!(objects[n] instanceof EmptyItem)) { // Si il y a un objet dans la case, on l'attrappe
+						selectedItem = objects[n];
+						selectedItemIndex = n;
+						objects[n] = new EmptyItem();
+						mouseWasPressed = Constants.mousePressed;
+						return n<6;
+					}
+				}
+				else if (!Constants.mousePressed && mouseWasPressed && selectedItemIndex!=-1) { // ------------ Drop
+					if (n==selectedItemIndex) { // Si c'est sur la même case alors on remet juste l'item dans sa case
+						objects[selectedItemIndex] = selectedItem;
 						selectedItem = new EmptyItem();
+						refresh = n<6 || selectedItemIndex<6; // On refresh seulement si on a touché aux équipements
 						selectedItemIndex = -1;
-						break;
+						mouseWasPressed = Constants.mousePressed;
+						return refresh;
+					}
+					else { // Sinon on échange les items
+						Item tmp = objects[n];
+						objects[n] = selectedItem;
+						objects[selectedItemIndex] = tmp;
+						selectedItem = new EmptyItem();
+						refresh = n<6 || selectedItemIndex<6;
+						selectedItemIndex = -1;
+						mouseWasPressed = Constants.mousePressed;
+						return refresh;
 					}
 				}
 			}
-			return false;
+			n++;
 		}
 		
-		return false;
+		if (!Constants.mousePressed && mouseWasPressed && selectedItemIndex!=-1) { // Si on relâche la souris sur aucune case, on remet l'item dans sa case d'origine
+			objects[selectedItemIndex] = selectedItem;
+			selectedItem = new EmptyItem();
+			refresh = selectedItemIndex<6;
+			selectedItemIndex=-1;
+		}
+		mouseWasPressed = Constants.mousePressed;
+		return refresh;
 	}
 	
 	public void render(Graphics g, Animation[][] inventoryAnims, int facing) {
@@ -117,7 +138,7 @@ public class Inventory {
 			n++;
 		}
 		
-		// Affichage du héros //
+		// Affichage du héros avec ses équipements //
 		for (Animation[] animation : inventoryAnims) {
 			g.drawAnimation(animation[facing], heroCell.getMinX(), heroCell.getMinY());
 		}
@@ -135,7 +156,7 @@ public class Inventory {
 		for (int j=0; j<cellsImg.getHeight(); j++) { 
 		for (int i=0; i<cellsImg.getWidth(); i++) {
 			Color pixel = cellsImg.getColor(i, j); // On récupère la couleur de chaque pixel
-			if (!pixel.equals(Color.white)) {
+			if (!pixel.equals(Color.white)) { // On ne s'intéresse qu'aux pixels colorés (non blancs)
 				int cellWidth=0, cellHeight=0;
 				for (int x=i; x<cellsImg.getWidth(); x++) {
 					if (cellsImg.getColor(x, j).equals(pixel)) cellWidth++;
@@ -145,8 +166,9 @@ public class Inventory {
 					if (cellsImg.getColor(i, y).equals(pixel)) cellHeight++;
 					else break;
 				}
-				if (cellWidth==Constants.cellSize && cellHeight==Constants.cellSize) {
-					Rectangle rect = new Rectangle(i+backgroundX , j+backgroundY, cellWidth, cellHeight);
+				if (cellWidth==Constants.cellSize && cellHeight==Constants.cellSize) { // Si la case détectée est valide
+					Rectangle rect = new Rectangle(i+backgroundX , j+backgroundY, cellWidth, cellHeight); // On créé un rectangle correspondant à cette case
+					// Selon la couleur de la case, on lui donne un rôle différent
 					if (pixel.equals(Constants.invCell)) {
 						cells.add(rect);
 						this.inventorySize++;
@@ -158,9 +180,8 @@ public class Inventory {
 					else if (pixel.equals(Constants.leftHand)) cells.set(4, rect);
 					else if (pixel.equals(Constants.rightHand)) cells.set(5, rect);
 				}
-				else if (cellWidth==cellHeight && pixel.equals(Constants.heroCell) && this.heroCell == null) {
-					Rectangle rect = new Rectangle(i+backgroundX , j+backgroundY, cellWidth, cellHeight);
-					this.heroCell = rect;
+				else if (cellWidth==cellHeight && pixel.equals(Constants.heroCell) && this.heroCell == null) { // Vérification de l'emplacement pour afficher le héros
+					this.heroCell = new Rectangle(i+backgroundX , j+backgroundY, cellWidth, cellHeight);
 				}
 			}
 		}}
@@ -172,6 +193,11 @@ public class Inventory {
 
 	public void setVisible(boolean isVisible) {
 		this.isVisible = isVisible;
+		if (selectedItemIndex!=-1) { // Si on a sélectionné un item, on le remet à sa place
+			objects[selectedItemIndex] = selectedItem;
+			selectedItem = new EmptyItem();
+			selectedItemIndex = -1;
+		}
 	}
 	
 	public int getSize() {

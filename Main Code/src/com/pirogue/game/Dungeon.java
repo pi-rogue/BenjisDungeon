@@ -2,7 +2,6 @@ package com.pirogue.game;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
@@ -11,33 +10,29 @@ import com.pirogue.entity.classes.Rogue;
 
 public class Dungeon {
 
-	protected ArrayList<Map> floors = new ArrayList<Map>();
+	protected ArrayList<Map> floors = new ArrayList<Map>(); // Contient tous les étages du donjon
 	public Hero hero;
-	private int floorWidth, floorHeight;
-	public GameContainer container;
 	public int currentFloor;
 	
 	public Dungeon() throws SlickException {
-		this.floorWidth = Constants.mapWidth;
-		this.floorHeight = Constants.mapHeight;
-		this.container = Constants.container;
 		this.currentFloor = 0;
 		
-		generateFloor(Constants.nbFloors);
+		generateFloors(Constants.nbFloors);
 		
-		// Je pense que le mieux serait finalement de générer dès le début
-		// un nombre fixe d'étages random entre 7 - 10 par exemple avec un boss au dernier
+		// Le mieux serait de générer dès le début un nombre fixe d'étages random,
+		// entre 7 - 10 par exemple avec un boss au dernier.
 	}
 	
-	public void generateFloor(int j) throws SlickException {
+	public void generateFloors(int j) throws SlickException {
+		// Génère j nouveaux étages
 		for(int i=0; i<j; i++) {
-			floors.add(new Map(floorWidth, floorHeight));
+			floors.add(new Map(Constants.mapWidth, Constants.mapHeight));
 			getCurrentFloor().spawnMob(Constants.nbMob);
 		}
 	}
 
 	public void spawnHero() throws SlickException {
-		this.hero = new Rogue(this.getCurrentFloor().spawnX, this.getCurrentFloor().spawnY);
+		this.hero = new Rogue(this.getCurrentFloor().spawnX, this.getCurrentFloor().spawnY); // Les coordonnées de spawn sont données par la Map
 	}
 	
 	public Map getCurrentFloor() {
@@ -45,7 +40,7 @@ public class Dungeon {
 	}
 	
 	public void render(Graphics g) {
-		getCurrentFloor().render(g, hero.getX() - Constants.SCREEN_WIDTH/2, hero.getY() - Constants.SCREEN_HEIGHT/2);
+		getCurrentFloor().render(g, hero.getX(), hero.getY());
 		getCurrentFloor().renderMobs(g, hero.getX(), hero.getY());
 		hero.render(g); // Render du héros en dernier pour qu'il soit par dessus tout
 	}	
