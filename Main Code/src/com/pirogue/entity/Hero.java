@@ -6,16 +6,14 @@ import org.newdawn.slick.SlickException;
 
 import com.pirogue.game.Constants;
 import com.pirogue.game.Inventory;
-import com.pirogue.game.util.Animation;
+import com.pirogue.game.util.Animations;
 
 public abstract class Hero extends Entity {
-	
+
+	private String[] equipmentKeys = {"head", "chestplate", "legs", "foots", "left hand", "right hand"};
 	public Inventory inventory;
 	private String _class; // Classe du héros
-	private Animation[][] equipmentAnims; // Animations de tous les équipements (contient tous les 'calques')
-	private Animation[][] inventoryAnims; // Animations à afficher dans l'inventaire (en gros c'est juste une copie de equipmentAnims en plus grand)
-	private Animation[] attackAnims; // Animations de l'attaque (TODO: Quand on aura plusieurs attaques il faudra ajouter une dimention au tableau ou faire plusieurs variables genre 'autoAnims', 'ultiAnims', etc)
-	private boolean isAttacking = false;
+	private int attackID = -1; // -1 si aucune attaque n'est en cours, 0 pour l'auto attaque, 1 pour le premier spell, etc
 	
 	public Hero(int x, int y, String _class) throws SlickException {
 		super(x, y);
@@ -26,58 +24,57 @@ public abstract class Hero extends Entity {
 	
 	public void render(Graphics g) {
 		super.render(g, x+1, y+1);
-		for (int n=0; n<6; n++) {
-			if (isAttacking && inventory.objects[n].getType().equals("weapon")) { // Quand on attaque on affiche l'animation de chaque équipement qui est une arme (TODO: Gérer les deux mains (en alternent entre chaque arme ?)
-				g.drawAnimation(attackAnims[facing], (Constants.SCREEN_WIDTH-Constants.blockSize)/2 - (facing==1 ? Constants.blockSize:0), (Constants.SCREEN_HEIGHT-Constants.blockSize)/2); // On ajoute une condition sur le facing car il faut décaler l'animation ou non selon la direction
-				if (attackAnims[facing].isStopped()) { // Quand l'animation est finie, on peut à nouveau attaquer, il faut alors reset les animations
-					isAttacking = false;
-					for (int i=0; i<attackAnims.length; i++) attackAnims[i].restart(); 
+		int cornerX = (Constants.SCREEN_WIDTH-Constants.blockSize)/2;
+		int cornerY = (Constants.SCREEN_HEIGHT-Constants.blockSize)/2;
+		
+		for (String key : equipmentKeys) {
+			if (attackID!=-1 && key.matches(".* hand")) { // Si on attaque on affiche l'animation de chaque équipement qui est une arme (TODO: Gérer les deux mains (en alternent entre chaque arme ?)
+				Animations attackAnims = animations.get("attack " + attackID);
+				g.drawAnimation(attackAnims.get(facing), cornerX-(facing==1?Constants.blockSize:0), cornerY); // On ajoute une condition sur le facing car il faut décaler l'animation ou non selon la direction
+				if (attackAnims.get(facing).isStopped()) { // Quand l'animation est finie, on peut à nouveau attaquer, il faut alors reset les animations
+					attackID = -1;
+					attackAnims.restartAll(); 
 				}
 			}
 			else
-				g.drawAnimation(equipmentAnims[n][facing], (Constants.SCREEN_WIDTH-Constants.blockSize)/2, (Constants.SCREEN_HEIGHT-Constants.blockSize)/2);
+				g.drawAnimation(animations.get(key).get(facing), cornerX, cornerY);
 		}
 		if (inventory.isVisible()) {
-			inventory.render(g, inventoryAnims, facing);
+			inventory.render(g, facing, animations.get("inventory body"),
+										animations.get("inventory head"),
+										animations.get("inventory chestplate"),
+										animations.get("inventory legs"),
+										animations.get("inventory foots"),
+										animations.get("inventory left hand"),
+										animations.get("inventory right hand"));
 		}
 	}
 
 	protected void refreshAnimations() {
 		/* 
-		 * Cette fonction remplit les variables suivantes avec les animations adéquates en fonction de
-		 * l'équipement du héros.
-		 * 
-		 * TODO: Ajouter des fonctions dans Animation.java pour tout simplifier
+		 * Cette fonction remplit l'AnimationsContainer avec les animations dont on aura
+		 * besoin en fonction de l'équipement du héros.
 		 */
-		inventoryAnims = new Animation[7][]; // Animations du héros + équipements (pour l'inventaire)
-		equipmentAnims = new Animation[6][]; // Animations des équipements
-		restAnims = Constants.animations.get("heroes " + _class); // Animations quand le héros ne se déplace pas
-		movingAnims = Constants.animations.get("heroes " + _class); // Animations quand le héros se déplace
-		attackAnims = Constants.animations.get("heroes attack " + inventory.objects[5].getAcces()); // inventory.equipment[5] correspond à l'arme dans la main droite (voir Inventory.java lignes 93 - 98)
-		for (int n=0; n<attackAnims.length; n++) attackAnims[n].stopAt(attackAnims[n].getFrameCount()-1); // Les animations des attaques ne doivent pas tourner en boucle
-		isAttacking = false; // Si jamais on change d'arme pendant une attaque
-		
-		// Pour l'inventaire on a besoin d'agrandir les animations du héros
-		Animation[] tmp = new Animation[restAnims.length];
-		for (int n=0; n<restAnims.length; n++) {
-			tmp[n] = restAnims[n].getScaledCopy(inventory.getHeroCell().getWidth(), inventory.getHeroCell().getHeight());
-		}
-		inventoryAnims[0] = tmp; 
-		
+		animations.put("rest", Constants.animations.get("heroes " + _class)); // Animations quand le héros ne se déplace pas
+		animations.put("moving", Constants.animations.get("heroes " + _class)); // Animations quand le héros se déplace
+
+		Animations attackAnims = Constants.animations.get("heroes attack " + inventory.objects[5].getAcces()); // inventory.equipment[5] correspond à l'arme dans la main droite (voir Inventory.java)
+		attackAnims.setPlayOnce(); // Les animations des attaques ne doivent pas tourner en boucle
+		animations.put("attack 0", attackAnims);
+		attackID = -1; // Si jamais on change d'arme pendant une attaque, on arrête l'attaque
+
+		float invCellWidth = inventory.getHeroCell().getWidth();   // Largeur et hauteur de la case pour afficher le héros dans l'inventaire. 
+		float invCellHeight = inventory.getHeroCell().getHeight(); // On doit agrandir les animations pour qu'elles rentrent dans cette case
 		for (int i=0; i<6; i++) {
-			Animation[] originalAnims = Constants.animations.get("heroes equipment " + inventory.objects[i].getAcces());
-			tmp = new Animation[originalAnims.length];
-			for (int n=0; n<originalAnims.length; n++) {
-				tmp[n] = originalAnims[n].getScaledCopy(inventory.getHeroCell().getWidth(), inventory.getHeroCell().getHeight());
-			}
-			equipmentAnims[i] = originalAnims;
-			inventoryAnims[i+1] = tmp; 
+			animations.put(equipmentKeys[i], Constants.animations.get("heroes equipment " + inventory.objects[i].getAcces()));
+			animations.put("inventory " + equipmentKeys[i], Constants.animations.get("heroes equipment " + inventory.objects[i].getAcces()).getScaledCopy(invCellWidth, invCellHeight)); // Agrandissement
 		}
+		animations.put("inventory body", animations.get("rest").getScaledCopy(invCellWidth, invCellHeight));
 	}
 	
 	public void update(GameContainer container, int delta) {
 		super.update(container, delta);
-		if (!isAttacking) updateFacing(); // Quand on attaque on ne peut pas changer de direction
+		if (attackID==-1) updateFacing(); // Quand on attaque on ne peut pas changer de direction
 		if (this.inInventory()) {
 			if (inventory.update())	refreshAnimations(); // inventory.update() renvoie true si jamais les équipements ont été modifiés
 		}
@@ -113,6 +110,6 @@ public abstract class Hero extends Entity {
 	}
 
 	public void attack() {
-		if (!inInventory())	this.isAttacking = true;		
+		if (!inInventory())	this.attackID = 0;		
 	}
 }

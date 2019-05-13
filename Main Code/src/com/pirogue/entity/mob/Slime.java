@@ -2,6 +2,7 @@ package com.pirogue.entity.mob;
 
 import com.pirogue.entity.Mob;
 import com.pirogue.game.Constants;
+import com.pirogue.game.util.Animations;
 
 public class Slime extends Mob {
 	
@@ -17,9 +18,10 @@ public class Slime extends Mob {
 	
 	@Override
 	protected void refreshAnimations() {
-		restAnims = Constants.animations.get("mobs slime rest " + _color);
-		movingAnims = Constants.animations.get("mobs slime moving " + _color);
-		for (int n=0; n<restAnims.length; n++) movingAnims[n].setPingPong(true);
+		animations.put("rest", Constants.animations.get("mobs slime rest " + _color));
+		Animations movingAnims = Constants.animations.get("mobs slime moving " + _color);
+		movingAnims.setPingPong();
+		animations.put("moving", movingAnims);
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-import com.pirogue.game.util.Animation;
+import com.pirogue.game.util.Animations;
 import com.pirogue.items.EmptyItem;
 import com.pirogue.items.Item;
 
@@ -51,7 +51,7 @@ public class Inventory {
 		for (int n=0; n<inventorySize+6; n++) {
 			objects[n] = new EmptyItem();
 		}
-}
+	}
 	
 	public boolean update() {
 		/* Cette méthode retourne true si il faut refresh les animations (i.e. si l'équipement a été modifié), false sinon */
@@ -125,7 +125,8 @@ public class Inventory {
 		return refresh;
 	}
 	
-	public void render(Graphics g, Animation[][] inventoryAnims, int facing) {
+	public void render(Graphics g, int facing, Animations body, Animations head, Animations chestplate, Animations legs, Animations foots, Animations leftHand, Animations rightHand) {
+		// Affichage du background //
 		g.drawImage(this.background, backgroundX, backgroundY);
 		
 		// Affichage de la case sur laquelle se trouve la souris //
@@ -139,9 +140,13 @@ public class Inventory {
 		}
 		
 		// Affichage du héros avec ses équipements //
-		for (Animation[] animation : inventoryAnims) {
-			g.drawAnimation(animation[facing], heroCell.getMinX(), heroCell.getMinY());
-		}
+		g.drawAnimation(body.get(facing), heroCell.getMinX(), heroCell.getMinY());
+		g.drawAnimation(head.get(facing), heroCell.getMinX(), heroCell.getMinY());
+		g.drawAnimation(chestplate.get(facing), heroCell.getMinX(), heroCell.getMinY());
+		g.drawAnimation(legs.get(facing), heroCell.getMinX(), heroCell.getMinY());
+		g.drawAnimation(foots.get(facing), heroCell.getMinX(), heroCell.getMinY());
+		g.drawAnimation(leftHand.get(facing), heroCell.getMinX(), heroCell.getMinY());
+		g.drawAnimation(rightHand.get(facing), heroCell.getMinX(), heroCell.getMinY());
 		
 		// Affichage de l'item selectionné
 		if (!(selectedItem instanceof EmptyItem)) {

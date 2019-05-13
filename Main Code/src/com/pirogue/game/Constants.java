@@ -1,5 +1,7 @@
 package com.pirogue.game;
 
+import java.io.File;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
@@ -44,7 +46,7 @@ public class Constants {
 	
 	/* MISCELLANEOUS */
 	public static int nbFloors=1; // Nombre d'étages à générer dans le dungeon
-	public static int nbMob=10; // Nombre de mob à générer sur la map 
+	public static int nbMob=250; // Nombre de mob à générer sur la map 
 	public static int slideDelay = 15; // Nombre de tours de boucle où le héros doit glisser quand on relâche le clavier (momentum)
 	
 	
@@ -66,7 +68,7 @@ public class Constants {
 	public static boolean inConsole = false; // true si la console est ouverte
 	public static GameContainer container; // Gère ce qui est propre au jeu au niveau de l'OS, par exemple les inputs, la musique, le fullscreen, etc
 	public static Dungeon dungeon; // Pour accéder au dungeon
-	public static AnimationsContainer animations; // Contient toutes les animations de tous les mobs/joueurs
+	public static AnimationsContainer animations = new AnimationsContainer(); // Contient toutes les animations de tous les mobs/joueurs
 	public static Tile Droite, Gauche, Bas, Haut,
 					   AngleHG, AngleHD, AngleBG, AngleBD,
 					   CoinHG, CoinHD, CoinBG, CoinBD,
@@ -75,7 +77,7 @@ public class Constants {
 
 // ------ Initialization ------ //
 	public static void init() throws SlickException {
-		animations = new AnimationsContainer();
+		animations.loadAnimations(new File("src/assets/sprites"));
 
 		SpriteSheet tilesheet    = new SpriteSheet(tileset, blockSize, blockSize);
 		SpriteSheet collidesheet = new SpriteSheet(collide, blockSize, blockSize);

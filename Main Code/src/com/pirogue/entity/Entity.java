@@ -6,16 +6,15 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 import com.pirogue.game.Constants;
-import com.pirogue.game.util.Animation;
+import com.pirogue.game.util.AnimationsContainer;
 
 public abstract class Entity {
 
-	protected float velocity = 0.5f; // TODO: Trouver une solution propre au problème de vitesse
+	protected float velocity = 0.5f; // TODO: Trouver une solution propre au problème de vitesse (ça va impliquer du random à chaque déplacement...)
 	public int x,y, width,height;
 	protected int facing; // Direction de l'entité
 	protected int moving = -1; // Direction du déplacement de l'entité (-1 si on ne se déplace pas)
-	protected Animation[] restAnims; // Animations quand on ne bouge pas
-	protected Animation[] movingAnims; // Animations de déplacement
+	protected AnimationsContainer animations = new AnimationsContainer(); // Regroupe toutes les animations possibles de l'entité
 	protected boolean isColliding = false; // True si l'entité est en collision avec un mur (TODO: Ajouter les collisions avec les autres entités)
 	private boolean momentum = false; // True après un déplacement quand l'entité glisse un peu à vitesse réduite
 
@@ -24,8 +23,8 @@ public abstract class Entity {
 		this.y = y*Constants.blockSize;
 		this.width = Constants.blockSize-2;  // On enlève 2 pour pouvoir passer tranquillement dans les couloirs de 1 bloc de largeur
 		this.height = Constants.blockSize-2; //
-		this.restAnims = Constants.animations.get("debug default");
-		this.movingAnims = Constants.animations.get("debug default");
+		animations.put("rest", Constants.animations.get("debug default"));
+		animations.put("moving", Constants.animations.get("debug default"));
 	}
 
 	public void render(Graphics g, int offsetX, int offsetY) {
@@ -36,13 +35,11 @@ public abstract class Entity {
 			g.drawRect(this.x-offsetX +(Constants.SCREEN_WIDTH-this.width)/2 , this.y-offsetY +(Constants.SCREEN_HEIGHT-this.height)/2, this.width, this.height);
 		}
 		try {
-			if (moving==-1)
-				g.drawAnimation(restAnims[facing], X, Y);
-			else
-				g.drawAnimation(movingAnims[facing], X, Y);
+			String key = moving==-1 ? "rest" : "moving";
+			g.drawAnimation(animations.get(key).get(facing), X, Y);
 		}
 		catch (java.lang.NullPointerException | java.lang.IndexOutOfBoundsException e) { // Permet d'éviter de crash en cas d'erreur
-			g.drawAnimation(Constants.animations.get("debug missing")[0], X, Y);
+			g.drawAnimation(Constants.animations.get("debug missing").get(0), X, Y);
 		}
 	}
 
