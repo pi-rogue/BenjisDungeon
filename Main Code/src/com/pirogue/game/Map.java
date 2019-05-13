@@ -190,7 +190,7 @@ public class Map {
 				else texture = Blocks[x][y].getTexture();
 				
 				if (texture != null) {
-					g.drawImage(texture, x*Constants.blockSize - (heroX - Constants.SCREEN_WIDTH/2), y*Constants.blockSize - (heroY - Constants.SCREEN_WIDTH/2));
+					g.drawImage(texture, x*Constants.blockSize - heroX + Constants.SCREEN_WIDTH/2, y*Constants.blockSize - heroY + Constants.SCREEN_HEIGHT/2);
 				}
 			}
 		}
