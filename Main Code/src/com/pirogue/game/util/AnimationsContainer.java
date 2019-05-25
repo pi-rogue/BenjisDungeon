@@ -58,7 +58,7 @@ public class AnimationsContainer extends HashMap<String, Animations> {
 	public int getDuration(String key) {
 		/* Selon l'animation on veut des durées différentes */
 		if (key.matches(".*slime.*")) return 150;
-		if (key.matches("heroes attack .*")) return 65;
+		if (key.matches("heroes attack .*")) return 50;
 		return 100;
 	}
 }

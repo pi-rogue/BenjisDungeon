@@ -47,17 +47,17 @@ public abstract class Entity {
 		if (moving!=-1) {
 			int futureX = x;
 			int futureY = y;
-			int movement = Math.round(velocity * delta * (momentum ? 0.5f : 1f)); // Calcul du déplacement, en réduisant la vitesse si l'entité est entrain de glisser
+			int movement = Constants.randomRound(velocity * delta * (momentum ? 0.5f : 1f)); // Calcul du déplacement, en réduisant la vitesse si l'entité est entrain de glisser
 
 			switch (moving) {
 			case 0:	futureY -= movement; break;  // N
 			case 2:	futureX += movement; break;  // E
 			case 4:	futureY += movement; break;  // S
 			case 6:	futureX -= movement; break;  // O
-			case 1:	futureX += Math.round(movement * 0.707f); futureY -= Math.round(movement * 0.707f); break;  // NE
-			case 3:	futureX += Math.round(movement * 0.707f); futureY += Math.round(movement * 0.707f); break;  // SE
-			case 5:	futureX -= Math.round(movement * 0.707f); futureY += Math.round(movement * 0.707f); break;  // SO
-			case 7:	futureX -= Math.round(movement * 0.707f); futureY -= Math.round(movement * 0.707f); break;  // NO
+			case 1:	futureX += Constants.randomRound(movement * 0.707f); futureY -= Constants.randomRound(movement * 0.707f); break;  // NE
+			case 3:	futureX += Constants.randomRound(movement * 0.707f); futureY += Constants.randomRound(movement * 0.707f); break;  // SE
+			case 5:	futureX -= Constants.randomRound(movement * 0.707f); futureY += Constants.randomRound(movement * 0.707f); break;  // SO
+			case 7:	futureX -= Constants.randomRound(movement * 0.707f); futureY -= Constants.randomRound(movement * 0.707f); break;  // NO
 			}
 
 			// Si on sort de la map ben en fait non (au cas où)
@@ -88,27 +88,27 @@ public abstract class Entity {
 				switch (moving) { // Quand on se déplace en diagonale on peut quand meme peut-être glisser sur un mur
                 case 1: // Diagonnale haut droite
                     if (!isColliding(corners, this.x + movement, this.y)) // En déplacant vers 'E' au lieu de 'NE'  
-                    	this.x = Math.round(this.x + movement);
+                    	this.x = Constants.randomRound(this.x + movement);
                     else if (!isColliding(corners, this.x, this.y - movement))   // En déplacant vers 'N' au lieu de 'NE'
-                    	this.y = Math.round(this.y - movement);
+                    	this.y = Constants.randomRound(this.y - movement);
                     break;
                 case 3: // Diagonnale bas droite
                     if (!isColliding(corners, this.x + movement, this.y))  // En déplacant vers 'E' au lieu de 'SE'
-                    	this.x = Math.round(this.x + movement);
+                    	this.x = Constants.randomRound(this.x + movement);
                     else if (!isColliding(corners, this.x, this.y + movement))  // En déplacant vers 'S' au lieu de 'SE'
-                    	this.y = Math.round(this.y + movement);
+                    	this.y = Constants.randomRound(this.y + movement);
                     break;
                 case 5: // Diagonnale bas gauche
                     if (!isColliding(corners, this.x - movement, this.y))  // En déplacant vers 'O' au lieu de 'SO'
-                    	this.x = Math.round(this.x - movement);
+                    	this.x = Constants.randomRound(this.x - movement);
                     else if (!isColliding(corners, this.x, this.y + movement))  // En déplacant vers 'S' au lieu de 'SO'
-                    	this.y = Math.round(this.y + movement);
+                    	this.y = Constants.randomRound(this.y + movement);
                     break;
                 case 7: // Diagonnale haut gauche
                     if (!isColliding(corners, this.x - movement, this.y))  // En déplacant vers 'O' au lieu de 'NO'
-                    	this.x = Math.round(this.x - movement);
+                    	this.x = Constants.randomRound(this.x - movement);
                     else if (!isColliding(corners, this.x, this.y - movement))  // En déplacant vers 'N' au lieu de 'NO'
-                    	this.y = Math.round(this.y - movement);
+                    	this.y = Constants.randomRound(this.y - movement);
                     break;
                 }
 			}
@@ -122,7 +122,7 @@ public abstract class Entity {
 	private boolean isColliding(boolean[] corners, int futureX, int futureY) {
 		Image img;
 		int cornerX=0, cornerY=0;
-
+		
 		for (int i=0; i<4; i++) { // Pour chaque coin
 			if (corners[i]) { // Si c'est un coin à checker
 				// Selon le coin on récupère ses coordonnées
@@ -145,6 +145,9 @@ public abstract class Entity {
 					break;
 				}
 				
+				
+				// --- Colliisons avec les murs --- //
+				
 				// On récupère l'image de collision de la Tile sur laquelle se trouve le coin 
 				img = Constants.dungeon.getCurrentFloor().getCollideImage((int)(cornerX/Constants.blockSize), (int)(cornerY/Constants.blockSize));
 				if (img != null) {
@@ -157,7 +160,22 @@ public abstract class Entity {
 				else return true; // Si l'image est null (pour du vide par exemple), on ne peut pas marcher dessus
 			}
 		}
-		return false; // Si pour tous les coins à vérifier il n'y a pas de collision alors c'est bon
+
+		// --- Collisions avec les autres entités --- //
+		// Pour l'instant solution de la facilité : on interdit la distance avec les autres entités à être < à blockSize
+		
+		for (Entity ent : Constants.dungeon.getCurrentFloor().tabMob) {
+			if (!(ent.x==this.x && ent.y==this.y) && Math.sqrt(Math.pow(ent.x-futureX, 2)+Math.pow(ent.y-futureY, 2))<Constants.blockSize) {
+				return true;
+			}
+		}
+		if (this instanceof Mob) { // Les mobs doivent aussi vérifier les coords du héros
+			if (Math.sqrt(Math.pow(Constants.dungeon.hero.x-futureX, 2)+Math.pow(Constants.dungeon.hero.y-futureY, 2))<Constants.blockSize) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	protected abstract void refreshAnimations();
@@ -168,14 +186,6 @@ public abstract class Entity {
 
 	public void setMoving(int moving) {
 		this.moving = moving;
-	}
-
-	public int getX() {
-		return this.x;
-	}
-
-	public int getY() {
-		return this.y;
 	}
 	
 	public void setMomentum(boolean momentum) {

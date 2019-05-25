@@ -112,4 +112,13 @@ public class Constants {
 			n++;
 		}
 	}
+	
+	public static int randomRound(float a) {
+		/*
+		 * Cette fonction est utilisée dans Entity.update() afin d'arrondir un float, en arrondissant de façon aléatoire
+		 * entre l'entier supérieur ou inférieur si la partie décimale du nombre est .5
+		 */
+		if (a%0.5==0) return (int) (Math.random()<0.5 ? Math.floor(a) : Math.ceil(a));
+		return Math.round(a);
+	}
 }

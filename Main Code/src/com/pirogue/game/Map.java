@@ -204,7 +204,7 @@ public class Map {
 		int Yf=heroY+Constants.SCREEN_WIDTH/2+Constants.blockSize;
 		
 		for(int i=0; i<Constants.nbMob; i++) {
-			if (tabMob[i].getX()>=Xi && tabMob[i].getX()<=Xf && tabMob[i].getY()>=Yi && tabMob[i].getY()<=Yf ) {
+			if (tabMob[i].x>=Xi && tabMob[i].x<=Xf && tabMob[i].y>=Yi && tabMob[i].y<=Yf ) {
 				tabMob[i].render(g, heroX, heroY);
 			}
 		}

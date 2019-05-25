@@ -23,7 +23,7 @@ public abstract class Hero extends Entity {
 	}
 	
 	public void render(Graphics g) {
-		super.render(g, x+1, y+1);
+		super.render(g, x, y);
 		int cornerX = (Constants.SCREEN_WIDTH-Constants.blockSize)/2;
 		int cornerY = (Constants.SCREEN_HEIGHT-Constants.blockSize)/2;
 		

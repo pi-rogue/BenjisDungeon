@@ -1,5 +1,7 @@
 package com.pirogue.entity;
 
+import com.pirogue.game.Constants;
+
 public abstract class Mob extends Entity {
 	
 	protected int distX, distY;	
@@ -21,7 +23,8 @@ public abstract class Mob extends Entity {
 			if(Math.abs(distY)<=Math.abs(distX) && distX<=0) {tabPrio[0]=prio.droite; tabPrio[1]=prio.bas; tabPrio[2]=prio.haut; tabPrio[3]=prio.gauche;}
 			if(Math.abs(distX)<=Math.abs(distY) && distY>=0) {tabPrio[0]=prio.haut; tabPrio[1]=prio.droite; tabPrio[2]=prio.gauche; tabPrio[3]=prio.bas;}
 			if(Math.abs(distX)<=Math.abs(distY) && distY<=0) {tabPrio[0]=prio.bas; tabPrio[1]=prio.gauche; tabPrio[2]=prio.droite; tabPrio[3]=prio.haut;}		
-			move(tabPrio);	
+			move(tabPrio);
+			if(Math.sqrt(distX*distX+distY*distY)<Constants.blockSize+10) attack();
 		}
 	}
 	
@@ -46,5 +49,5 @@ public abstract class Mob extends Entity {
 		}
 	}
 	
-	public abstract void attack();
+	protected abstract void attack();
 }
