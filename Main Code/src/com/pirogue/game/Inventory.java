@@ -37,7 +37,6 @@ public class Inventory {
 	public Item[] objects;
 	public Item selectedItem = new EmptyItem();
 	private int selectedItemIndex = -1;
-	private boolean mouseWasPressed = false;
 		
 	public Inventory() throws SlickException {
 		this.cellsImg = new Image(Constants.inventoryCells); // Image sur laquelle se trouvent les cases à détecter
@@ -61,7 +60,7 @@ public class Inventory {
 		int n=0;
 		for (Rectangle rect : cells) { // Pour chaque rectangle on regarde si la souris est dedans
 			if (rect.contains(Constants.mouseX, Constants.mouseY)) { // Si la souris est dedans, alors la variable n sera l'indice de l'objet sur lequel on a cliqué
-				if (input.isKeyDown(Input.KEY_LSHIFT) && Constants.mousePressed && !mouseWasPressed) { // ----- Shift + click
+				if (input.isKeyDown(Input.KEY_LSHIFT) && Constants.mousePressed && !Constants.mouseWasPressed) { // ----- Shift + click
 					int destination;
 					for (destination=6; destination<inventorySize+6; destination++) { // Par défaut, on choisit la première case vide de l'inventaire
 						if (objects[destination] instanceof EmptyItem) break;
@@ -79,25 +78,25 @@ public class Inventory {
 					Item tmp = objects[n];
 					objects[n] = objects[destination];
 					objects[destination] = tmp;				
-					mouseWasPressed = Constants.mousePressed;
+					Constants.mouseWasPressed = Constants.mousePressed;
 					return n<6 || destination<6;
 				}
-				else if (Constants.mousePressed && !mouseWasPressed && selectedItemIndex==-1) { // ------------ Drag
+				else if (Constants.mousePressed && !Constants.mouseWasPressed && selectedItemIndex==-1) { // ------------ Drag
 					if (!(objects[n] instanceof EmptyItem)) { // Si il y a un objet dans la case, on l'attrappe
 						selectedItem = objects[n];
 						selectedItemIndex = n;
 						objects[n] = new EmptyItem();
-						mouseWasPressed = Constants.mousePressed;
+						Constants.mouseWasPressed = Constants.mousePressed;
 						return n<6;
 					}
 				}
-				else if (!Constants.mousePressed && mouseWasPressed && selectedItemIndex!=-1) { // ------------ Drop
+				else if (!Constants.mousePressed && Constants.mouseWasPressed && selectedItemIndex!=-1) { // ------------ Drop
 					if (n==selectedItemIndex) { // Si c'est sur la même case alors on remet juste l'item dans sa case
 						objects[selectedItemIndex] = selectedItem;
 						selectedItem = new EmptyItem();
 						refresh = n<6 || selectedItemIndex<6; // On refresh seulement si on a touché aux équipements
 						selectedItemIndex = -1;
-						mouseWasPressed = Constants.mousePressed;
+						Constants.mouseWasPressed = Constants.mousePressed;
 						return refresh;
 					}
 					else { // Sinon on échange les items
@@ -107,7 +106,7 @@ public class Inventory {
 						selectedItem = new EmptyItem();
 						refresh = n<6 || selectedItemIndex<6;
 						selectedItemIndex = -1;
-						mouseWasPressed = Constants.mousePressed;
+						Constants.mouseWasPressed = Constants.mousePressed;
 						return refresh;
 					}
 				}
@@ -115,17 +114,17 @@ public class Inventory {
 			n++;
 		}
 		
-		if (!Constants.mousePressed && mouseWasPressed && selectedItemIndex!=-1) { // Si on relâche la souris sur aucune case, on remet l'item dans sa case d'origine
+		if (!Constants.mousePressed && Constants.mouseWasPressed && selectedItemIndex!=-1) { // Si on relâche la souris sur aucune case, on remet l'item dans sa case d'origine
 			objects[selectedItemIndex] = selectedItem;
 			selectedItem = new EmptyItem();
 			refresh = selectedItemIndex<6;
 			selectedItemIndex=-1;
 		}
-		mouseWasPressed = Constants.mousePressed;
+		Constants.mouseWasPressed = Constants.mousePressed;
 		return refresh;
 	}
 	
-	public void render(Graphics g, int facing, Animations body, Animations head, Animations chestplate, Animations legs, Animations foots, Animations leftHand, Animations rightHand) {
+	public void render(Graphics g, int facing, Animations body, Animations head, Animations chestplate, Animations legs, Animations foots, Animations leftHand, Animations rightHand) {		
 		// Affichage du background //
 		g.drawImage(this.background, backgroundX, backgroundY);
 		

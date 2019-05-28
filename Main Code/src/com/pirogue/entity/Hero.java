@@ -2,7 +2,9 @@ package com.pirogue.entity;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 import com.pirogue.game.Constants;
 import com.pirogue.game.Inventory;
@@ -10,6 +12,7 @@ import com.pirogue.game.util.Animations;
 
 public abstract class Hero extends Entity {
 
+	private Image[] lifeBar = new Image[3];
 	private String[] equipmentKeys = {"head", "chestplate", "legs", "foots", "left hand", "right hand"};
 	public Inventory inventory;
 	private String _class; // Classe du héros
@@ -19,11 +22,25 @@ public abstract class Hero extends Entity {
 		super(x, y);
 		this._class = _class;
 		this.inventory = new Inventory();
+		
+		SpriteSheet spr = new SpriteSheet("src/assets/gui/life_bar.png", 148, 31);
+		this.lifeBar[0] = spr.getSprite(0, 0); // Cadre
+		this.lifeBar[1] = spr.getSprite(0, 1); // Fond
+		this.lifeBar[2] = spr.getSprite(0, 2); // Vie
+		
 		refreshAnimations();
 	}
 	
 	public void render(Graphics g) {
+		// Affichage de la barre de vie //
+		g.drawImage(lifeBar[1], 40, Constants.SCREEN_HEIGHT-50); // Fond
+		g.drawImage(lifeBar[2].getScaledCopy(lifeBar[0].getWidth()*this.life/100, lifeBar[0].getHeight()), 40, Constants.SCREEN_HEIGHT-50); // Vie
+		g.drawImage(lifeBar[0], 40, Constants.SCREEN_HEIGHT-50); // Cadre
+		
+		// Affichage du héros //
 		super.render(g, x, y);
+		
+		// Affichage des équipements //
 		int cornerX = (Constants.SCREEN_WIDTH-Constants.blockSize)/2;
 		int cornerY = (Constants.SCREEN_HEIGHT-Constants.blockSize)/2;
 		
@@ -39,6 +56,8 @@ public abstract class Hero extends Entity {
 			else
 				g.drawAnimation(animations.get(key).get(facing), cornerX, cornerY);
 		}
+
+		// Affichage de l'inventaire //
 		if (inventory.isVisible()) {
 			inventory.render(g, facing, animations.get("inventory body"),
 										animations.get("inventory head"),
@@ -72,11 +91,14 @@ public abstract class Hero extends Entity {
 		animations.put("inventory body", animations.get("rest").getScaledCopy(invCellWidth, invCellHeight));
 	}
 	
-	public void update(GameContainer container, int delta) {
+	public void update(GameContainer container, int delta) {					
 		super.update(container, delta);
 		if (attackID==-1) updateFacing(); // Quand on attaque on ne peut pas changer de direction
 		if (this.inInventory()) {
 			if (inventory.update())	refreshAnimations(); // inventory.update() renvoie true si jamais les équipements ont été modifiés
+		}
+		else {
+			if (Constants.mousePressed && !Constants.mouseWasPressed) attack(); // TODO: Changer la condition si on veut pouvoir laisser appuyé pour attaquer
 		}
 	}
 	

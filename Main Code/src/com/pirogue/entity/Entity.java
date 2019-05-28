@@ -11,6 +11,7 @@ import com.pirogue.game.util.AnimationsContainer;
 public abstract class Entity {
 
 	protected float velocity = 0.5f; // TODO: Trouver une solution propre au problème de vitesse (ça va impliquer du random à chaque déplacement...)
+	protected int life = 100;
 	public int x,y, width,height;
 	protected int facing; // Direction de l'entité
 	protected int moving = -1; // Direction du déplacement de l'entité (-1 si on ne se déplace pas)
@@ -190,5 +191,9 @@ public abstract class Entity {
 	
 	public void setMomentum(boolean momentum) {
 		this.momentum = momentum;
+	}
+	
+	public void setLife(int x) {
+		this.life = x;
 	}
 }

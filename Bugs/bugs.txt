@@ -1,0 +1,3 @@
+Sur l'image tous les slimes n'avancent pas.
+    - Pour les trois rouges c'est dû aux collisions en cercle, ils se bloquent tous les trois et du coup peuvent pas avancer en diagonales
+    - Pour le bleu qui est en dessous c'est dû au fait que les diagonales soient pas codées dans le pathfinding, du coup il essaie d'aller à gauche alors qu'il pourrait faire diagonale haut/gauche et ça le ferait glisser sur le mur pour me rejoindre.

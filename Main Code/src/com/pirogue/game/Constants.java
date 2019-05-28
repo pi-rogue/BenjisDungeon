@@ -51,7 +51,7 @@ public class Constants {
 	
 	
 // ------ Keyboard Configuration ------ //
-	public static int KEY_DebugView = Input.KEY_A;
+	public static int KEY_DebugView = Input.KEY_F3;
 	public static int KEY_Exit = Input.KEY_ESCAPE;
 	public static int KEY_Up = Input.KEY_Z;
 	public static int KEY_Left = Input.KEY_Q;
@@ -63,8 +63,10 @@ public class Constants {
 
 // ------ Variables ------ //
 	public static int mouseX, mouseY; // Coordonnées de la souris
+	public static String currentScreen = "running"; // écran à afficher
 	public static boolean debug = false; // true quand on veut afficher la debug_view
 	public static boolean mousePressed = false; // true quand le bouton gauche de la souris est enfoncé
+	public static boolean mouseWasPressed = false; // garde en mémoire l'ancien état de mousePressed (permet de détecter des clicks)
 	public static boolean inConsole = false; // true si la console est ouverte
 	public static GameContainer container; // Gère ce qui est propre au jeu au niveau de l'OS, par exemple les inputs, la musique, le fullscreen, etc
 	public static Dungeon dungeon; // Pour accéder au dungeon
@@ -118,6 +120,7 @@ public class Constants {
 		 * Cette fonction est utilisée dans Entity.update() afin d'arrondir un float, en arrondissant de façon aléatoire
 		 * entre l'entier supérieur ou inférieur si la partie décimale du nombre est .5
 		 */
+		//int rand = (int) (Math.random() * 2); // Nombre aléatoire soit 0 soit 1
 		if (a%0.5==0) return (int) (Math.random()<0.5 ? Math.floor(a) : Math.ceil(a));
 		return Math.round(a);
 	}

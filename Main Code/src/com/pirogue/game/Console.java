@@ -19,7 +19,7 @@ public class Console {
 	
 	public Console() {
 		this.enteredString = "";
-		this.historic = " \n \n \n \n \n \n \n \n \n \n \n type your command";
+		this.historic = "\n \n \n \n \n \n \n \n \n \n \n type your command";
 		this.line = ">";
 	}
 	
@@ -31,8 +31,7 @@ public class Console {
 	void render(Graphics g) throws SlickException
 	{
 		if (Constants.inConsole) {
-			Color test = new Color(0f,0f,0f,0.35f);
-			g.setColor(test);
+			g.setColor(new Color(0f,0f,0f,0.35f));
 			g.fillRect(0, 0, 500, 300);
 			g.setColor(Color.white);
 			g.drawString(enteredString,20,270);
@@ -60,83 +59,73 @@ public class Console {
 	
 	
 	void keyPressed(int key, char c) {
-		if (key == Input.KEY_BACK)
-		{
-			if (enteredString.length()>0) {
-			enteredString=enteredString.substring(0,(enteredString.length()-1));
-		}}
-		else if (key == Input.KEY_RETURN) {
-			this.executeCommand(enteredString);
-			this.historic=historic+"\n"+enteredString;
-			this.enteredString="";
-			
+		if (key == Input.KEY_BACK && enteredString.length()>0) {
+			enteredString = enteredString.substring(0,(enteredString.length()-1));
 		}
-		
+		else if (key == Input.KEY_RETURN) {
+			if (enteredString!="") this.historic += "\n"+enteredString;
+			this.executeCommand(enteredString);
+			this.enteredString = "";
+		}
 		else enteredString+=c;
+		
 		int p;
 		String[] commandes = historic.split("\n");
-		p=commandes.length;
-		System.out.println(p);
-		if((p)>13){
-			p=14;
-		this.historic="";
-		for(int i=2;i<p;i++)
-		{
-			historic+= "\n" + commandes[i] ;
-			
-		}
-		}
-	
-		}
+		if(commandes.length>13){
+			this.historic="";
+			for(int i=commandes.length-12;i<commandes.length;i++) {
+				historic += "\n"+commandes[i];
+			}
+		}	
+	}
 	
 	
 	void executeCommand(String command) {
-		
-		//int n=0;
-		if(enteredString.contentEquals("/walid"))
-		{
-		this.historic=historic+"\n OK. OP MODE ENABLED";
-		}	
 		String[] word = command.split(" ");
 		switch(word[0]) {
+		case "/walid":
+			this.historic += "\n# OK. OP MODE ENABLED";
+			break;
 		case "/give" :
-			int n=6;
-			double ID;
-			while((!(Constants.dungeon.hero.inventory.objects[n] instanceof EmptyItem)))
-			{
-				n++;
-			}
-			if (word[1].equals("empty") || word[1].equals(""))
-			{
-				break;
-			}
-			else
-			{
-				word[1]=word[1].replaceAll("[^0-9\\.]", "");
-				ID = Double.parseDouble(word[1]);
-				
-			if(ID>=200000)
-			{
-				break;
-			}
-			else
-			{
-				if((obj.Items[(int)ID])==null)
+			if (word.length>1) {
+				int n=6;
+				double ID;
+				while((!(Constants.dungeon.hero.inventory.objects[n] instanceof EmptyItem))) {
+					n++;
+				}
+				if (word[1].equals("empty") || word[1].equals("")) {
 					break;
-				else
-				{
-				System.out.println(ID);
-				
-				Constants.dungeon.hero.inventory.objects[n] = obj.Items[(int)ID];			
+				}
+				else {
+					word[1] = word[1].replaceAll("[^0-9\\.]", "");
+					ID = Double.parseDouble(word[1]);
+					if(ID<200000 && (obj.Items[(int)ID])!=null) {
+						//System.out.println(ID);
+						Constants.dungeon.hero.inventory.objects[n] = obj.Items[(int)ID];
+					}
+				}
 			}
+			else {
+				this.historic += "\n# Usage : /give <ID>";
+			}
+			break;
+		case "/set":
+			if (word.length>1) {
+				switch (word[1]) {
+				case "life":
+					if (word.length==3 && Integer.parseInt(word[2])>=0 && Integer.parseInt(word[2])<=100) {
+						Constants.dungeon.hero.setLife(Integer.parseInt(word[2]));
+					}
+					else {
+						this.historic += "\n# Usage : /set life <value>\n# The value must be between 0 and 100";
+					}
+					break;
+				}
+			}
+			else {
+				this.historic += "\n# Usage : /set <field> <value>";
+			}
+			break;
 		}
-		
 	}
-	
-/*	void componentActivated(AbstractComponent KEY_A) {
-		
-		
-	};*/
-
-
-}}}
+}
