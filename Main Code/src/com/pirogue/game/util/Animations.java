@@ -6,7 +6,7 @@ import org.newdawn.slick.SpriteSheet;
 public class Animations {
 /* 
  * Dans notre jeu on gère les animations d'une manière groupée, parce que pour chaque chose que l'on veut animer
- * il faut prévoir une anipation par direction. Afin de simplifier de le code, la classe Animations (le s à la
+ * il faut prévoir une animation par direction. Afin de simplifier dans le code, la classe Animations (le s à la
  * fin est important) regroupe donc toutes les animations pour chaque direction. Une spritesheet est chargée selon
  * le schéma suivant:
  * Soit un sprite avec n directions de personnages (on espère en avoir plus de 2 un jour...) et p frames.

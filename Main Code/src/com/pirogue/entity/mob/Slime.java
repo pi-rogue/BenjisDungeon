@@ -26,7 +26,7 @@ public class Slime extends Mob {
 		movingAnims.setPingPong();
 		animations.put("moving", movingAnims);
 
-		Animations attackAnims = Constants.animations.get("debug missing");
+		Animations attackAnims = Constants.animations.get("mobs slime attack" + _color);
 		attackAnims.setPlayOnce(); // Les animations des attaques ne doivent pas tourner en boucle
 		animations.put("attack", attackAnims);
 	}
