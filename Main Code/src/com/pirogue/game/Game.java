@@ -54,8 +54,10 @@ public class Game extends BasicGame {
 			else if (Constants.inConsole) { // ---------------- Si la console est ouverte
 				// On transmet tous les inputs clavier à la console en filtrant certaines touches
 				if (key!=Input.KEY_LSHIFT  && key!=Input.KEY_RSHIFT &&
-						key!=Input.KEY_LALT    && key!=Input.KEY_RALT   &&
-						key!=Input.KEY_CAPITAL && key!=Input.KEY_TAB) console.keyPressed(key, c);
+						key!=Input.KEY_LALT && key!=Input.KEY_RALT &&
+						key!=Input.KEY_CAPITAL && key!=Input.KEY_TAB &&
+						key!=Input.KEY_HOME && key!=Input.KEY_END &&
+						key!=Input.KEY_PRIOR && key!=Input.KEY_NEXT) console.keyPressed(key, c);
 			}
 			else { // ---------------- Sinon c'est le comportement normal
 				if (key == Constants.KEY_DebugView) {
@@ -157,10 +159,10 @@ public class Game extends BasicGame {
 		
 			// -- Update hero, mobs and debug information -- //
 			console.update(delta, arrowsDir);
-			dungeon.hero.update(container, delta);
-			for(int i=0; i<dungeon.getCurrentFloor().tabMob.length; i++) {
-				dungeon.getCurrentFloor().tabMob[i].pathfinding(dungeon.hero.x, dungeon.hero.y);
-				dungeon.getCurrentFloor().tabMob[i].update(container, delta);
+			dungeon.hero.update(delta);
+			for(int i=0; i<dungeon.getCurrentFloor().mobs.size(); i++) {
+				dungeon.getCurrentFloor().mobs.get(i).pathfinding(dungeon.hero.x, dungeon.hero.y);
+				dungeon.getCurrentFloor().mobs.get(i).update(delta);
 			}
 		}
 		else if (Constants.currentScreen.equals("menu")) {

@@ -1,4 +1,4 @@
-# BenjisDungeon
+﻿# BenjisDungeon
 
 
 ### Todo list :
@@ -7,7 +7,6 @@
 - [ ] Toutes les textures (après plusieurs tests, si on peut faire du 64x64 ce serait vraiment bien)
 - [ ] Réfléchir à l'ambiance musicale
 - [x] Faire se déplacer un personnage sur une map (diagonales, avec caméra centrée, collisions avec les murs)
-- [ ] Décimer la famille du prof qui nous a touours pas répondu
 - [ ] Ajouter des coffres avec des taux de loot
 - [ ] Faire un inventaire pour équiper les objets
 - [ ] Faire les équipements et objets

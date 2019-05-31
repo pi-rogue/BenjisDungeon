@@ -41,7 +41,6 @@ public class Dungeon {
 	
 	public void render(Graphics g) {
 		getCurrentFloor().render(g, hero.x, hero.y);
-		getCurrentFloor().renderMobs(g, hero.x, hero.y);
 		hero.render(g); // Render du héros en dernier pour qu'il soit par dessus tout
 	}	
 }

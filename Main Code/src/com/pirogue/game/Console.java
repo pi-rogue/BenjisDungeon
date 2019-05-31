@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import com.pirogue.entity.Chest;
 import com.pirogue.items.EmptyItem;
 import com.pirogue.items.List;
 
@@ -69,7 +70,6 @@ public class Console {
 		}
 		else enteredString+=c;
 		
-		int p;
 		String[] commandes = historic.split("\n");
 		if(commandes.length>13){
 			this.historic="";
@@ -109,6 +109,7 @@ public class Console {
 				this.historic += "\n# Usage : /give <ID>";
 			}
 			break;
+			
 		case "/set":
 			if (word.length>1) {
 				switch (word[1]) {
@@ -116,15 +117,23 @@ public class Console {
 					if (word.length==3 && Integer.parseInt(word[2])>=0 && Integer.parseInt(word[2])<=100) {
 						Constants.dungeon.hero.setLife(Integer.parseInt(word[2]));
 					}
-					else {
-						this.historic += "\n# Usage : /set life <value>\n# The value must be between 0 and 100";
-					}
+					else this.historic += "\n# Usage : /set life <value>\n# The value must be between 0 and 100";
 					break;
 				}
 			}
-			else {
-				this.historic += "\n# Usage : /set <field> <value>";
+			else this.historic += "\n# Usage : /set <field> <value>";
+			break;
+			
+		case "/summon":
+			if (word.length>1) {
+				switch (word[1]) {
+				case "chest":
+					Constants.dungeon.getCurrentFloor().chests.add(new Chest(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-1, ""));
+					this.historic += "\n# Chest sucessfully created";
+					break;
+				}
 			}
+			else this.historic += "\n# Usage : /summon <entity>";
 			break;
 		}
 	}

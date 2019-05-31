@@ -1,1 +1,0 @@
-dans src/assets/sprites/mobs/slime/attack/_couleur.png

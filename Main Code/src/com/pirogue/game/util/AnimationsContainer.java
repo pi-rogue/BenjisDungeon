@@ -35,11 +35,18 @@ public class AnimationsContainer extends HashMap<String, Animations> {
 				}
 				
 				String key = String.join(" ", file.getPath().substring(19, file.getPath().indexOf(".")).split("\\\\")); // Format de la key
-				int cellWidth = Constants.blockSize * (key.matches("heroes attack .*") ? 2:1); // Permet de gérer des spritesheets qui ne sont pas 64x64
-				int cellHeight = Constants.blockSize; // Si on a plus tard des spritesheets avec une hauteur plus grande (pour l'attaque vers le haut par exemple ?)
+				int cellWidth = Constants.blockSize; // Permet de gérer des spritesheets qui ne sont pas 64x64
+				int cellHeight = Constants.blockSize;
+				if (key.matches("heroes attack .*")) {
+					cellWidth *= 2;
+				}
+				else if (key.matches("mobs slime attack .*")) {
+					cellWidth *= 3;
+					cellHeight *= 3;
+				}
 				SpriteSheet spritesheet = new SpriteSheet(file.getPath(), cellWidth, cellHeight);
 				
-				this.put(key, new Animations(spritesheet, getDuration(key)));
+				this.put(key, new Animations(spritesheet, getDuration(key), getDamageFrame(key)));
 			}
 		}
 	}
@@ -55,10 +62,19 @@ public class AnimationsContainer extends HashMap<String, Animations> {
 		return anims;
 	}
 	
-	public int getDuration(String key) {
-		/* Selon l'animation on veut des durées différentes */
+	private int getDuration(String key) {
+		/* Selon l'animation, on veut des durées différentes */
 		if (key.matches(".*slime.*")) return 150;
 		if (key.matches("heroes attack .*")) return 50;
 		return 100;
+	}
+	
+	private int getDamageFrame(String key) {
+		/* Selon l'animation, la damageFrame change (voir Animations.java) */
+		if (!key.matches(".* attack .*")) return 0;
+		if (key.matches(".* auto .*daggers.*")) return 3;
+		if (key.matches(".* poison .*daggers.*")) return 4;
+		if (key.matches(".*slime.*")) return 5;
+		return 0;
 	}
 }

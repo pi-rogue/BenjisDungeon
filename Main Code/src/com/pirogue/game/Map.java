@@ -1,9 +1,12 @@
 package com.pirogue.game;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import com.pirogue.entity.Chest;
 import com.pirogue.entity.Mob;
 import com.pirogue.entity.mob.Slime;
 
@@ -14,7 +17,8 @@ public class Map {
 	protected Tile Blocks[][];
 	private int salleX=0, salleY=0, tailleSalleX=0, tailleSalleY=0;
 	public int spawnX,spawnY;
-	public Mob tabMob[] = new Mob[Constants.nbMob];
+	public ArrayList<Mob> mobs = new ArrayList<Mob>();         // TODO: fusionner ces deux listes ce serait quand même bcp plus propre
+	public ArrayList<Chest> chests = new ArrayList<Chest>();   //
 	 
 
 	public Map(int width, int height) {
@@ -159,7 +163,7 @@ public class Map {
 				x = 1 + (int)(Math.random() * ((Constants.mapWidth-1 - 1) + 1));
 				y = 1 + (int)(Math.random() * ((Constants.mapHeight-1 - 1) + 1));
 			} while(Blocks[x][y].equals(Constants.Droite) || Blocks[x][y].equals(Constants.Vide) || Blocks[x][y].equals(Constants.Gauche) || Blocks[x][y].equals(Constants.Bas) || Blocks[x][y].equals(Constants.Haut) || Blocks[x][y].equals(Constants.AngleBD) || Blocks[x][y].equals(Constants.AngleHD) || Blocks[x][y].equals(Constants.AngleBG) || Blocks[x][y].equals(Constants.AngleHG) || Blocks[x][y].equals(Constants.CoinHG) || Blocks[x][y].equals(Constants.CoinHD) || Blocks[x][y].equals(Constants.CoinBG) || Blocks[x][y].equals(Constants.CoinBD) || Blocks[x][y].equals(Constants.Inter1) || Blocks[x][y].equals(Constants.Inter2));
-			tabMob[i] = new Slime(x, y, colors[(int)(Math.random() * 3)]); // Et on fait spawn un Slime de couleur random
+			mobs.add(new Slime(x, y, colors[(int)(Math.random() * 3)])); // Et on fait spawn un Slime de couleur random
 		}
 	}
 	
@@ -194,6 +198,9 @@ public class Map {
 				}
 			}
 		}
+		
+		renderMobs(g, heroX, heroY);
+		renderChests(g, heroX, heroY);
 	}
 	
 	public void renderMobs(Graphics g, int heroX, int heroY) {
@@ -204,9 +211,29 @@ public class Map {
 		int Yf=heroY+Constants.SCREEN_WIDTH/2+Constants.blockSize;
 		
 		for(int i=0; i<Constants.nbMob; i++) {
-			if (tabMob[i].x>=Xi && tabMob[i].x<=Xf && tabMob[i].y>=Yi && tabMob[i].y<=Yf ) {
-				tabMob[i].render(g, heroX, heroY);
+			Mob mob = mobs.get(i);
+			if (mob.x>=Xi && mob.x<=Xf && mob.y>=Yi && mob.y<=Yf ) {
+				mob.render(g, heroX, heroY);
 			}
 		}
+	}
+	
+	public void renderChests(Graphics g, int heroX, int heroY) {
+		// On n'affiche que les coffres qui sont dans l'écran (+1 bloc au cas où) pour améliorer les perfs
+		int Xi=heroX-Constants.SCREEN_WIDTH/2-Constants.blockSize;
+		int Yi=heroY-Constants.SCREEN_WIDTH/2-Constants.blockSize;
+		int Xf=heroX+Constants.SCREEN_WIDTH/2+Constants.blockSize;
+		int Yf=heroY+Constants.SCREEN_WIDTH/2+Constants.blockSize;
+		
+		for(int i=0; i<chests.size(); i++) {
+			Chest chest = chests.get(i);
+			if (chest.x>=Xi && chest.x<=Xf && chest.y>=Yi && chest.y<=Yf ) {
+				chest.render(g, heroX, heroY);
+			}
+		}
+	}
+	
+	public void killMob(Mob mob) {
+		mobs.remove(mob);
 	}
 }

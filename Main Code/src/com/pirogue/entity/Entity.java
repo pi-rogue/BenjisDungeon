@@ -1,7 +1,6 @@
 package com.pirogue.entity;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -18,6 +17,9 @@ public abstract class Entity {
 	protected AnimationsContainer animations = new AnimationsContainer(); // Regroupe toutes les animations possibles de l'entité
 	protected boolean isColliding = false; // True si l'entité est en collision avec un mur (TODO: Ajouter les collisions avec les autres entités)
 	private boolean momentum = false; // True après un déplacement quand l'entité glisse un peu à vitesse réduite
+	protected int attackID = -1; // -1 si aucune attaque n'est en cours, 0 pour la première attaque, etc
+	protected int damages;
+	protected boolean damageDealt;
 
 	public Entity(int x, int y) {
 		this.x = x*Constants.blockSize;
@@ -44,7 +46,16 @@ public abstract class Entity {
 		}
 	}
 
-	public void update(GameContainer container, int delta) {
+	public void update(int delta) {
+		// Check if we have to deal damages //
+		if (attackID!=-1 && animations.get("attack " + attackID).get(facing).getFrame() == animations.get("attack " + attackID).getDamageFrame()) {
+			if (!damageDealt) {
+				dealDamages();
+				damageDealt = true;
+			}
+		}
+		
+		// Update position //
 		if (moving!=-1) {
 			int futureX = x;
 			int futureY = y;
@@ -148,7 +159,6 @@ public abstract class Entity {
 				
 				
 				// --- Colliisons avec les murs --- //
-				
 				// On récupère l'image de collision de la Tile sur laquelle se trouve le coin 
 				img = Constants.dungeon.getCurrentFloor().getCollideImage((int)(cornerX/Constants.blockSize), (int)(cornerY/Constants.blockSize));
 				if (img != null) {
@@ -164,8 +174,12 @@ public abstract class Entity {
 
 		// --- Collisions avec les autres entités --- //
 		// Pour l'instant solution de la facilité : on interdit la distance avec les autres entités à être < à blockSize
-		
-		for (Entity ent : Constants.dungeon.getCurrentFloor().tabMob) {
+		for (Entity ent : Constants.dungeon.getCurrentFloor().mobs) {
+			if (!(ent.x==this.x && ent.y==this.y) && Math.sqrt(Math.pow(ent.x-futureX, 2)+Math.pow(ent.y-futureY, 2))<Constants.blockSize) {
+				return true;
+			}
+		}
+		for (Chest ent : Constants.dungeon.getCurrentFloor().chests) {
 			if (!(ent.x==this.x && ent.y==this.y) && Math.sqrt(Math.pow(ent.x-futureX, 2)+Math.pow(ent.y-futureY, 2))<Constants.blockSize) {
 				return true;
 			}
@@ -180,6 +194,8 @@ public abstract class Entity {
 	}
 
 	protected abstract void refreshAnimations();
+	public abstract void dealDamages();
+	public abstract void hurt(int damages);
 
 	public void setFacing(int facing) {
 		this.facing = facing;
