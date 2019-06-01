@@ -210,7 +210,7 @@ public class Map {
 		int Xf=heroX+Constants.SCREEN_WIDTH/2+Constants.blockSize;
 		int Yf=heroY+Constants.SCREEN_WIDTH/2+Constants.blockSize;
 		
-		for(int i=0; i<Constants.nbMob; i++) {
+		for(int i=0; i<mobs.size(); i++) {
 			Mob mob = mobs.get(i);
 			if (mob.x>=Xi && mob.x<=Xf && mob.y>=Yi && mob.y<=Yf ) {
 				mob.render(g, heroX, heroY);
@@ -232,7 +232,7 @@ public class Map {
 			}
 		}
 	}
-	
+
 	public void killMob(Mob mob) {
 		mobs.remove(mob);
 	}

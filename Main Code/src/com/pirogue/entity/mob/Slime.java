@@ -61,14 +61,7 @@ public class Slime extends Mob {
 	@Override
 	public void hurt(int damages) {
 		this.life -= damages; // TODO: prendre en compte l'armure
-		if (life<=0) {
-			// Constants.dungeon.getCurrentFloor().killMob(this); // pour l'instant ça fait crash le jeu je sais pourquoi je réfléchis à une autre façon de le faire
-            // Du coup pour l'instant un slime mort sera un truc qui bouge pas avec une missing texture
-            this._color = "DEAD CHEH";
-            this.velocity = 0;
-            this.damages = 0;
-            refreshAnimations();
-		}
 	}
-
+	
+	
 }

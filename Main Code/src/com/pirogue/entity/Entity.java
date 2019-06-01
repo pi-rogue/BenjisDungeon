@@ -46,7 +46,12 @@ public abstract class Entity {
 		}
 	}
 
-	public void update(int delta) {
+	public boolean update(int delta) {
+		// Check if the entity is dead //
+		if (this.life <= 0) {
+			return true;
+		}
+		
 		// Check if we have to deal damages //
 		if (attackID!=-1 && animations.get("attack " + attackID).get(facing).getFrame() == animations.get("attack " + attackID).getDamageFrame()) {
 			if (!damageDealt) {
@@ -129,6 +134,7 @@ public abstract class Entity {
 				this.y = futureY;
 			}
 		}
+		return false;
 	}
 
 	private boolean isColliding(boolean[] corners, int futureX, int futureY) {

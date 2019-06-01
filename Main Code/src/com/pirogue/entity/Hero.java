@@ -91,8 +91,8 @@ public abstract class Hero extends Entity {
 		animations.put("inventory body", animations.get("rest").getScaledCopy(invCellWidth, invCellHeight));
 	}
 	
-	public void update(int delta) {					
-		super.update(delta);
+	public boolean update(int delta) {					
+		boolean isDead = super.update(delta);
 		if (attackID==-1) updateFacing(); // Quand on attaque on ne peut pas changer de direction
 		if (this.inInventory()) {
 			if (inventory.update())	refreshAnimations(); // inventory.update() renvoie true si jamais les équipements ont été modifiés
@@ -100,6 +100,8 @@ public abstract class Hero extends Entity {
 		else {
 			if (Constants.mousePressed && !Constants.mouseWasPressed) attack(); // TODO: Changer la condition si on veut pouvoir laisser appuyé pour attaquer
 		}
+		if (isDead) this.life=0; // Permet de ne pas avoir de vie négative (pour la barre de vie)
+		return isDead;
 	}
 	
 	protected void updateFacing() {		
@@ -137,10 +139,6 @@ public abstract class Hero extends Entity {
 	
 	public void hurt(int damages) {
 		this.life -= damages; // TODO: prendre en compte l'armure
-		if (life<=0) {
-			life=0;
-			System.out.println("YOU'RE DEAD BEYOTCH.");
-		}
 	}
 	
 	public void dealDamages() { // TODO: prendre en compte les dégâts de l'arme, et changer la range en fonction du sort, donc déplacer cette méthode dans chaque classe ?

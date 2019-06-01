@@ -9,6 +9,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import com.pirogue.entity.Mob;
+
 public class Game extends BasicGame {
 
 	private Dungeon dungeon;
@@ -161,8 +163,13 @@ public class Game extends BasicGame {
 			console.update(delta, arrowsDir);
 			dungeon.hero.update(delta);
 			for(int i=0; i<dungeon.getCurrentFloor().mobs.size(); i++) {
-				dungeon.getCurrentFloor().mobs.get(i).pathfinding(dungeon.hero.x, dungeon.hero.y);
-				dungeon.getCurrentFloor().mobs.get(i).update(delta);
+				Mob mob = dungeon.getCurrentFloor().mobs.get(i);
+				mob.pathfinding(dungeon.hero.x, dungeon.hero.y);
+				boolean mobKilled = mob.update(delta);
+				if (mobKilled) {
+					Constants.dungeon.getCurrentFloor().mobs.remove(mob);
+					i--;
+				}
 			}
 		}
 		else if (Constants.currentScreen.equals("menu")) {
