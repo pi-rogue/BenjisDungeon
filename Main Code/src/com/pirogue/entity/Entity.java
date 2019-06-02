@@ -11,7 +11,7 @@ public abstract class Entity {
 
 	protected float velocity = 0.5f; // TODO: Trouver une solution propre au problème de vitesse (ça va impliquer du random à chaque déplacement...)
 	protected int life = 100;
-	public int x,y, width,height;
+	public int x,y, width,height, ID;
 	protected int facing; // Direction de l'entité
 	protected int moving = -1; // Direction du déplacement de l'entité (-1 si on ne se déplace pas)
 	protected AnimationsContainer animations = new AnimationsContainer(); // Regroupe toutes les animations possibles de l'entité
@@ -22,6 +22,7 @@ public abstract class Entity {
 	protected boolean damageDealt;
 
 	public Entity(int x, int y) {
+		this.ID = Constants.newID();
 		this.x = x*Constants.blockSize;
 		this.y = y*Constants.blockSize;
 		this.width = Constants.blockSize-2;  // On enlève 2 pour pouvoir passer tranquillement dans les couloirs de 1 bloc de largeur
@@ -180,13 +181,8 @@ public abstract class Entity {
 
 		// --- Collisions avec les autres entités --- //
 		// Pour l'instant solution de la facilité : on interdit la distance avec les autres entités à être < à blockSize
-		for (Entity ent : Constants.dungeon.getCurrentFloor().mobs) {
-			if (!(ent.x==this.x && ent.y==this.y) && Math.sqrt(Math.pow(ent.x-futureX, 2)+Math.pow(ent.y-futureY, 2))<Constants.blockSize) {
-				return true;
-			}
-		}
-		for (Chest ent : Constants.dungeon.getCurrentFloor().chests) {
-			if (!(ent.x==this.x && ent.y==this.y) && Math.sqrt(Math.pow(ent.x-futureX, 2)+Math.pow(ent.y-futureY, 2))<Constants.blockSize) {
+		for (Entity ent : Constants.dungeon.getCurrentFloor().entities) {
+			if (ent.ID!=this.ID && Math.sqrt(Math.pow(ent.x-futureX, 2)+Math.pow(ent.y-futureY, 2))<Constants.blockSize) {
 				return true;
 			}
 		}

@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.pirogue.entity.Chest;
+import com.pirogue.entity.mob.Slime;
 import com.pirogue.items.EmptyItem;
 import com.pirogue.items.List;
 
@@ -126,12 +127,19 @@ public class Console {
 			
 		case "/summon":
 			if (word.length>1) {
+				boolean success = true;
 				switch (word[1]) {
 				case "chest":
-					Constants.dungeon.getCurrentFloor().chests.add(new Chest(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-1, ""));
-					this.historic += "\n# Chest sucessfully created";
+					Constants.dungeon.getCurrentFloor().entities.add(new Chest(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-1, ""));
 					break;
+				case "slime":
+					Constants.dungeon.getCurrentFloor().entities.add(new Slime(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-1, "blue"));
+					break;
+				default:
+					this.historic += "\n# Unknown entity";
+					success = false;
 				}
+				if (success) this.historic += "\n# Entity successfully summoned";
 			}
 			else this.historic += "\n# Usage : /summon <entity>";
 			break;

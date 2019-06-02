@@ -8,7 +8,7 @@ import com.pirogue.game.util.Animations;
 
 public class Slime extends Mob {
 
-	private String _color = "blue";
+	private String _color;
 
 	public Slime(int x, int y, String color) {
 		super(x, y);

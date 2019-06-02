@@ -142,17 +142,11 @@ public abstract class Hero extends Entity {
 	}
 	
 	public void dealDamages() { // TODO: prendre en compte les dégâts de l'arme, et changer la range en fonction du sort, donc déplacer cette méthode dans chaque classe ?
-		for (Entity ent : Constants.dungeon.getCurrentFloor().mobs) {
+		for (Entity ent : Constants.dungeon.getCurrentFloor().entities) {
 			if (ent.x>this.x && facing==0 && Math.sqrt(Math.pow(ent.x-this.x, 2)+Math.pow(ent.y-this.y, 2))<Constants.blockSize*1.5f)
 					ent.hurt(damages);
 			else if (ent.x<this.x && facing==1 && Math.sqrt(Math.pow(ent.x-this.x, 2)+Math.pow(ent.y-this.y, 2))<Constants.blockSize*1.5f)
 					ent.hurt(damages);
-		}
-		for (Chest chest : Constants.dungeon.getCurrentFloor().chests) {
-			if (chest.x>this.x && facing==0 && Math.sqrt(Math.pow(chest.x-this.x, 2)+Math.pow(chest.y-this.y, 2))<Constants.blockSize*1.5f)
-					chest.hurt(damages);
-			else if (chest.x<this.x && facing==1 && Math.sqrt(Math.pow(chest.x-this.x, 2)+Math.pow(chest.y-this.y, 2))<Constants.blockSize*1.5f)
-					chest.hurt(damages);
 		}
 	}
 }

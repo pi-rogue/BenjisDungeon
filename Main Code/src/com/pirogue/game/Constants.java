@@ -76,6 +76,7 @@ public class Constants {
 					   CoinHG, CoinHD, CoinBG, CoinBD,
 					   Inter1, Inter2, Vide;
 	public static Tile[] Sols, Murs;
+	private static int IDCounter = 0;
 
 // ------ Initialization ------ //
 	public static void init() throws SlickException {
@@ -123,5 +124,11 @@ public class Constants {
 		//int rand = (int) (Math.random() * 2); // Nombre aléatoire soit 0 soit 1
 		if (a%0.5==0) return (int) (Math.random()<0.5 ? Math.floor(a) : Math.ceil(a));
 		return Math.round(a);
+	}
+	
+	public static int newID() {
+		int id = IDCounter;
+		IDCounter++;
+		return id;
 	}
 }
