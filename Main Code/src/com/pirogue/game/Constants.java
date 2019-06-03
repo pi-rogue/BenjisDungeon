@@ -19,8 +19,8 @@ public class Constants {
 	public static boolean VERTICAL_SYNC = false;
 	public static int DELTA_MAX = 20; // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	public static int FPS_MAX = 200;
-	public static int SCREEN_WIDTH = 1366; // Voir résolutions compatibles dans Trash Code > Resolutions.txt
-	public static int SCREEN_HEIGHT = 768; // On pourra faire un sélecteur plus tard quand on aura une page de settings
+	public static int SCREEN_WIDTH = 1920; // Voir résolutions compatibles dans Trash Code > Resolutions.txt
+	public static int SCREEN_HEIGHT = 1080; // On pourra faire un sélecteur plus tard quand on aura une page de settings
 	public static String tileset = "assets/map/tileset.png"; // Image du tileset
 	public static String collide = "assets/map/collide.png"; // Image des collisions avec le tileset
 
