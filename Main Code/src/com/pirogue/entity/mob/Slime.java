@@ -12,7 +12,7 @@ public class Slime extends Mob {
 
 	public Slime(int x, int y, String color) {
 		super(x, y);
-		this.velocity = 0.15f;
+		this.velocity = Constants.slimeSpeed;
 		this._color = color;
 		this.facing = 0; // Il n'y a pas de direction pour les slimes
 		this.damages = 10;
@@ -30,6 +30,14 @@ public class Slime extends Mob {
 		Animations attackAnims = Constants.animations.get("mobs slime attack " + _color);
 		attackAnims.setPlayOnce(); // Les animations des attaques ne doivent pas tourner en boucle
 		animations.put("attack 0", attackAnims);
+	}
+	
+	protected boolean aggro() {
+		if(Math.sqrt(distX*distX+distY*distY)<Constants.slimeAggro) {//détecte si le slime est assez proche pour pathfind
+			if(Math.sqrt(distX*distX+distY*distY)<Constants.slimeRange) attack();//detecte si le slime est assez proche pour attaquer
+			return true;
+		}
+		return false;
 	}
 
 	public void render(Graphics g, int offsetX, int offsetY) {

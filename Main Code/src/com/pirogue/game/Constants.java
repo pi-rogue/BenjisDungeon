@@ -15,7 +15,7 @@ public class Constants {
 // ---------- Settings ---------- //
 	/* GLOBAL */
 	public static boolean SHOW_FPS = true;
-	public static boolean FULLSCREEN = false;
+	public static boolean FULLSCREEN = true;
 	public static boolean VERTICAL_SYNC = false;
 	public static int DELTA_MAX = 20; // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	public static int FPS_MAX = 200;
@@ -77,6 +77,11 @@ public class Constants {
 					   Inter1, Inter2, Vide;
 	public static Tile[] Sols, Murs;
 	private static int IDCounter = 0;
+	
+// ------ équilibrage slime ------ //	
+	public static float slimeSpeed =  0.15f;
+	public static int slimeAggro = 350;
+	public static int slimeRange = Constants.blockSize+10;
 
 // ------ Initialization ------ //
 	public static void init() throws SlickException {
