@@ -5,7 +5,8 @@ import com.pirogue.game.Constants;
 public abstract class Mob extends Entity {
 	
 	protected int distX, distY;	
-	int cpt=0;
+	protected int aggro = 350;
+	protected int range = Constants.blockSize+10;
 	
 	public Mob(int x, int y) {
 		super(x, y);
@@ -27,8 +28,8 @@ public abstract class Mob extends Entity {
 	}
 	
 	protected boolean aggro() {
-		if(Math.sqrt(distX*distX+distY*distY)<350) {//detecte si le mob est assez proche pour pathfind 
-			if(Math.sqrt(distX*distX+distY*distY)<Constants.blockSize+10) attack();//detecte si le mob est assez pres pour attaquer
+		if(Math.sqrt(distX*distX+distY*distY)<aggro) {//detecte si le mob est assez proche pour pathfind 
+			if(Math.sqrt(distX*distX+distY*distY)<range) attack();//detecte si le mob est assez pres pour attaquer
 			return true;
 		}
 		return false;

@@ -36,6 +36,15 @@ public class Map {
 			this.generate();
 		}
 		this.scanBlock();
+		this.resetGrille();
+	}
+	
+	public void resetGrille() {
+		for(int i=0; i<width; i++) {
+			for(int j=0; j<height; j++) {
+				this.grille[i][j] = false;
+			}
+		}
 	}
 	
 	public void generate() {										//génération des salles
@@ -153,15 +162,16 @@ public class Map {
 	}
 
 
-	public void spawnMob(int j) throws SlickException {
+	public void spawnEntity(int j) throws SlickException {
 		int x, y;
 		String[] colors = {"red", "green", "blue"};
 		for(int i=0; i<j; i++) {
 			do { // On choisit des coordonnées aléatoires jusqu'à ce qu'elles soient valides
 				x = 1 + (int)(Math.random() * ((Constants.mapWidth-1 - 1) + 1));
 				y = 1 + (int)(Math.random() * ((Constants.mapHeight-1 - 1) + 1));
-			} while(Blocks[x][y].equals(Constants.Droite) || Blocks[x][y].equals(Constants.Vide) || Blocks[x][y].equals(Constants.Gauche) || Blocks[x][y].equals(Constants.Bas) || Blocks[x][y].equals(Constants.Haut) || Blocks[x][y].equals(Constants.AngleBD) || Blocks[x][y].equals(Constants.AngleHD) || Blocks[x][y].equals(Constants.AngleBG) || Blocks[x][y].equals(Constants.AngleHG) || Blocks[x][y].equals(Constants.CoinHG) || Blocks[x][y].equals(Constants.CoinHD) || Blocks[x][y].equals(Constants.CoinBG) || Blocks[x][y].equals(Constants.CoinBD) || Blocks[x][y].equals(Constants.Inter1) || Blocks[x][y].equals(Constants.Inter2));
-			entities.add(new Slime(x, y, colors[(int)(Math.random() * 3)])); // Et on fait spawn un Slime de couleur random
+			} while(this.Blocks[x][y].equals(Constants.Droite) || this.Blocks[x][y].equals(Constants.Vide) || this.Blocks[x][y].equals(Constants.Gauche) || this.Blocks[x][y].equals(Constants.Bas) || this.Blocks[x][y].equals(Constants.Haut) || this.Blocks[x][y].equals(Constants.AngleBD) || this.Blocks[x][y].equals(Constants.AngleHD) || this.Blocks[x][y].equals(Constants.AngleBG) || this.Blocks[x][y].equals(Constants.AngleHG) || this.Blocks[x][y].equals(Constants.CoinHG) || this.Blocks[x][y].equals(Constants.CoinHD) || this.Blocks[x][y].equals(Constants.CoinBG) || this.Blocks[x][y].equals(Constants.CoinBD) || this.Blocks[x][y].equals(Constants.Inter1) || this.Blocks[x][y].equals(Constants.Inter2) || this.grille[x][y]);
+			this.entities.add(new Slime(x, y, colors[(int)(Math.random() * 3)])); // Et on fait spawn un Slime de couleur random
+			this.grille[x][y] = true;
 		}
 	}
 	

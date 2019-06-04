@@ -27,7 +27,7 @@ public class Dungeon {
 		// Génère j nouveaux étages
 		for(int i=0; i<j; i++) {
 			floors.add(new Map(Constants.mapWidth, Constants.mapHeight));
-			getCurrentFloor().spawnMob(Constants.nbMob);
+			getCurrentFloor().spawnEntity(Constants.nbMob);
 		}
 	}
 
