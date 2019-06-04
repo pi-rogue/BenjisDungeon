@@ -27,8 +27,8 @@ public abstract class Entity {
 
 	public Entity(int x, int y) {
 		this.ID = Constants.newID();
-		this.x = x*Constants.blockSize;
-		this.y = y*Constants.blockSize;
+		this.x = x*Constants.blockSize+Constants.blockSize/2;
+		this.y = y*Constants.blockSize+Constants.blockSize/2;
 		this.width = Constants.blockSize-2;  // On enlève 2 pour pouvoir passer tranquillement dans les couloirs de 1 bloc de largeur
 		this.height = Constants.blockSize-2; //
 		animations.put("rest", Constants.animations.get("debug default"));

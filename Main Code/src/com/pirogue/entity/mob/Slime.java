@@ -11,6 +11,8 @@ public class Slime extends Mob {
 	public Slime(int x, int y, String color) {
 		super(x, y);
 		this.velocity = Constants.slimeSpeed;
+		this.aggro = Constants.slimeAggro;
+		this.range = Constants.slimeRange;
 		this._color = color;
 		this.facing = 0; // Il n'y a pas de direction pour les slimes
 		this.damages = 10;
