@@ -32,14 +32,6 @@ public class Slime extends Mob {
 		animations.put("attack 0", new Animations(Constants.animations.get("mobs slime attack " + _color)));
 		animations.put("death", new Animations(Constants.animations.get("mobs slime death " + _color)));
 	}
-	
-	protected boolean aggro() {
-		if(Math.sqrt(distX*distX+distY*distY)<Constants.slimeAggro) { // Détecte si le slime est assez proche pour pathfind
-			if(Math.sqrt(distX*distX+distY*distY)<Constants.slimeRange) attack(); // Détecte si le slime est assez proche pour attaquer
-			return true;
-		}
-		return false;
-	}
 
 	@Override
 	public void attack() {
