@@ -35,7 +35,8 @@ public abstract class Hero extends Entity {
 		// Affichage de la barre de vie //
 		g.drawImage(lifeBar[1], 40, Constants.SCREEN_HEIGHT-50); // Fond
 		g.drawImage(lifeBar[2].getScaledCopy(lifeBar[0].getWidth()*this.life/100, lifeBar[0].getHeight()), 40, Constants.SCREEN_HEIGHT-50); // Vie
-		g.drawImage(lifeBar[0], 40, Constants.SCREEN_HEIGHT-50); // Cadre
+		if (life <= 100) g.drawImage(lifeBar[0], 40, Constants.SCREEN_HEIGHT-50); // Cadre
+		else g.drawImage(lifeBar[0].getScaledCopy(lifeBar[0].getWidth()*this.life/100, lifeBar[0].getHeight()), 40, Constants.SCREEN_HEIGHT-50); // Fond
 		
 		// Affichage du héros //
 		super.render(g, x, y, true, (facing==1?Constants.blockSize:0), 0);
