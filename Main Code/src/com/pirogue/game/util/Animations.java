@@ -39,6 +39,7 @@ public class Animations {
 	
 	private Animation[] anims;
 	private int damageFrame=0;
+	public boolean pingPong = false, playOnce = false; 
 
 	public Animations(Animation[] anims) {
 		this.anims = anims;
@@ -52,6 +53,21 @@ public class Animations {
 		}
 	}
 	
+	public Animations(Animations a) {
+		this.damageFrame = a.damageFrame;
+		this.anims = new Animation[a.anims.length];
+		for (int facing=0; facing<a.anims.length; facing++) {
+			this.anims[facing] = new Animation();
+			int[] durations = a.anims[facing].getDurations();
+			for (int frame=0; frame<a.anims[facing].getFrameCount(); frame++) {
+				this.anims[facing].addFrame(a.anims[facing].getImage(frame), durations[frame]);
+			}
+		}
+		
+		if (a.pingPong) setPingPong();
+		if (a.playOnce) setPlayOnce();
+	}
+
 	public Animations getScaledCopy(float width, float height) {
 		/* Retourne un nouvel objet Animations où chaque animations est redimentionnée à la bonne taille. */
 		Animation[] newAnims = new Animation[anims.length];
@@ -70,11 +86,13 @@ public class Animations {
 	}
 	
 	public void setPlayOnce() {
+		this.playOnce=true;
 		for (int n=0; n<anims.length; n++)
 			anims[n].stopAt(anims[n].getFrameCount()-1);
 	}
 	
 	public void setPingPong() {
+		this.pingPong = true;
 		for (int n=0; n<anims.length; n++)
 			anims[n].setPingPong(true);
 	}

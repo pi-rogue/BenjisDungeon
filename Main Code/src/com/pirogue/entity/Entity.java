@@ -5,21 +5,25 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 import com.pirogue.game.Constants;
+import com.pirogue.game.util.Animations;
 import com.pirogue.game.util.AnimationsContainer;
 
 public abstract class Entity {
 
-	protected float velocity = 0.5f; // TODO: Trouver une solution propre au problème de vitesse (ça va impliquer du random à chaque déplacement...)
-	protected int life = 100;
 	public int x,y, width,height, ID;
+	protected float velocity = 0.5f;
+	protected int life = 100; // Pour l'instant c'est en pourcentage
+	protected int damages;
 	protected int facing; // Direction de l'entité
 	protected int moving = -1; // Direction du déplacement de l'entité (-1 si on ne se déplace pas)
-	protected AnimationsContainer animations = new AnimationsContainer(); // Regroupe toutes les animations possibles de l'entité
-	protected boolean isColliding = false; // True si l'entité est en collision avec un mur (TODO: Ajouter les collisions avec les autres entités)
-	private boolean momentum = false; // True après un déplacement quand l'entité glisse un peu à vitesse réduite
 	protected int attackID = -1; // -1 si aucune attaque n'est en cours, 0 pour la première attaque, etc
-	protected int damages;
-	protected boolean damageDealt;
+	protected int hitCounter=20;
+	protected AnimationsContainer animations = new AnimationsContainer(); // Regroupe toutes les animations possibles de l'entité
+	protected boolean isColliding = false; // True si l'entité est en collision avec un mur ou une autre entité
+	protected boolean damageDealt; // Cette variable permet de n'infliger les dégâts qu'une seule fois 
+	private boolean momentum = false; // True après un déplacement quand l'entité glisse un peu à vitesse réduite 
+	public boolean isDead = false;
+	public boolean vanished = false; // True quand l'animation de mort est terminée et l'entité est vraiment morte
 
 	public Entity(int x, int y) {
 		this.ID = Constants.newID();
@@ -30,27 +34,60 @@ public abstract class Entity {
 		animations.put("rest", Constants.animations.get("debug default"));
 		animations.put("moving", Constants.animations.get("debug default"));
 	}
-
+	
 	public void render(Graphics g, int offsetX, int offsetY) {
+		this.render(g, offsetX, offsetY, false, 0, 0);
+	}
+
+	public void render(Graphics g, int offsetX, int offsetY, boolean alwaysDrawBody, int attackOffsetX, int attackOffsetY) { 
 		float X = this.x-offsetX + (Constants.SCREEN_WIDTH-Constants.blockSize)/2;  // Coordonnées du coin supérieur gauche (en considérant que l'entité a une longueur 
 		float Y = this.y-offsetY + (Constants.SCREEN_HEIGHT-Constants.blockSize)/2; // et largeur d'une case entière et pas -2, ce qui permet de ne pas décaler l'image)
-		if (Constants.debug) { // Si on est en debug view, on affiche la hitbox
+		// Affichage de la hitbox //
+		if (Constants.debug) {
 			g.setColor(new Color(1f, 1f, 1f));
 			g.drawRect(this.x-offsetX +(Constants.SCREEN_WIDTH-this.width)/2 , this.y-offsetY +(Constants.SCREEN_HEIGHT-this.height)/2, this.width, this.height);
 		}
-		try {
-			String key = moving==-1 ? "rest" : "moving";
-			g.drawAnimation(animations.get(key).get(facing), X, Y);
+		
+		// Animation de mort //
+		if (this.isDead) {
+			g.drawAnimation(animations.get("death").get(0), X, Y);
+			if (animations.get("death").get(0).isStopped()) {
+				this.vanished = true;
+			}
 		}
-		catch (java.lang.NullPointerException | java.lang.IndexOutOfBoundsException e) { // Permet d'éviter de crash en cas d'erreur
-			g.drawAnimation(Constants.animations.get("debug missing").get(0), X, Y);
+		else {
+			hitCounter++;
+			
+			// Affichage de l'attaque //
+			if (attackID!=-1) {
+				Animations attackAnims = animations.get("attack " + attackID);
+				g.drawAnimation(attackAnims.get(facing), X-attackOffsetX, Y-attackOffsetY);
+				if (hitCounter < 10 && !alwaysDrawBody) { // TODO: Clarifier cette condition
+					g.drawImage(animations.get("hit attack " + attackID).get(facing).getImage(attackAnims.get(facing).getFrame()), X-attackOffsetX, Y-attackOffsetY);
+				}
+				if (attackAnims.get(facing).isStopped()) { // Quand l'animation est finie, on peut à nouveau attaquer, il faut alors reset les animations
+					attackAnims.get(facing).restart();
+					this.attackID = -1;
+					this.damageDealt = false;
+				}
+			}
+			// Affichage du corps //
+			if (attackID==-1 || alwaysDrawBody) { // 
+				String key = moving==-1 ? "rest" : "moving";
+				g.drawAnimation(animations.get(key).get(facing), X, Y);
+				if (hitCounter < 10) { // TODO : Clarifier cette condition
+					g.drawImage(animations.get("hit " + key).get(facing).getImage(animations.get(key).get(facing).getFrame()), X, Y);
+				}
+			}
 		}
 	}
-
-	public boolean update(int delta) {
+		
+	public void update(int delta) {
 		// Check if the entity is dead //
 		if (this.life <= 0) {
-			return true;
+			this.isDead  = true;
+			this.attackID = -1;
+			return;
 		}
 		
 		// Check if we have to deal damages //
@@ -135,7 +172,6 @@ public abstract class Entity {
 				this.y = futureY;
 			}
 		}
-		return false;
 	}
 
 	private boolean isColliding(boolean[] corners, int futureX, int futureY) {
@@ -195,10 +231,6 @@ public abstract class Entity {
 		return false;
 	}
 
-	protected abstract void refreshAnimations();
-	public abstract void dealDamages();
-	public abstract void hurt(int damages);
-
 	public void setFacing(int facing) {
 		this.facing = facing;
 	}
@@ -214,4 +246,9 @@ public abstract class Entity {
 	public void setLife(int x) {
 		this.life = x;
 	}
+	
+	protected abstract void refreshAnimations();
+	public abstract void dealDamages();
+	public abstract void hurt(int damages);
+
 }

@@ -16,7 +16,7 @@ public class Menu {
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(new Color(0f,0f,0f,0.35f));
+		g.setColor(new Color(0f,0f,0f,0.45f));
 		g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 		for (Button button : buttons) {
 			button.render(g);

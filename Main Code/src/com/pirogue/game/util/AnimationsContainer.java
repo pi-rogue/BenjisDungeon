@@ -20,7 +20,7 @@ public class AnimationsContainer extends HashMap<String, Animations> {
  * Animation[] anims = Constants.animations.get("heroes rogue");
  * 
  * Si on n'utilise pas cette méthode, on peut utiliser un AnimationContainer simplement afin de mieux ranger des 
- * animations (voir exemple dans com.pirogue.entity.Hero.java)
+ * animations (voir exemple dans com.pirogue.entity.Hero)
  */
 		
 	public void loadAnimations(File currentDirectory) throws SlickException {
@@ -40,13 +40,15 @@ public class AnimationsContainer extends HashMap<String, Animations> {
 				if (key.matches("heroes attack .*")) {
 					cellWidth *= 2;
 				}
-				else if (key.matches("mobs slime attack .*")) {
+				else if (key.matches("mobs slime .*attack.*")) {
 					cellWidth *= 3;
 					cellHeight *= 3;
 				}
 				SpriteSheet spritesheet = new SpriteSheet(file.getPath(), cellWidth, cellHeight);
 				
-				this.put(key, new Animations(spritesheet, getDuration(key), getDamageFrame(key)));
+				Animations anims = new Animations(spritesheet, getDuration(key), getDamageFrame(key));
+				setModifiers(anims, key);
+				this.put(key, anims);
 			}
 		}
 	}
@@ -57,15 +59,19 @@ public class AnimationsContainer extends HashMap<String, Animations> {
 			return super.get("debug empty");
 		
 		Animations anims = super.get(key);
-		if (anims == null)
-			return super.get("debug missing"); 
+		if (anims == null) {
+			return Constants.animations.get("debug missing");
+		} 
 		return anims;
 	}
-	
+
 	private int getDuration(String key) {
 		/* Selon l'animation, on veut des durées différentes */
-		if (key.matches(".*slime.*")) return 150;
+		if (key.matches(".* death .*")) return 100;
+		if (key.matches(".* slime .*")) return 200;
 		if (key.matches("heroes attack .*")) return 50;
+		if (key.matches("heroes equipment .*")) return 100;
+		if (key.matches("heroes .*")) return 500;
 		return 100;
 	}
 	
@@ -76,5 +82,12 @@ public class AnimationsContainer extends HashMap<String, Animations> {
 		if (key.matches(".* poison .*daggers.*")) return 4;
 		if (key.matches(".*slime.*")) return 5;
 		return 0;
+	}
+	
+	private void setModifiers(Animations anims, String key) {
+		/* Selon l'animation, on veut qu'elle se joue en boucle ou une seule fois etc */
+		if (key.matches(".* moving .*")) anims.setPingPong();
+		if (key.matches(".* attack .*")) anims.setPlayOnce();
+		if (key.matches(".* death .*")) anims.setPlayOnce();
 	}
 }

@@ -108,7 +108,6 @@ public class Game extends BasicGame {
 		}
 		else if (Constants.currentScreen.equals("menu")) {
 			dungeon.render(g);
-			console.render(g);
 			menu.render(g);
 		}
 		else {
@@ -129,8 +128,8 @@ public class Game extends BasicGame {
 		Constants.mouseX = input.getMouseX();                 // constantes pour pouvoir s'en servir par la
 		Constants.mouseY = input.getMouseY();                 // suite, depuis n'importe où.
 		
-		if (Constants.currentScreen.equals("running")) {
-			
+		
+		if (Constants.currentScreen.equals("running")) {			
 			// -- Update arrows input -- //
 			String arrowsDir = arrowsDirection();
 			if (Constants.inConsole) {
@@ -168,8 +167,8 @@ public class Game extends BasicGame {
 				if (entity instanceof Mob) {
 					Mob mob = (Mob) entity;
 					mob.pathfinding(dungeon.hero.x, dungeon.hero.y);
-					boolean mobKilled = mob.update(delta);
-					if (mobKilled) {
+					mob.update(delta);
+					if (mob.vanished) {
 						Constants.dungeon.getCurrentFloor().entities.remove(mob);
 						i--;
 					}

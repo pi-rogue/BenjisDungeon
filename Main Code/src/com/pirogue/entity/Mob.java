@@ -1,14 +1,19 @@
 package com.pirogue.entity;
 
+import org.newdawn.slick.Graphics;
+
 import com.pirogue.game.Constants;
 
 public abstract class Mob extends Entity {
 	
 	protected int distX, distY;	
-	int cpt=0;
 	
 	public Mob(int x, int y) {
 		super(x, y);
+	}
+	
+	public void render(Graphics g, int offsetX, int offsetY) {
+		super.render(g, offsetX, offsetY, false, Constants.blockSize, Constants.blockSize);
 	}
 	
 	public void pathfinding(int heroX, int heroY) {
@@ -48,6 +53,12 @@ public abstract class Mob extends Entity {
 			if(tabPrio[1]==prio.gauche) {this.moving = 6;}
 		}
 		this.isColliding = false;
+	}
+	
+	@Override
+	public void hurt(int damages) {
+		this.life -= damages; // TODO: prendre en compte l'armure
+		this.hitCounter = 0;
 	}
 	
 	protected abstract void attack();

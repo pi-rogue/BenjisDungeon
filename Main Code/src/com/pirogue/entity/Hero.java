@@ -8,6 +8,7 @@ import org.newdawn.slick.SpriteSheet;
 import com.pirogue.game.Constants;
 import com.pirogue.game.Inventory;
 import com.pirogue.game.util.Animations;
+import com.pirogue.items.EmptyItem;
 
 public abstract class Hero extends Entity {
 
@@ -20,7 +21,7 @@ public abstract class Hero extends Entity {
 		super(x, y);
 		this._class = _class;
 		this.inventory = new Inventory();
-		this.damages = 50; // TODO: changer les dégâts en fonction de l'arme
+		this.damages = 25; 
 		
 		SpriteSheet spr = new SpriteSheet("src/assets/gui/life_bar.png", 148, 31);
 		this.lifeBar[0] = spr.getSprite(0, 0); // Cadre
@@ -37,24 +38,15 @@ public abstract class Hero extends Entity {
 		g.drawImage(lifeBar[0], 40, Constants.SCREEN_HEIGHT-50); // Cadre
 		
 		// Affichage du héros //
-		super.render(g, x, y);
+		super.render(g, x, y, true, (facing==1?Constants.blockSize:0), 0);
 		
 		// Affichage des équipements //
 		int cornerX = (Constants.SCREEN_WIDTH-Constants.blockSize)/2;
 		int cornerY = (Constants.SCREEN_HEIGHT-Constants.blockSize)/2;
-		
 		for (String key : equipmentKeys) {
-			if (attackID!=-1 && key.matches(".* hand")) { // Si on attaque on affiche l'animation de chaque équipement qui est une arme (TODO: Gérer les deux mains (en alternent entre chaque arme ?)
-				Animations attackAnims = animations.get("attack " + attackID);
-				g.drawAnimation(attackAnims.get(facing), cornerX-(facing==1?Constants.blockSize:0), cornerY); // On ajoute une condition sur le facing car il faut décaler l'animation ou non selon la direction
-				if (attackAnims.get(facing).isStopped()) { // Quand l'animation est finie, on peut à nouveau attaquer, il faut alors reset les animations
-					attackID = -1;
-					this.damageDealt = false;
-					attackAnims.restartAll(); 
-				}
-			}
-			else
+			if (attackID==-1 || !key.matches(".* hand")) { // TODO: Gérer les deux mains (en alternent entre chaque arme ?)
 				g.drawAnimation(animations.get(key).get(facing), cornerX, cornerY);
+			}
 		}
 
 		// Affichage de l'inventaire //
@@ -74,12 +66,12 @@ public abstract class Hero extends Entity {
 		 * Cette fonction remplit l'AnimationsContainer avec les animations dont on aura
 		 * besoin en fonction de l'équipement du héros.
 		 */
+		animations.put("death", Constants.animations.get("debug missing")); // Animations quand le héros se déplace
 		animations.put("rest", Constants.animations.get("heroes " + _class)); // Animations quand le héros ne se déplace pas
 		animations.put("moving", Constants.animations.get("heroes " + _class)); // Animations quand le héros se déplace
-
-		Animations autoAttackAnims = Constants.animations.get("heroes attack auto " + inventory.objects[5].getAcces()); // inventory.equipment[5] correspond à l'arme dans la main droite (voir Inventory.java)
-		autoAttackAnims.setPlayOnce(); // Les animations des attaques ne doivent pas tourner en boucle
-		animations.put("attack 0", autoAttackAnims);
+		animations.put("hit rest", Constants.animations.get("heroes hit")); 
+		animations.put("hit moving", Constants.animations.get("heroes hit"));
+		animations.put("attack 0", new Animations(Constants.animations.get("heroes attack auto " + inventory.objects[5].getAcces()))); // inventory.equipment[5] correspond à l'arme dans la main droite (voir Inventory.java))
 		attackID = -1; // Si jamais on change d'arme pendant une attaque, on arrête l'attaque
 
 		float invCellWidth = inventory.getHeroCell().getWidth();   // Largeur et hauteur de la case pour afficher le héros dans l'inventaire. 
@@ -91,17 +83,16 @@ public abstract class Hero extends Entity {
 		animations.put("inventory body", animations.get("rest").getScaledCopy(invCellWidth, invCellHeight));
 	}
 	
-	public boolean update(int delta) {					
-		boolean isDead = super.update(delta);
+	public void update(int delta) {					
+		super.update(delta);
+		if (isDead) this.life=0; // Permet de ne pas avoir de vie négative (pour la barre de vie)
 		if (attackID==-1) updateFacing(); // Quand on attaque on ne peut pas changer de direction
-		if (this.inInventory()) {
+		if (inInventory()) {
 			if (inventory.update())	refreshAnimations(); // inventory.update() renvoie true si jamais les équipements ont été modifiés
 		}
 		else {
 			if (Constants.mousePressed && !Constants.mouseWasPressed) attack(); // TODO: Changer la condition si on veut pouvoir laisser appuyé pour attaquer
 		}
-		if (isDead) this.life=0; // Permet de ne pas avoir de vie négative (pour la barre de vie)
-		return isDead;
 	}
 	
 	protected void updateFacing() {		
@@ -134,11 +125,12 @@ public abstract class Hero extends Entity {
 	}
 
 	public void attack() {
-		if (!inInventory())	this.attackID = 0;		
+		if (!inInventory() && !(inventory.objects[5] instanceof EmptyItem))	this.attackID = 0;		
 	}
 	
 	public void hurt(int damages) {
 		this.life -= damages; // TODO: prendre en compte l'armure
+		this.hitCounter = 0;
 	}
 	
 	public void dealDamages() { // TODO: prendre en compte les dégâts de l'arme, et changer la range en fonction du sort, donc déplacer cette méthode dans chaque classe ?
