@@ -1,11 +1,11 @@
 package com.pirogue.entity;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 import com.pirogue.game.Constants;
-import com.pirogue.game.util.Animations;
 import com.pirogue.game.util.AnimationsContainer;
 
 public abstract class Entity {
@@ -13,7 +13,7 @@ public abstract class Entity {
 	public int x,y, width,height, ID;
 	protected float velocity = 0.5f;
 	protected int life = 100; // Pour l'instant c'est en pourcentage
-	protected int damages;
+	public int damages;
 	protected int facing; // Direction de l'entité
 	protected int moving = -1; // Direction du déplacement de l'entité (-1 si on ne se déplace pas)
 	protected int attackID = -1; // -1 si aucune attaque n'est en cours, 0 pour la première attaque, etc
@@ -60,13 +60,14 @@ public abstract class Entity {
 			
 			// Affichage de l'attaque //
 			if (attackID!=-1) {
-				Animations attackAnims = animations.get("attack " + attackID);
-				g.drawAnimation(attackAnims.get(facing), X-attackOffsetX, Y-attackOffsetY);
+				Animation attackAnim = animations.get("attack " + attackID).get(facing);
+				g.drawAnimation(attackAnim, X-attackOffsetX, Y-attackOffsetY);
 				if (hitCounter < 10 && !alwaysDrawBody) { // TODO: Clarifier cette condition
-					g.drawImage(animations.get("hit attack " + attackID).get(facing).getImage(attackAnims.get(facing).getFrame()), X-attackOffsetX, Y-attackOffsetY);
+					Animation hitAttack = animations.get("hit attack " + attackID).get(facing);
+					g.drawImage(hitAttack.getImage(attackAnim.getFrame()), X-attackOffsetX, Y-attackOffsetY);
 				}
-				if (attackAnims.get(facing).isStopped()) { // Quand l'animation est finie, on peut à nouveau attaquer, il faut alors reset les animations
-					attackAnims.get(facing).restart();
+				if (attackAnim.isStopped()) { // Quand l'animation est finie, on peut à nouveau attaquer, il faut alors reset les animations
+					attackAnim.restart();
 					this.attackID = -1;
 					this.damageDealt = false;
 				}
@@ -74,9 +75,11 @@ public abstract class Entity {
 			// Affichage du corps //
 			if (attackID==-1 || alwaysDrawBody) { // 
 				String key = moving==-1 ? "rest" : "moving";
-				g.drawAnimation(animations.get(key).get(facing), X, Y);
-				if (hitCounter < 10) { // TODO : Clarifier cette condition
-					g.drawImage(animations.get("hit " + key).get(facing).getImage(animations.get(key).get(facing).getFrame()), X, Y);
+				Animation animBody = animations.get(key).get(facing);
+				g.drawAnimation(animBody, X, Y);
+				if (hitCounter < 10) {
+					Animation hitBody = animations.get("hit " + key).get(facing);
+					g.drawImage(hitBody.getImage(animBody.getFrame()), X, Y);
 				}
 			}
 		}

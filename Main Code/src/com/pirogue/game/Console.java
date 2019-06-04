@@ -86,6 +86,8 @@ public class Console {
 		switch(word[0]) {
 		case "/walid":
 			this.historic += "\n# OK. OP MODE ENABLED";
+			Constants.dungeon.hero.damages = 1000000;
+			Constants.dungeon.hero.setLife(300);
 			break;
 		case "/give" :
 			if (word.length>1) {

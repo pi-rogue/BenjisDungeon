@@ -45,6 +45,7 @@ public class Map {
 				this.grille[i][j] = false;
 			}
 		}
+		this.grille[spawnX][spawnY] = true; // On garde la case de spawn du héros libre
 	}
 	
 	public void generate() {										//génération des salles
