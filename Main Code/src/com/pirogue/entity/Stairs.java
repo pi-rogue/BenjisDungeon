@@ -11,7 +11,7 @@ public class Stairs extends Entity {
 
 	@Override
 	protected void refreshAnimations() {
-		this.animations.put("rest", Constants.animations.get("debug missing"));
+		this.animations.put("rest", Constants.animations.get("accessories stairs"));
 	}
 
 	@Override

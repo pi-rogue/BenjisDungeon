@@ -6,7 +6,6 @@ import com.pirogue.game.Constants;
 
 public abstract class Mob extends Entity {
 
-	protected int distX, distY;
 	protected int aggro = 350;
 	protected int range = Constants.blockSize+10;
 
@@ -18,9 +17,7 @@ public abstract class Mob extends Entity {
 		super.render(g, offsetX, offsetY, false, Constants.blockSize, Constants.blockSize);
 	}
 
-	public void pathfinding(int heroX, int heroY) {
-		distX = this.x - heroX;//la distance qui separe le hero du mob en x
-		distY = this.y - heroY;//pareil en y
+	public void pathfinding() {
 		this.moving = -1;
 		if(aggro()) {
 			prio tabPrio[] = new prio[2];//prio est une énum pour l'ordre de priorité du mob sur la direction qu'il va choisir

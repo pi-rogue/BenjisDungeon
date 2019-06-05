@@ -11,6 +11,7 @@ import com.pirogue.game.util.AnimationsContainer;
 public abstract class Entity {
 
 	public boolean collisionsEnabled=true;
+	protected int distX=200, distY=200;
 	public int x,y, width,height, ID;
 	protected float velocity = 0.5f;
 	protected int life = 100; // Pour l'instant c'est en pourcentage
@@ -87,6 +88,10 @@ public abstract class Entity {
 	}
 		
 	public void update(int delta) {
+		
+		this.distX = this.x - Constants.dungeon.hero.x;//la distance qui separe le hero du mob en x
+		this.distY = this.y - Constants.dungeon.hero.y;//pareil en y
+		
 		// Check if the entity is dead //
 		if (this.life <= 0) {
 			this.isDead  = true;

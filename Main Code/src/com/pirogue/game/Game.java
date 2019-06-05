@@ -190,7 +190,7 @@ public class Game extends BasicGame {
 				Entity entity = dungeon.getCurrentFloor().entities.get(i);
 				if (entity instanceof Mob) {
 					Mob mob = (Mob) entity;
-					mob.pathfinding(dungeon.hero.x, dungeon.hero.y);
+					mob.pathfinding();
 					mob.update(delta);
 					if (mob.vanished) {
 						Constants.dungeon.getCurrentFloor().entities.remove(mob);
