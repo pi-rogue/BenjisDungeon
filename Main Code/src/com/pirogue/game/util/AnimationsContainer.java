@@ -71,7 +71,10 @@ public class AnimationsContainer extends HashMap<String, Animations> {
 		if (key.matches(".* slime .*")) return 200;
 		if (key.matches("heroes attack .*")) return 50;
 		if (key.matches("heroes equipment .*")) return 100;
-		if (key.matches("heroes .*")) return 500;
+		if (key.matches("heroes equipment .*")) return 100;
+		if (key.matches("heroes equipment .*")) return 100;
+		if (key.matches("heroes rest .*")) return 500;
+		if (key.matches("heroes moving .*")) return 100;
 		return 100;
 	}
 	

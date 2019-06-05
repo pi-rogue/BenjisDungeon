@@ -68,8 +68,8 @@ public abstract class Hero extends Entity {
 		 * besoin en fonction de l'équipement du héros.
 		 */
 		animations.put("death", Constants.animations.get("debug missing")); // Animations quand le héros se déplace
-		animations.put("rest", Constants.animations.get("heroes " + _class)); // Animations quand le héros ne se déplace pas
-		animations.put("moving", Constants.animations.get("heroes " + _class)); // Animations quand le héros se déplace
+		animations.put("rest", Constants.animations.get("heroes rest " + _class)); // Animations quand le héros ne se déplace pas
+		animations.put("moving", Constants.animations.get("heroes moving " + _class)); // Animations quand le héros se déplace
 		animations.put("hit rest", Constants.animations.get("heroes hit")); 
 		animations.put("hit moving", Constants.animations.get("heroes hit"));
 		animations.put("attack 0", new Animations(Constants.animations.get("heroes attack auto " + inventory.objects[5].getAcces()))); // inventory.equipment[5] correspond à l'arme dans la main droite (voir Inventory.java))
@@ -87,7 +87,6 @@ public abstract class Hero extends Entity {
 	public void update(int delta) {					
 		super.update(delta);
 		if (isDead) this.life=0; // Permet de ne pas avoir de vie négative (pour la barre de vie)
-		if (attackID==-1) updateFacing(); // Quand on attaque on ne peut pas changer de direction
 		if (inInventory()) {
 			if (inventory.update())	refreshAnimations(); // inventory.update() renvoie true si jamais les équipements ont été modifiés
 		}
@@ -96,24 +95,12 @@ public abstract class Hero extends Entity {
 		}
 	}
 	
+	@Override
 	protected void updateFacing() {		
 		if (Constants.mouseX > Constants.SCREEN_WIDTH/2) // Facing dépend de la souris
 			facing=0;
 		else 
 			facing=1;
-		
-		/* Ancien code pour update facing avec les déplacements
-		switch (moving) {
-		case 0: break;
-		case 1: facing=0; break;
-		case 2: facing=0; break;
-		case 3: facing=0; break;
-		case 4: break;
-		case 5: facing=1; break;
-		case 6: facing=1; break;
-		case 7: facing=1; break;
-		}
-		*/
 	}
 	
 	public void toggleInventory() {

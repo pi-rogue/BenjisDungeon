@@ -25,7 +25,11 @@ public class Chest extends Entity {
 	@Override
 	public void hurt(int damages) {
 		this.life = 0;
-		this.facing = 0; // On ouvre le coffre dès qu'il prend des dégats
 		// this.drop(); // TODO : Drop en fonction de this.rarity
+	}
+
+	@Override
+	protected void updateFacing() {
+		this.facing = this.life; // De cette façon le coffre s'ouvre quand on le frappe 
 	}
 }

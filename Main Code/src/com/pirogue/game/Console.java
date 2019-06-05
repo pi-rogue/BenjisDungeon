@@ -6,7 +6,9 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.pirogue.entity.Chest;
+import com.pirogue.entity.mob.FireGhost;
 import com.pirogue.entity.mob.Slime;
+import com.pirogue.entity.projectiles.Fireball;
 import com.pirogue.items.EmptyItem;
 import com.pirogue.items.List;
 
@@ -132,10 +134,21 @@ public class Console {
 				boolean success = true;
 				switch (word[1]) {
 				case "chest":
-					Constants.dungeon.getCurrentFloor().entities.add(new Chest(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-1, ""));
+				case "Chest":
+					Constants.dungeon.getCurrentFloor().entities.add(new Chest(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-2, ""));
 					break;
 				case "slime":
-					Constants.dungeon.getCurrentFloor().entities.add(new Slime(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-1, "blue"));
+				case "Slime":
+					Constants.dungeon.getCurrentFloor().entities.add(new Slime(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-2, "blue"));
+					break;
+				case "fire_ghost":
+				case "fireghost":
+				case "FireGhost":
+					Constants.dungeon.getCurrentFloor().entities.add(new FireGhost(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-2));
+					break;
+				case "fireball":
+				case "Fireball":
+					Constants.dungeon.getCurrentFloor().entities.add(new Fireball(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-2, 90f));
 					break;
 				default:
 					this.historic += "\n# Unknown entity";

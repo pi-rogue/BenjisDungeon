@@ -164,10 +164,10 @@ public class Game extends BasicGame {
 			dungeon.hero.update(delta);
 			for(int i=0; i<dungeon.getCurrentFloor().entities.size(); i++) {
 				Entity entity = dungeon.getCurrentFloor().entities.get(i);
+				entity.update(delta);
 				if (entity instanceof Mob) {
 					Mob mob = (Mob) entity;
 					mob.pathfinding(dungeon.hero.x, dungeon.hero.y);
-					mob.update(delta);
 					if (mob.vanished) {
 						Constants.dungeon.getCurrentFloor().entities.remove(mob);
 						i--;

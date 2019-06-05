@@ -1,7 +1,5 @@
 package com.pirogue.entity;
 
-import org.newdawn.slick.Graphics;
-
 import com.pirogue.game.Constants;
 
 public abstract class Mob extends Entity {
@@ -12,10 +10,6 @@ public abstract class Mob extends Entity {
 
 	public Mob(int x, int y) {
 		super(x, y);
-	}
-
-	public void render(Graphics g, int offsetX, int offsetY) {
-		super.render(g, offsetX, offsetY, false, Constants.blockSize, Constants.blockSize);
 	}
 
 	public void pathfinding(int heroX, int heroY) {
