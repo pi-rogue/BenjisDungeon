@@ -1,7 +1,5 @@
 package com.pirogue.entity;
 
-import org.newdawn.slick.Graphics;
-
 import com.pirogue.game.Constants;
 
 public abstract class Mob extends Entity {
@@ -20,7 +18,7 @@ public abstract class Mob extends Entity {
 	public void pathfinding() {
 		this.moving = -1;
 		if(aggro()) {
-			prio tabPrio[] = new prio[2];//prio est une énum pour l'ordre de priorité du mob sur la direction qu'il va choisir
+			prio tabPrio[] = new prio[2];//prio est une ï¿½num pour l'ordre de prioritï¿½ du mob sur la direction qu'il va choisir
 			if(Math.abs(distY)<=Math.abs(distX) && distX>=0 && distY>=0) {tabPrio[0]=prio.gauche; tabPrio[1]=prio.haut;}
 			if(Math.abs(distY)<=Math.abs(distX) && distX>=0 && distY<=0) {tabPrio[0]=prio.gauche; tabPrio[1]=prio.bas;}
 			if(Math.abs(distY)<=Math.abs(distX) && distX<=0 && distY>=0) {tabPrio[0]=prio.droite; tabPrio[1]=prio.haut;}

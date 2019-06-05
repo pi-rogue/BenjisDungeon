@@ -75,7 +75,7 @@ public abstract class Entity {
 				}
 			}
 			// Affichage du corps //
-			if (attackID==-1 || alwaysDrawBody) { // 
+			if (attackID==-1 || alwaysDrawBody) {
 				String key = moving==-1 ? "rest" : "moving";
 				Animation animBody = animations.get(key).get(facing);
 				g.drawAnimation(animBody, X, Y);
@@ -105,6 +105,11 @@ public abstract class Entity {
 				dealDamages();
 				damageDealt = true;
 			}
+		}
+		
+		// Update facing //
+		if (attackID==-1) { // Quand on attaque on ne peut pas changer de direction
+			updateFacing();
 		}
 		
 		// Update position //
@@ -258,6 +263,7 @@ public abstract class Entity {
 	}
 	
 	protected abstract void refreshAnimations();
+	protected abstract void updateFacing();
 	public abstract void dealDamages();
 	public abstract void hurt(int damages);
 
