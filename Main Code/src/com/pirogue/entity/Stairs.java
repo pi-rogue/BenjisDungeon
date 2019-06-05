@@ -19,4 +19,7 @@ public class Stairs extends Entity {
 
 	@Override
 	public void hurt(int damages) {}
+
+	@Override
+	protected void updateFacing() {}
 }
