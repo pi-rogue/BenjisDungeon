@@ -18,6 +18,10 @@ public class Game extends BasicGame {
     private Console console;
     private Menu menu;
 	private int momentum;
+	private Settings settings;
+	private Sound sound;
+	public static int test;
+
 
 	public Game() {
 		super("Game"); // Titre de la fenêtre
@@ -42,6 +46,8 @@ public class Game extends BasicGame {
         Constants.container = container; // On le met ici pour pouvoir y accéder de partout
         this.console = new Console();
         this.menu = new Menu();
+        this.sound = new Sound();
+        this.settings = new Settings();
         this.dungeon = new Dungeon();
         this.dungeon.spawnHero();
         Constants.dungeon = this.dungeon;
@@ -82,7 +88,16 @@ public class Game extends BasicGame {
 				Constants.currentScreen = "running";
 			}
 		}
-	}
+		else if (Constants.currentScreen.equals("settings")) {
+			if (key == Constants.KEY_Exit) {
+				Constants.currentScreen = "running";	
+			}
+		}
+		else if (Constants.currentScreen.equals("sound")) {
+			if (key == Constants.KEY_Exit) {
+				Constants.currentScreen = "running";	
+			}}}
+	
 
 	private String arrowsDirection() { // Renvoie la direction vers laquelle le héros doit se déplacer sur une boussole
 		Input input = Constants.container.getInput(); // On récupère l'input (qui permet de savoir les touches sur lesquelles on appuie)
@@ -110,6 +125,15 @@ public class Game extends BasicGame {
 			dungeon.render(g);
 			menu.render(g);
 		}
+		else if (Constants.currentScreen.equals("settings")) {
+			dungeon.render(g);
+			console.render(g);
+			settings.render(g);	}
+		else if (Constants.currentScreen.equals("sound")) {
+			dungeon.render(g);
+			console.render(g);
+			sound.render(g);	
+			}
 		else {
 			System.out.println("Unknown screen: " + Constants.currentScreen);
 		}
@@ -177,6 +201,12 @@ public class Game extends BasicGame {
 		}
 		else if (Constants.currentScreen.equals("menu")) {
 			menu.update();
+		}
+		else if (Constants.currentScreen.equals("settings")) {
+			settings.update();}
+		
+		else if (Constants.currentScreen.equals("sound")) {
+			sound.update();
 		}
 	}
 }

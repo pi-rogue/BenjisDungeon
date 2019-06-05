@@ -32,7 +32,7 @@ public class List {
 	Items[1400+i] = new Axe("ancient_daggers_Axe_rare_"+Integer.toString(i),1400+i,"ancient_daggers_Axe",19,3.2,0,0,0.8,0,0,i);
 	Items[1500+i] = new Axe("ancient_daggers_Axe_epic_"+Integer.toString(i),1500+i,"ancient_daggers_Axe",23,4.2,0,0,0.8,0,0,i);
 	
-	*/
+	
 	Items[10000+i] = new Swords("Farmer_sword_common_"+Integer.toString(i),10000+i,"Farmer_sword",10,1,0,0,1,0,0,i);
 	Items[10100+i] = new Swords("Farmer_sword_unusual_"+Integer.toString(i),10100+i,"Farmer_sword",12,1.2,0,0,1,0,0,i);
 	Items[10200+i] = new Swords("Farmer_sword_rare_"+Integer.toString(i),10200+i,"Farmer_sword",14,1.6,0,0,1,0,0,i);
@@ -48,11 +48,11 @@ public class List {
 	Items[11000+i] = new Swords("Basic_sword_rare_"+Integer.toString(i),11000+i,"Basic_sword",18,3,0,0,1,0,0,i);
 	Items[11100+i] = new Swords("Basic_sword_epic_"+Integer.toString(i),11100+i,"Basic_sword",22,4,0,0,1,0,0,i);
 	
-	Items[11200+i] = new Swords("ancient_daggers_sword_common_"+Integer.toString(i),11200+i,"ancient_sword",12,2,0,0,1,0,0,i);
-	Items[11300+i] = new Swords("ancient_daggers_sword_unusual_"+Integer.toString(i),11300+i,"ancient_sword",15,2.5,0,0,1,0,0,i);
-	Items[11400+i] = new Swords("ancient_daggers_sword_rare_"+Integer.toString(i),11400+i,"ancient_sword",18,3,0,0,1,0,0,i);
-	Items[11500+i] = new Swords("ancient_daggers_sword_epic_"+Integer.toString(i),11500+i,"ancient_sword",22,4,0,0,1,0,0,i);
-	/*
+	Items[11200+i] = new Swords("Ancient_sword_common_"+Integer.toString(i),11200+i,"Ancient_sword",12,2,0,0,1,0,0,i);
+	Items[11300+i] = new Swords("Ancient_sword_unusual_"+Integer.toString(i),11300+i,"Ancient_sword",15,2.5,0,0,1,0,0,i);
+	Items[11400+i] = new Swords("Ancient_sword_rare_"+Integer.toString(i),11400+i,"Ancient_sword",18,3,0,0,1,0,0,i);
+	Items[11500+i] = new Swords("Ancient_sword_epic_"+Integer.toString(i),11500+i,"Ancient_sword",22,4,0,0,1,0,0,i);
+	
 	
 	Items[20000+i] = new Staff("Basic_Staff_common_"+Integer.toString(i),20000+i,"Basic_Staff",8,1,10,0.3,0.5,0,0,i);
 	Items[20100+i] = new Staff("Basic_Staff_unusual_"+Integer.toString(i),20100+i,"Basic_Staff",9,1.1,20,0.3,0.5,0,0,i);
