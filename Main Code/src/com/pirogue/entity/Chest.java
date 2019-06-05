@@ -5,7 +5,7 @@ import com.pirogue.game.Constants;
 public class Chest extends Entity {
 
 	public String rarity;
-	
+
 	public Chest(int x, int y, String rarity) {
 		super(x, y);
 		this.rarity = rarity;
@@ -25,11 +25,12 @@ public class Chest extends Entity {
 	@Override
 	public void hurt(int damages) {
 		this.life = 0;
+		this.collisionsEnabled=false;
 		// this.drop(); // TODO : Drop en fonction de this.rarity
 	}
 
 	@Override
 	protected void updateFacing() {
-		this.facing = this.life; // De cette façon le coffre s'ouvre quand on le frappe 
+		this.facing = this.life; // De cette façon le coffre s'ouvre quand on le frappe
 	}
 }

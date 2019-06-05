@@ -7,31 +7,32 @@ import org.newdawn.slick.SlickException;
 
 import com.pirogue.entity.Chest;
 import com.pirogue.entity.mob.FireGhost;
+import com.pirogue.entity.Stairs;
 import com.pirogue.entity.mob.Slime;
 import com.pirogue.entity.projectiles.Fireball;
 import com.pirogue.items.EmptyItem;
 import com.pirogue.items.List;
 
 public class Console {
-	
+
 	private int delta;
 	private String arrowDir;
 	public String enteredString;
 	public String historic;
 	public String line;
 	List obj = new List();
-	
+
 	public Console() {
 		this.enteredString = "";
 		this.historic = "\n \n \n \n \n \n \n \n \n \n \n type your command";
 		this.line = ">";
 	}
-	
+
 	public void update(int delta, String arrowDir) {
 		this.delta = delta;
 		this.arrowDir = arrowDir;
 	}
-	
+
 	void render(Graphics g) throws SlickException
 	{
 		if (Constants.inConsole) {
@@ -49,19 +50,9 @@ public class Console {
 			g.drawString("mouseY: " + Constants.mouseY, Constants.SCREEN_WIDTH-150, 10);
 			g.drawString("arrowDir: " + arrowDir, Constants.SCREEN_WIDTH/2-100, 10);
 		}
-	
-/*		Font font = new UnicodeFont(new java.awt.Font("DejaVu Serif", java.awt.Font.PLAIN, 20));
-		TextField zoneDeSaisie = null;
-		zoneDeSaisie = new TextField(Constants.container, font, 0, 0, 500, 300);
-		zoneDeSaisie.setBorderColor(Color.black);
-		zoneDeSaisie.getText();
-		zoneDeSaisie.setTextColor(Color.white);
-		zoneDeSaisie.render(Constants.container,g);
-		zoneDeSaisie.deactivate();*/
-		//Input input = Constants.container.getInput();
 	}
-	
-	
+
+
 	void keyPressed(int key, char c) {
 		if (key == Input.KEY_BACK && enteredString.length()>0) {
 			enteredString = enteredString.substring(0,(enteredString.length()-1));
@@ -72,17 +63,17 @@ public class Console {
 			this.enteredString = "";
 		}
 		else enteredString+=c;
-		
+
 		String[] commandes = historic.split("\n");
 		if(commandes.length>13){
 			this.historic="";
 			for(int i=commandes.length-12;i<commandes.length;i++) {
 				historic += "\n"+commandes[i];
 			}
-		}	
+		}
 	}
-	
-	
+
+
 	void executeCommand(String command) {
 		String[] word = command.split(" ");
 		switch(word[0]) {
@@ -114,7 +105,7 @@ public class Console {
 				this.historic += "\n# Usage : /give <ID>";
 			}
 			break;
-			
+
 		case "/set":
 			if (word.length>1) {
 				switch (word[1]) {
@@ -128,7 +119,7 @@ public class Console {
 			}
 			else this.historic += "\n# Usage : /set <field> <value>";
 			break;
-			
+
 		case "/summon":
 			if (word.length>1) {
 				boolean success = true;
@@ -149,6 +140,9 @@ public class Console {
 				case "fireball":
 				case "Fireball":
 					Constants.dungeon.getCurrentFloor().entities.add(new Fireball(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-2, 90f));
+					break;
+				case "stairs":
+					Constants.dungeon.getCurrentFloor().entities.add(new Stairs(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-1));
 					break;
 				default:
 					this.historic += "\n# Unknown entity";

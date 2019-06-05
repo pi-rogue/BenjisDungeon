@@ -10,6 +10,7 @@ import com.pirogue.game.util.AnimationsContainer;
 
 public abstract class Entity {
 
+	public boolean collisionsEnabled=true;
 	public int x,y, width,height, ID;
 	protected float velocity = 0.5f;
 	protected int life = 100; // Pour l'instant c'est en pourcentage
@@ -216,17 +217,18 @@ public abstract class Entity {
 					// On récupère la couleur du pixel sur lequel se trouve le coin
 					Color color = img.getColor((int)(cornerX % Constants.blockSize), (int)(cornerY % Constants.blockSize));
 					if (color.getRed()==255 && color.getGreen()==0 && color.getBlue()==0) {
+						isColliding = true;
 						return true; // Si c'est du rouge alors il y a collision
 					}
 				}
-				else return true; // Si l'image est null (pour du vide par exemple), on ne peut pas marcher dessus
+				else {isColliding = true; return true;} // Si l'image est null (pour du vide par exemple), on ne peut pas marcher dessus
 			}
 		}
 
 		// --- Collisions avec les autres entités --- //
 		// Pour l'instant solution de la facilité : on interdit la distance avec les autres entités à être < à blockSize
 		for (Entity ent : Constants.dungeon.getCurrentFloor().entities) {
-			if (ent.ID!=this.ID && Math.sqrt(Math.pow(ent.x-futureX, 2)+Math.pow(ent.y-futureY, 2))<Constants.blockSize) {
+			if (ent.ID!=this.ID && ent.collisionsEnabled && Math.sqrt(Math.pow(ent.x-futureX, 2)+Math.pow(ent.y-futureY, 2))<Constants.blockSize) {
 				return true;
 			}
 		}

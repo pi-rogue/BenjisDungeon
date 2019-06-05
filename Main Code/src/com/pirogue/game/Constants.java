@@ -47,7 +47,9 @@ public class Constants {
 	/* MISCELLANEOUS */
 	public static int nbFloors=1; // Nombre d'étages à générer dans le dungeon
 	public static int nbMob=250; // Nombre de mob à générer sur la map 
-	public static int slideDelay = 15; // Nombre de tours de boucle où le héros doit glisser quand on relâche le clavier (momentum)
+	public static int nbChest=30;//Nombre de Chest générés par map
+	public static int nbStairs=1;
+	public static int slideDelay = 30; // Nombre de tours de boucle où le héros doit glisser quand on relâche le clavier (momentum)
 	
 	
 // ------ Keyboard Configuration ------ //

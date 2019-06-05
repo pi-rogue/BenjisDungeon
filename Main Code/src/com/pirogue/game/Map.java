@@ -6,7 +6,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import com.pirogue.entity.Chest;
 import com.pirogue.entity.Entity;
+import com.pirogue.entity.Stairs;
 import com.pirogue.entity.mob.Slime;
 
 public class Map {
@@ -163,7 +165,7 @@ public class Map {
 	}
 
 
-	public void spawnEntity(int j) throws SlickException {
+	public void spawnEntity(int j, String entityType) throws SlickException {
 		int x, y;
 		String[] colors = {"red", "green", "blue"};
 		for(int i=0; i<j; i++) {
@@ -171,7 +173,12 @@ public class Map {
 				x = 1 + (int)(Math.random() * ((Constants.mapWidth-1 - 1) + 1));
 				y = 1 + (int)(Math.random() * ((Constants.mapHeight-1 - 1) + 1));
 			} while(this.Blocks[x][y].equals(Constants.Droite) || this.Blocks[x][y].equals(Constants.Vide) || this.Blocks[x][y].equals(Constants.Gauche) || this.Blocks[x][y].equals(Constants.Bas) || this.Blocks[x][y].equals(Constants.Haut) || this.Blocks[x][y].equals(Constants.AngleBD) || this.Blocks[x][y].equals(Constants.AngleHD) || this.Blocks[x][y].equals(Constants.AngleBG) || this.Blocks[x][y].equals(Constants.AngleHG) || this.Blocks[x][y].equals(Constants.CoinHG) || this.Blocks[x][y].equals(Constants.CoinHD) || this.Blocks[x][y].equals(Constants.CoinBG) || this.Blocks[x][y].equals(Constants.CoinBD) || this.Blocks[x][y].equals(Constants.Inter1) || this.Blocks[x][y].equals(Constants.Inter2) || this.grille[x][y]);
-			this.entities.add(new Slime(x, y, colors[(int)(Math.random() * 3)])); // Et on fait spawn un Slime de couleur random
+			switch(entityType) {
+				case "Slime": this.entities.add(new Slime(x, y, colors[(int)(Math.random() * 3)])); break; // Et on fait spawn un Slime de couleur random
+				case "Chest": this.entities.add(new Chest(x,y, "")); break;
+				case "Stairs": this.entities.add(new Stairs(x,y));
+				//case "FireGhost": this.entities.add(new FireGhost(x,y));break;
+			}
 			this.grille[x][y] = true;
 		}
 	}
@@ -225,9 +232,4 @@ public class Map {
 			}
 		}
 	}
-
-	/*
-	public void killEntity(Mob entity) {
-		entities.remove(entity);
-	}*/
 }
