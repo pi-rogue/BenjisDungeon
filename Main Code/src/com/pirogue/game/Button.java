@@ -27,15 +27,40 @@ public class Button {
 	}
 	
 	public void execute() {
-		if (label.equals("exit")) {
+		
+		switch(label)
+		{
+		case "exit" :
+			Constants.container.exit();
+			break;
+		case "continue" :
+			Constants.currentScreen = "running";
+			break;
+		case "settings" :
+			Constants.currentScreen = "settings";
+			break;
+		case "sound" :
+			Constants.currentScreen = "sound";
+			break;
+		case "return_settings" :
+			Constants.currentScreen = "menu";
+			break;
+			
+			
+		}
+	/*	if (label.equals("exit")) {
 			Constants.container.exit();
 		}
 		else if (label.equals("continue")) {
 			Constants.currentScreen = "running";
 		}
 		else if (label.equals("settings")) { // TODO: Link à la page de settings ici
-			System.out.println("\n######################################################\n  Je laisse le soin à Benji de faire cette partie <3\n######################################################\n");
+			Constants.currentScreen = "settings";
 		}
+		else if (label.equals("return_settings")) {
+			Constants.currentScreen = "menu";
+			
+		}*/
 	}
 	
 	public void update() {
