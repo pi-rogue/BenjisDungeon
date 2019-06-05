@@ -230,9 +230,4 @@ public class Map {
 			}
 		}
 	}
-
-	/*
-	public void killEntity(Mob entity) {
-		entities.remove(entity);
-	}*/
 }

@@ -211,10 +211,11 @@ public abstract class Entity {
 					// On récupère la couleur du pixel sur lequel se trouve le coin
 					Color color = img.getColor((int)(cornerX % Constants.blockSize), (int)(cornerY % Constants.blockSize));
 					if (color.getRed()==255 && color.getGreen()==0 && color.getBlue()==0) {
+						isColliding = true;
 						return true; // Si c'est du rouge alors il y a collision
 					}
 				}
-				else return true; // Si l'image est null (pour du vide par exemple), on ne peut pas marcher dessus
+				else {isColliding = true; return true;} // Si l'image est null (pour du vide par exemple), on ne peut pas marcher dessus
 			}
 		}
 
