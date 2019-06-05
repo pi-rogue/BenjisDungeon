@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 
 import com.pirogue.entity.Chest;
 import com.pirogue.entity.Entity;
+import com.pirogue.entity.Stairs;
 import com.pirogue.entity.mob.Slime;
 
 public class Map {
@@ -175,6 +176,7 @@ public class Map {
 			switch(entityType) {
 				case "Slime": this.entities.add(new Slime(x, y, colors[(int)(Math.random() * 3)])); break; // Et on fait spawn un Slime de couleur random
 				case "Chest": this.entities.add(new Chest(x,y, "")); break;
+				case "Stairs": this.entities.add(new Stairs(x,y));
 				//case "FireGhost": this.entities.add(new FireGhost(x,y));break;
 			}
 			this.grille[x][y] = true;

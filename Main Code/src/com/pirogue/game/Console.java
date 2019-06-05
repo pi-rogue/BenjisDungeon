@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.pirogue.entity.Chest;
+import com.pirogue.entity.Stairs;
 import com.pirogue.entity.mob.Slime;
 import com.pirogue.items.EmptyItem;
 import com.pirogue.items.List;
@@ -47,16 +48,6 @@ public class Console {
 			g.drawString("mouseY: " + Constants.mouseY, Constants.SCREEN_WIDTH-150, 10);
 			g.drawString("arrowDir: " + arrowDir, Constants.SCREEN_WIDTH/2-100, 10);
 		}
-	
-/*		Font font = new UnicodeFont(new java.awt.Font("DejaVu Serif", java.awt.Font.PLAIN, 20));
-		TextField zoneDeSaisie = null;
-		zoneDeSaisie = new TextField(Constants.container, font, 0, 0, 500, 300);
-		zoneDeSaisie.setBorderColor(Color.black);
-		zoneDeSaisie.getText();
-		zoneDeSaisie.setTextColor(Color.white);
-		zoneDeSaisie.render(Constants.container,g);
-		zoneDeSaisie.deactivate();*/
-		//Input input = Constants.container.getInput();
 	}
 	
 	
@@ -136,6 +127,9 @@ public class Console {
 					break;
 				case "slime":
 					Constants.dungeon.getCurrentFloor().entities.add(new Slime(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-1, "blue"));
+					break;
+				case "stairs":
+					Constants.dungeon.getCurrentFloor().entities.add(new Stairs(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-1));
 					break;
 				default:
 					this.historic += "\n# Unknown entity";

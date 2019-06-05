@@ -26,6 +26,7 @@ public class Chest extends Entity {
 	public void hurt(int damages) {
 		this.life = 0;
 		this.facing = 0; // On ouvre le coffre dès qu'il prend des dégats
+		this.collisionsEnabled=false;
 		// this.drop(); // TODO : Drop en fonction de this.rarity
 	}
 }

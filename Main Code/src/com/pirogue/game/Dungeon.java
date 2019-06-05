@@ -27,8 +27,9 @@ public class Dungeon {
 		// Génère j nouveaux étages
 		for(int i=0; i<j; i++) {
 			floors.add(new Map(Constants.mapWidth, Constants.mapHeight));
-			this.floors.get(i).spawnEntity(Constants.nbMob, "Slime");
+			this.floors.get(i).spawnEntity(Constants.nbStairs, "Stairs");
 			this.floors.get(i).spawnEntity(Constants.nbChest, "Chest");
+			this.floors.get(i).spawnEntity(Constants.nbMob, "Slime");
 		}
 	}
 
