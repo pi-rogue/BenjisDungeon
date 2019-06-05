@@ -23,11 +23,15 @@ public abstract class Mob extends Entity {
 		distY = this.y - heroY;//pareil en y
 		this.moving = -1;
 		if(aggro()) {
-			prio tabPrio[] = new prio[4];//prio est une énum pour l'ordre de priorité du mob sur la direction qu'il va choisir
-			if(Math.abs(distY)<=Math.abs(distX) && distX>=0) {tabPrio[0]=prio.gauche; tabPrio[1]=prio.haut; tabPrio[2]=prio.bas; tabPrio[3]=prio.droite;}//détermine l'ordre de
-			if(Math.abs(distY)<=Math.abs(distX) && distX<=0) {tabPrio[0]=prio.droite; tabPrio[1]=prio.bas; tabPrio[2]=prio.haut; tabPrio[3]=prio.gauche;}//priorité des directions
-			if(Math.abs(distX)<=Math.abs(distY) && distY>=0) {tabPrio[0]=prio.haut; tabPrio[1]=prio.droite; tabPrio[2]=prio.gauche; tabPrio[3]=prio.bas;}//en fonction de la distance
-			if(Math.abs(distX)<=Math.abs(distY) && distY<=0) {tabPrio[0]=prio.bas; tabPrio[1]=prio.gauche; tabPrio[2]=prio.droite; tabPrio[3]=prio.haut;}//qui le sépare du hero
+			prio tabPrio[] = new prio[2];//prio est une énum pour l'ordre de priorité du mob sur la direction qu'il va choisir
+			if(Math.abs(distY)<=Math.abs(distX) && distX>=0 && distY>=0) {tabPrio[0]=prio.gauche; tabPrio[1]=prio.haut;}
+			if(Math.abs(distY)<=Math.abs(distX) && distX>=0 && distY<=0) {tabPrio[0]=prio.gauche; tabPrio[1]=prio.bas;}
+			if(Math.abs(distY)<=Math.abs(distX) && distX<=0 && distY>=0) {tabPrio[0]=prio.droite; tabPrio[1]=prio.haut;}
+			if(Math.abs(distY)<=Math.abs(distX) && distX<=0 && distY<=0) {tabPrio[0]=prio.droite; tabPrio[1]=prio.bas;}
+			if(Math.abs(distX)<=Math.abs(distY) && distX>=0 && distY>=0) {tabPrio[0]=prio.haut; tabPrio[1]=prio.gauche;}
+			if(Math.abs(distX)<=Math.abs(distY) && distX>=0 && distY<=0) {tabPrio[0]=prio.bas; tabPrio[1]=prio.gauche;}
+			if(Math.abs(distX)<=Math.abs(distY) && distX<=0 && distY>=0) {tabPrio[0]=prio.haut; tabPrio[1]=prio.droite;}
+			if(Math.abs(distX)<=Math.abs(distY) && distX<=0 && distY<=0) {tabPrio[0]=prio.bas; tabPrio[1]=prio.droite;}
 			move(tabPrio);
 
 		}
