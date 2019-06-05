@@ -15,6 +15,7 @@ public class Slime extends Mob {
 		this.velocity = Constants.slimeSpeed;
 		this.aggro = Constants.slimeAggro;
 		this.range = Constants.slimeRange;
+		this.facing = 0;
 		this._color = color;
 		this.damages = 10;
 
@@ -47,9 +48,7 @@ public class Slime extends Mob {
 	}
 
 	@Override
-	public void updateFacing() {
-		this.facing=0;
-	}
+	public void updateFacing() {}
 	
 	@Override
 	public void dealDamages() {

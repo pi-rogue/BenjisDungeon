@@ -1,5 +1,7 @@
 package com.pirogue.entity;
 
+import org.newdawn.slick.Graphics;
+
 import com.pirogue.game.Constants;
 
 public abstract class Mob extends Entity {

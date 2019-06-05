@@ -1,7 +1,5 @@
 package com.pirogue.game;
 
-import javax.swing.JSlider;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -20,7 +18,7 @@ public class Sound {
 
 
 	public void render(Graphics g) {
-		g.setColor(new Color(0f,0f,0f,0.35f));
+		g.setColor(new Color(0f,0f,0f,0.45f));
 		g.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 		for (Slider slider : volume) {
 			slider.render(g);
