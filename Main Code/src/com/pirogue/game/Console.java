@@ -174,7 +174,7 @@ public class Console {
 					int Xa = Constants.dungeon.hero.x, Ya = Constants.dungeon.hero.y;
 					int Xb = Constants.dungeon.hero.x-Constants.SCREEN_WIDTH/2+Constants.mouseX, Yb = Constants.dungeon.hero.y-Constants.SCREEN_HEIGHT/2+Constants.mouseY;
 					angle = (float) (Math.acos((Xb-Xa)/Math.sqrt((Xb-Xa)*(Xb-Xa) + (Yb-Ya)*(Yb-Ya)))) * (Yb<Ya?-1:1); // Quick math (angle de la souris par rapport à l'horizontale)
-					Constants.dungeon.getCurrentFloor().entities.add(new Fireball(Constants.dungeon.hero.x, Constants.dungeon.hero.y-Constants.blockSize*2, angle));
+					Constants.dungeon.getCurrentFloor().entities.add(new Fireball(Constants.dungeon.hero.x, Constants.dungeon.hero.y, angle, true));
 					break;
 				case "stairs":
 					Constants.dungeon.getCurrentFloor().entities.add(new Stairs(Constants.dungeon.hero.x/Constants.blockSize*Constants.blockSize+Constants.blockSize/2, (Constants.dungeon.hero.y/Constants.blockSize-2)*Constants.blockSize+Constants.blockSize/2));

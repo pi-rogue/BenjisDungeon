@@ -29,8 +29,8 @@ public class Dungeon {
 			floors.add(new Map(Constants.mapWidth, Constants.mapHeight));
 			this.floors.get(i).spawnEntity(Constants.nbStairs, "Stairs");
 			this.floors.get(i).spawnEntity(Constants.nbChest, "Chest");
-			this.floors.get(i).spawnEntity((int) (Constants.nbMob*0.9), "Slime");
-			this.floors.get(i).spawnEntity((int) (Constants.nbMob*0.1), "FireGhost");
+			this.floors.get(i).spawnEntity((int) (Constants.nbMob*0.95), "Slime");
+			this.floors.get(i).spawnEntity((int) (Constants.nbMob*0.05), "FireGhost");
 		}
 	}
 

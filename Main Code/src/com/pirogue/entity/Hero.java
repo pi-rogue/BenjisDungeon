@@ -41,24 +41,26 @@ public abstract class Hero extends Entity {
 		// Affichage du héros //
 		super.render(g, x, y, true, (facing==1?Constants.blockSize:0), 0);
 		
-		// Affichage des équipements //
-		int cornerX = (Constants.SCREEN_WIDTH-Constants.blockSize)/2;
-		int cornerY = (Constants.SCREEN_HEIGHT-Constants.blockSize)/2;
-		for (String key : equipmentKeys) {
-			if (attackID==-1 || !key.matches(".* hand")) { // TODO: Gérer les deux mains (en alternent entre chaque arme ?)
-				g.drawAnimation(animations.get(key).get(facing), cornerX, cornerY);
+		if (!isDead) {
+			// Affichage des équipements //
+			int cornerX = (Constants.SCREEN_WIDTH-Constants.blockSize)/2;
+			int cornerY = (Constants.SCREEN_HEIGHT-Constants.blockSize)/2;
+			for (String key : equipmentKeys) {
+				if (attackID==-1 || !key.matches(".* hand")) { // TODO: Gérer les deux mains (en alternent entre chaque arme ?)
+					g.drawAnimation(animations.get(key).get(facing), cornerX, cornerY);
+				}
 			}
-		}
 
-		// Affichage de l'inventaire //
-		if (inventory.isVisible()) {
-			inventory.render(g, facing, animations.get("inventory body"),
-										animations.get("inventory head"),
-										animations.get("inventory chestplate"),
-										animations.get("inventory legs"),
-										animations.get("inventory foots"),
-										animations.get("inventory left hand"),
-										animations.get("inventory right hand"));
+			// Affichage de l'inventaire //
+			if (inventory.isVisible()) {
+				inventory.render(g, facing, animations.get("inventory body"),
+											animations.get("inventory head"),
+											animations.get("inventory chestplate"),
+											animations.get("inventory legs"),
+											animations.get("inventory foots"),
+											animations.get("inventory left hand"),
+											animations.get("inventory right hand"));
+			}
 		}
 	}
 
@@ -67,7 +69,7 @@ public abstract class Hero extends Entity {
 		 * Cette fonction remplit l'AnimationsContainer avec les animations dont on aura
 		 * besoin en fonction de l'équipement du héros.
 		 */
-		animations.put("death", Constants.animations.get("debug missing")); // Animations quand le héros se déplace
+		animations.put("death", Constants.animations.get("heroes gravestone")); // Animations quand le héros se déplace
 		animations.put("rest", Constants.animations.get("heroes rest " + _class)); // Animations quand le héros ne se déplace pas
 		animations.put("moving", Constants.animations.get("heroes moving " + _class)); // Animations quand le héros se déplace
 		animations.put("hit rest", Constants.animations.get("heroes hit")); 
@@ -86,7 +88,10 @@ public abstract class Hero extends Entity {
 	
 	public void update(int delta) {					
 		super.update(delta);
-		if (isDead) this.life=0; // Permet de ne pas avoir de vie négative (pour la barre de vie)
+		if (isDead) {
+			this.life=0; // Permet de ne pas avoir de vie négative (pour la barre de vie)
+			this.facing=0;
+		}
 		if (inInventory()) {
 			if (inventory.update())	refreshAnimations(); // inventory.update() renvoie true si jamais les équipements ont été modifiés
 		}

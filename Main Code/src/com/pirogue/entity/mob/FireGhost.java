@@ -5,6 +5,7 @@ import org.newdawn.slick.Graphics;
 import com.pirogue.entity.Mob;
 import com.pirogue.entity.projectiles.Fireball;
 import com.pirogue.game.Constants;
+import com.pirogue.game.util.Animations;
 
 public class FireGhost extends Mob {
 
@@ -26,6 +27,7 @@ public class FireGhost extends Mob {
 	
 	@Override
 	protected void refreshAnimations() {
+		animations.put("death", new Animations(Constants.animations.get("mobs fire_ghost death")));
 		animations.put("rest", Constants.animations.get("mobs fire_ghost moving"));
 		animations.put("moving", Constants.animations.get("mobs fire_ghost moving"));
 		animations.put("hit rest", Constants.animations.get("mobs fire_ghost hit moving"));
@@ -61,7 +63,7 @@ public class FireGhost extends Mob {
 			int Xb = Constants.dungeon.hero.x;
 			int Yb = Constants.dungeon.hero.y;
 			angle = (float) (Math.acos((Xb-Xa)/Math.sqrt((Xb-Xa)*(Xb-Xa) + (Yb-Ya)*(Yb-Ya)))) * (Yb<Ya?-1:1); // Quick math (angle avec le héros par rapport à l'horizontale)
-			Constants.dungeon.getCurrentFloor().entities.add(new Fireball(x, y, angle));
+			Constants.dungeon.getCurrentFloor().entities.add(new Fireball(x, y, angle, false));
 		}
 	}
 
@@ -70,16 +72,7 @@ public class FireGhost extends Mob {
 
 	@Override
 	protected void updateFacing() {
-		switch (moving) {
-		case 0: break;
-		case 1: facing=0; break;
-		case 2: facing=0; break;
-		case 3: facing=0; break;
-		case 4: break;
-		case 5: facing=1; break;
-		case 6: facing=1; break;
-		case 7: facing=1; break;
-		}
+		this.facing = distX>0 ? 1 : 0;
 	}	
 	
 }

@@ -93,7 +93,7 @@ public class Constants {
 	public static float fireGhostSpeed = 0.3f;
 	public static int fireGhostAggro = Constants.blockSize*10;
 	public static int fireGhostRange = Constants.blockSize*5;
-	public static float fireBallSpeed = 1f; // Attention a ne pas trop le reduire sinon ca fausse l'angle de déplacement 
+	public static float fireBallSpeed = 0.5f; // Attention a ne pas trop le reduire sinon ca fausse l'angle de déplacement 
 	public static int fireBallDamages = 30;
 
 // ------ Initialization ------ //

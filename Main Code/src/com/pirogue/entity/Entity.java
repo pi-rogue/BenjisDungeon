@@ -52,8 +52,8 @@ public abstract class Entity {
 		
 		// Animation de mort //
 		if (this.isDead) {
-			g.drawAnimation(animations.get("death").get(0), X, Y);
-			if (animations.get("death").get(0).isStopped()) {
+			g.drawAnimation(animations.get("death").get(facing), X, Y);
+			if (animations.get("death").get(facing).isStopped()) {
 				this.vanished = true;
 			}
 		}
@@ -108,7 +108,7 @@ public abstract class Entity {
 		}
 		
 		// Update facing //
-		if (attackID==-1) { // Quand on attaque on ne peut pas changer de direction
+		if (attackID==-1 && !isDead) { // Quand on attaque ou quand on est mort on ne peut pas changer de direction
 			updateFacing();
 		}
 		

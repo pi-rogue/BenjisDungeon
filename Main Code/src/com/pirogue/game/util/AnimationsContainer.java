@@ -91,6 +91,6 @@ public class AnimationsContainer extends HashMap<String, Animations> {
 		/* Selon l'animation, on veut qu'elle se joue en boucle ou une seule fois etc */
 		if (key.matches(".* moving .*")) anims.setPingPong();
 		if (key.matches(".* attack .*")) anims.setPlayOnce();
-		if (key.matches(".* death .*")) anims.setPlayOnce();
+		if (key.matches(".* death.*")) anims.setPlayOnce();
 	}
 }

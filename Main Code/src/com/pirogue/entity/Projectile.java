@@ -11,9 +11,11 @@ public abstract class Projectile extends Entity {
 
 	private Image body;
 	protected float angle; // En radians
+	private boolean fromHero;
 	
-	public Projectile(int x, int y, float angle) {
+	public Projectile(int x, int y, float angle, boolean fromHero) {
 		super(x, y);
+		this.fromHero = fromHero;
 		this.angle = angle;
 		this.collisionsEnabled = false;
 		
@@ -42,8 +44,8 @@ public abstract class Projectile extends Entity {
 	
 	public void update(int delta) {
 		if (!isDead) {
-			int dX = (int) Math.round((velocity * delta * Math.cos(angle)));
-			int dY = (int) Math.round((velocity * delta * Math.sin(angle)));
+			int dX = Constants.randomRound((float) (velocity * delta * Math.cos(angle)));
+			int dY = Constants.randomRound((float) (velocity * delta * Math.sin(angle)));
 			int futureX = x + dX;
 			int futureY = y + dY;
 		
@@ -72,7 +74,7 @@ public abstract class Projectile extends Entity {
 
 	@Override
 	public void dealDamages() {
-		if (Math.sqrt(Math.pow(Constants.dungeon.hero.x-this.x, 2)+Math.pow(Constants.dungeon.hero.y-this.y, 2))<Constants.blockSize) {
+		if (!this.fromHero && Math.sqrt(Math.pow(Constants.dungeon.hero.x-this.x, 2)+Math.pow(Constants.dungeon.hero.y-this.y, 2))<Constants.blockSize) {
 			Constants.dungeon.hero.hurt(this.damages);
 			this.isDead = true;
 			this.vanished = true; // TODO: Ajouter une animation de disparition

@@ -35,7 +35,7 @@ public abstract class Mob extends Entity {
 	}
 
 	protected boolean aggro() {
-		if(Math.sqrt(distX*distX+distY*distY)<aggro) { // Detecte si le mob est assez proche pour pathfind
+		if(Math.sqrt(distX*distX+distY*distY)<aggro && !Constants.dungeon.hero.isDead) { // Detecte si le mob est assez proche pour pathfind
 			if(Math.sqrt(distX*distX+distY*distY)<range) attack(); // Detecte si le mob est assez pres pour attaquer
 			return true;
 		}
