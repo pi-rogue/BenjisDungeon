@@ -20,7 +20,7 @@ public abstract class Entity {
 	protected int moving = -1; // Direction du déplacement de l'entité (-1 si on ne se déplace pas)
 	protected int attackID = -1; // -1 si aucune attaque n'est en cours, 0 pour la première attaque, etc
 	protected int hitCounter=20;
-	protected AnimationsContainer animations = new AnimationsContainer(); // Regroupe toutes les animations possibles de l'entité
+	public AnimationsContainer animations = new AnimationsContainer(); // Regroupe toutes les animations possibles de l'entité
 	protected boolean isColliding = false; // True si l'entité est en collision avec un mur ou une autre entité
 	protected boolean damageDealt; // Cette variable permet de n'infliger les dégâts qu'une seule fois 
 	private boolean momentum = false; // True après un déplacement quand l'entité glisse un peu à vitesse réduite 
@@ -29,8 +29,8 @@ public abstract class Entity {
 
 	public Entity(int x, int y) {
 		this.ID = Constants.newID();
-		this.x = x*Constants.blockSize+Constants.blockSize/2;
-		this.y = y*Constants.blockSize+Constants.blockSize/2;
+		this.x = x;
+		this.y = y;
 		this.width = Constants.blockSize-2;  // On enlève 2 pour pouvoir passer tranquillement dans les couloirs de 1 bloc de largeur
 		this.height = Constants.blockSize-2; //
 		animations.put("rest", Constants.animations.get("debug default"));
@@ -128,7 +128,7 @@ public abstract class Entity {
 			case 5:	futureX -= Constants.randomRound(movement * 0.707f); futureY += Constants.randomRound(movement * 0.707f); break;  // SO
 			case 7:	futureX -= Constants.randomRound(movement * 0.707f); futureY -= Constants.randomRound(movement * 0.707f); break;  // NO
 			}
-
+			
 			// Si on sort de la map ben en fait non (au cas où)
 			if (futureX<0) futureX=0;
 			if (futureY<0) futureY=0;
@@ -153,30 +153,31 @@ public abstract class Entity {
 			case 7: corners[2]=true; corners[0]=true; corners[1]=true; break;
 			}
 
-			if (isColliding(corners, futureX, futureY)) {
+			if (this instanceof Hero) Constants.heroCollision = isColliding(corners, futureX, futureY); // Pour la debug view
+			if (!isColliding(corners, futureX, futureY).equals("")) {
 				switch (moving) { // Quand on se déplace en diagonale on peut quand meme peut-être glisser sur un mur
                 case 1: // Diagonnale haut droite
-                    if (!isColliding(corners, this.x + movement, this.y)) // En déplacant vers 'E' au lieu de 'NE'  
+                    if (isColliding(corners, this.x + movement, this.y).equals("")) // En déplacant vers 'E' au lieu de 'NE'  
                     	this.x = Constants.randomRound(this.x + movement);
-                    else if (!isColliding(corners, this.x, this.y - movement))   // En déplacant vers 'N' au lieu de 'NE'
+                    else if (isColliding(corners, this.x, this.y - movement).equals(""))   // En déplacant vers 'N' au lieu de 'NE'
                     	this.y = Constants.randomRound(this.y - movement);
                     break;
                 case 3: // Diagonnale bas droite
-                    if (!isColliding(corners, this.x + movement, this.y))  // En déplacant vers 'E' au lieu de 'SE'
+                    if (isColliding(corners, this.x + movement, this.y).equals(""))  // En déplacant vers 'E' au lieu de 'SE'
                     	this.x = Constants.randomRound(this.x + movement);
-                    else if (!isColliding(corners, this.x, this.y + movement))  // En déplacant vers 'S' au lieu de 'SE'
+                    else if (isColliding(corners, this.x, this.y + movement).equals(""))  // En déplacant vers 'S' au lieu de 'SE'
                     	this.y = Constants.randomRound(this.y + movement);
                     break;
                 case 5: // Diagonnale bas gauche
-                    if (!isColliding(corners, this.x - movement, this.y))  // En déplacant vers 'O' au lieu de 'SO'
+                    if (isColliding(corners, this.x - movement, this.y).equals(""))  // En déplacant vers 'O' au lieu de 'SO'
                     	this.x = Constants.randomRound(this.x - movement);
-                    else if (!isColliding(corners, this.x, this.y + movement))  // En déplacant vers 'S' au lieu de 'SO'
+                    else if (isColliding(corners, this.x, this.y + movement).equals(""))  // En déplacant vers 'S' au lieu de 'SO'
                     	this.y = Constants.randomRound(this.y + movement);
                     break;
                 case 7: // Diagonnale haut gauche
-                    if (!isColliding(corners, this.x - movement, this.y))  // En déplacant vers 'O' au lieu de 'NO'
+                    if (isColliding(corners, this.x - movement, this.y).equals(""))  // En déplacant vers 'O' au lieu de 'NO'
                     	this.x = Constants.randomRound(this.x - movement);
-                    else if (!isColliding(corners, this.x, this.y - movement))  // En déplacant vers 'N' au lieu de 'NO'
+                    else if (isColliding(corners, this.x, this.y - movement).equals(""))  // En déplacant vers 'N' au lieu de 'NO'
                     	this.y = Constants.randomRound(this.y - movement);
                     break;
                 }
@@ -188,7 +189,13 @@ public abstract class Entity {
 		}
 	}
 
-	private boolean isColliding(boolean[] corners, int futureX, int futureY) {
+	public String isColliding(boolean[] corners, int futureX, int futureY) {
+		/*
+		 * Cette fonction detecte les collisions, et renvoie une chaine de caracteres
+		 * indiquant l'objet sur lequel l'entite est en collision.
+		 * Retours possibles :
+		 * "", "wall", "void", "entity", "hero"
+		 */
 		Image img;
 		int cornerX=0, cornerY=0;
 		
@@ -221,29 +228,32 @@ public abstract class Entity {
 				if (img != null) {
 					// On récupère la couleur du pixel sur lequel se trouve le coin
 					Color color = img.getColor((int)(cornerX % Constants.blockSize), (int)(cornerY % Constants.blockSize));
-					if (color.getRed()==255 && color.getGreen()==0 && color.getBlue()==0) {
+					if (color.getRed()==255 && color.getGreen()==0 && color.getBlue()==0 && (!(this instanceof Hero) || !Constants.neutrino)) {
 						isColliding = true;
-						return true; // Si c'est du rouge alors il y a collision
+						return "wall"; // Si c'est du rouge alors il y a collision
 					}
 				}
-				else {isColliding = true; return true;} // Si l'image est null (pour du vide par exemple), on ne peut pas marcher dessus
+				else { // Si l'image est null (pour du vide par exemple), on ne peut pas marcher dessus
+					isColliding = true;
+					return "void";
+				}
 			}
 		}
 
 		// --- Collisions avec les autres entités --- //
 		// Pour l'instant solution de la facilité : on interdit la distance avec les autres entités à être < à blockSize
 		for (Entity ent : Constants.dungeon.getCurrentFloor().entities) {
-			if (ent.ID!=this.ID && ent.collisionsEnabled && Math.sqrt(Math.pow(ent.x-futureX, 2)+Math.pow(ent.y-futureY, 2))<Constants.blockSize) {
-				return true;
+			if (ent.ID!=this.ID && this.collisionsEnabled && ent.collisionsEnabled && Math.sqrt(Math.pow(ent.x-futureX, 2)+Math.pow(ent.y-futureY, 2))<Constants.blockSize) {
+				return "entity";
 			}
 		}
 		if (this instanceof Mob) { // Les mobs doivent aussi vérifier les coords du héros
 			if (Math.sqrt(Math.pow(Constants.dungeon.hero.x-futureX, 2)+Math.pow(Constants.dungeon.hero.y-futureY, 2))<Constants.blockSize) {
-				return true;
+				return "hero";
 			}
 		}
 
-		return false;
+		return "";
 	}
 
 	public void setFacing(int facing) {

@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
 import com.pirogue.entity.Chest;
 import com.pirogue.entity.Entity;
 import com.pirogue.entity.Stairs;
+import com.pirogue.entity.mob.FireGhost;
 import com.pirogue.entity.mob.Slime;
 
 public class Map {
@@ -173,11 +174,14 @@ public class Map {
 				x = 1 + (int)(Math.random() * ((Constants.mapWidth-1 - 1) + 1));
 				y = 1 + (int)(Math.random() * ((Constants.mapHeight-1 - 1) + 1));
 			} while(this.Blocks[x][y].equals(Constants.Droite) || this.Blocks[x][y].equals(Constants.Vide) || this.Blocks[x][y].equals(Constants.Gauche) || this.Blocks[x][y].equals(Constants.Bas) || this.Blocks[x][y].equals(Constants.Haut) || this.Blocks[x][y].equals(Constants.AngleBD) || this.Blocks[x][y].equals(Constants.AngleHD) || this.Blocks[x][y].equals(Constants.AngleBG) || this.Blocks[x][y].equals(Constants.AngleHG) || this.Blocks[x][y].equals(Constants.CoinHG) || this.Blocks[x][y].equals(Constants.CoinHD) || this.Blocks[x][y].equals(Constants.CoinBG) || this.Blocks[x][y].equals(Constants.CoinBD) || this.Blocks[x][y].equals(Constants.Inter1) || this.Blocks[x][y].equals(Constants.Inter2) || this.grille[x][y]);
+			int X = x*Constants.blockSize+Constants.blockSize/2;
+			int Y = y*Constants.blockSize+Constants.blockSize/2;
+			
 			switch(entityType) {
-				case "Slime": this.entities.add(new Slime(x, y, colors[(int)(Math.random() * 3)])); break; // Et on fait spawn un Slime de couleur random
-				case "Chest": this.entities.add(new Chest(x,y, "")); break;
-				case "Stairs": this.entities.add(new Stairs(x,y));
-				//case "FireGhost": this.entities.add(new FireGhost(x,y));break;
+				case "Slime": this.entities.add(new Slime(X, Y, colors[(int)(Math.random() * 3)])); break; // Et on fait spawn un Slime de couleur random
+				case "Chest": this.entities.add(new Chest(X, Y, "")); break;
+				case "Stairs": this.entities.add(new Stairs(X, Y)); break;
+				case "FireGhost": this.entities.add(new FireGhost(X,Y));break;
 			}
 			this.grille[x][y] = true;
 		}

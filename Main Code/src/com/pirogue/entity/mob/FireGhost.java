@@ -3,17 +3,18 @@ package com.pirogue.entity.mob;
 import org.newdawn.slick.Graphics;
 
 import com.pirogue.entity.Mob;
+import com.pirogue.entity.projectiles.Fireball;
 import com.pirogue.game.Constants;
-import com.pirogue.game.util.Animations;
 
 public class FireGhost extends Mob {
 
+	private int attackCooldown = 0;
+
 	public FireGhost(int x, int y) {
 		super(x, y);
-		this.velocity = Constants.slimeSpeed;
-		this.aggro = Constants.slimeAggro;
-		this.range = Constants.slimeRange;
-		this.facing = 0;
+		this.velocity = Constants.fireGhostSpeed;
+		this.aggro = Constants.fireGhostAggro;
+		this.range = Constants.fireGhostRange;
 		this.damages = 10;
 
 		refreshAnimations();
@@ -29,28 +30,43 @@ public class FireGhost extends Mob {
 		animations.put("moving", Constants.animations.get("mobs fire_ghost moving"));
 		animations.put("hit rest", Constants.animations.get("mobs fire_ghost hit moving"));
 		animations.put("hit moving", Constants.animations.get("mobs fire_ghost hit moving"));
-		animations.put("hit attack 0", Constants.animations.get("mobs fire_ghost hit moving"));
-		
-		/* Les animations d'attaque et de mort doivent être propre à chaque mob */
-		Animations tmp = new Animations(Constants.animations.get("mobs fire_ghost moving"));
-		tmp.setPlayOnce();
-		animations.put("attack 0", tmp);
-		animations.put("death", tmp);
 	}
 
+	@Override
+	public void update(int delta) {
+		attackCooldown++;
+		super.update(delta);
+	}
+
+	@Override
+	protected boolean aggro() {
+		if(Math.sqrt(distX*distX+distY*distY)<aggro) { // Detecte si le mob est assez proche pour pathfind
+			if(Math.sqrt(distX*distX+distY*distY)<range) { // Detecte si le mob est assez pres pour attaquer
+				attack();
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	
 	@Override
 	public void attack() {
-		if (!this.isDead) {
-			this.attackID = 0;
+		if (!this.isDead && this.attackCooldown > Constants.fireGhostCooldown) {
+			attackCooldown = 0;
+			float angle;
+			int Xa = this.x;
+			int Ya = this.y;
+			int Xb = Constants.dungeon.hero.x;
+			int Yb = Constants.dungeon.hero.y;
+			angle = (float) (Math.acos((Xb-Xa)/Math.sqrt((Xb-Xa)*(Xb-Xa) + (Yb-Ya)*(Yb-Ya)))) * (Yb<Ya?-1:1); // Quick math (angle avec le héros par rapport à l'horizontale)
+			Constants.dungeon.getCurrentFloor().entities.add(new Fireball(x, y, angle));
 		}
 	}
 
 	@Override
-	public void dealDamages() {
-		if (Math.sqrt(Math.pow(Constants.dungeon.hero.x-this.x, 2)+Math.pow(Constants.dungeon.hero.y-this.y, 2))<Constants.blockSize*1.5f) {
-			Constants.dungeon.hero.hurt(this.damages);
-		}
-	}
+	public void dealDamages() {}
 
 	@Override
 	protected void updateFacing() {

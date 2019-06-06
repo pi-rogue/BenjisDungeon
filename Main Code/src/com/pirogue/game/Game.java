@@ -24,12 +24,12 @@ public class Game extends BasicGame {
 
 
 	public Game() {
-		super("Game"); // Titre de la fenï¿½tre
+		super("Game"); // Titre de la fenètre
 	}
 
 	public static void main(String[] args) throws SlickException {
 		System.setProperty("org.lwjgl.librarypath", new File("lib/natives").getAbsolutePath()); // A laisser, pour qu'il trouve les libraries
-		AppGameContainer application = new AppGameContainer(new Game(), Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false); // WIDTH et HEIGHT correspondent ï¿½ la rï¿½solution spï¿½cifiï¿½e dans les constantes
+		AppGameContainer application = new AppGameContainer(new Game(), Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false); // WIDTH et HEIGHT correspondent à la résolution spécifiée dans les constantes
 		// Settings //
 		application.setFullscreen(Constants.FULLSCREEN);
 		application.setTargetFrameRate(Constants.FPS_MAX);
@@ -37,13 +37,13 @@ public class Game extends BasicGame {
 		application.setVSync(Constants.VERTICAL_SYNC);
 		application.setMaximumLogicUpdateInterval(Constants.DELTA_MAX);
         application.setIcon("src/assets/gui/icon.png");
-		application.start(); // Dï¿½marre le jeu
+		application.start(); // Démarre le jeu
 	}
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
         Constants.init();
-        Constants.container = container; // On le met ici pour pouvoir y accï¿½der de partout
+        Constants.container = container; // On le met ici pour pouvoir y accéder de partout
         this.console = new Console();
         this.menu = new Menu();
         this.sound = new Sound();
@@ -61,7 +61,7 @@ public class Game extends BasicGame {
 				this.console.historic=" \n \n \n \n \n \n \n \n \n \n \n \ntype your command";
 			}
 			else if (Constants.inConsole) { // ---------------- Si la console est ouverte
-				// On transmet tous les inputs clavier ï¿½ la console en filtrant certaines touches
+				// On transmet tous les inputs clavier à la console en filtrant certaines touches
 				if (key!=Input.KEY_LSHIFT  && key!=Input.KEY_RSHIFT &&
 						key!=Input.KEY_LALT && key!=Input.KEY_RALT &&
 						key!=Input.KEY_CAPITAL && key!=Input.KEY_TAB &&
@@ -99,23 +99,23 @@ public class Game extends BasicGame {
 			}}}
 
 
-	private String arrowsDirection() { // Renvoie la direction vers laquelle le hï¿½ros doit se dï¿½placer sur une boussole
-		Input input = Constants.container.getInput(); // On rï¿½cupï¿½re l'input (qui permet de savoir les touches sur lesquelles on appuie)
+	private String arrowsDirection() { // Renvoie la direction vers laquelle le héros doit se déplacer sur une boussole
+		Input input = Constants.container.getInput(); // On récupère l'input (qui permet de savoir les touches sur lesquelles on appuie)
 		String directionV = ""; // Verticale
 		String directionH = ""; // Horizontale
 		if (input.isKeyDown(Constants.KEY_Up   )) directionV += "N";
 		if (input.isKeyDown(Constants.KEY_Down )) directionV += "S";
 		if (input.isKeyDown(Constants.KEY_Left )) directionH += "O";
 		if (input.isKeyDown(Constants.KEY_Right)) directionH += "E";
-		if (directionV.length()>1) directionV = ""; // Si on appuie sur deux directions opposï¿½es en mï¿½me temps,
+		if (directionV.length()>1) directionV = ""; // Si on appuie sur deux directions opposées en même temps,
 		if (directionH.length()>1) directionH = ""; // on ne doit afficher aucune des deux directions.
 		return directionV + directionH;
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		// Fonction qui gï¿½re tous les affichages, appelï¿½e automatiquement ï¿½ chaque tour de boucle.
-		// Tous les dessins ï¿½ l'ï¿½cran sont rï¿½alisï¿½s via le Graphics g (qu'on doit donc passer en paramï¿½tre).
+		// Fonction qui gère tous les affichages, appelée automatiquement à chaque tour de boucle.
+		// Tous les dessins à l'écran sont réalisés via le Graphics g (qu'on doit donc passer en paramètre).
 
 		if (Constants.currentScreen.equals("running")) {
 			dungeon.render(g);
@@ -141,17 +141,16 @@ public class Game extends BasicGame {
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		// Fonction qui gï¿½re toutes les updates, appelï¿½e automatiquement ï¿½ chaque tour de boucle.
-		// La variable delta est un nombre proportionnel au temps ï¿½coulï¿½ depuis la derniï¿½re update, elle sert
-		// donc ï¿½ gï¿½rer les lags en prenant en compte la diffï¿½rence de temps.
+		// Fonction qui gère toutes les updates, appelée automatiquement à chaque tour de boucle.
+		// La variable delta est un nombre proportionnel au temps écoulé depuis la dernière update, elle sert
+		// donc à gérer les lags en prenant en compte la différence de temps.
 
 		// -- Update mouse input -- //
 		Input input = container.getInput();
 		Constants.mouseWasPressed = Constants.mousePressed;
-		Constants.mousePressed = input.isMouseButtonDown(0);  // Ces trois valeurs sont stoquï¿½es dans les
+		Constants.mousePressed = input.isMouseButtonDown(0);  // Ces trois valeurs sont stoquées dans les
 		Constants.mouseX = input.getMouseX();                 // constantes pour pouvoir s'en servir par la
-		Constants.mouseY = input.getMouseY();                 // suite, depuis n'importe oï¿½.
-
+		Constants.mouseY = input.getMouseY();                 // suite, depuis n'importe où.
 
 		if (Constants.currentScreen.equals("running")) {
 			// -- Update arrows input -- //
@@ -189,13 +188,13 @@ public class Game extends BasicGame {
 			for(int i=0; i<dungeon.getCurrentFloor().entities.size(); i++) {
 				Entity entity = dungeon.getCurrentFloor().entities.get(i);
 				entity.update(delta);
-				if (entity instanceof Mob) {
+				if (entity.vanished) {
+					Constants.dungeon.getCurrentFloor().entities.remove(entity);
+					i--;
+				}
+				else if (entity instanceof Mob) {
 					Mob mob = (Mob) entity;
 					mob.pathfinding();
-					if (mob.vanished) {
-						Constants.dungeon.getCurrentFloor().entities.remove(mob);
-						i--;
-					}
 				}
 			}
 		}

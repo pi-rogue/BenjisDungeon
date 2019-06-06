@@ -47,7 +47,7 @@ public class Constants {
 	/* MISCELLANEOUS */
 	public static int nbFloors=1; // Nombre d'étages à générer dans le dungeon
 	public static int nbMob=250; // Nombre de mob à générer sur la map 
-	public static int nbChest=30;//Nombre de Chest générés par map
+	public static int nbChest=30; // Nombre de Chest générés par map
 	public static int nbStairs=1;
 	public static int slideDelay = 30; // Nombre de tours de boucle où le héros doit glisser quand on relâche le clavier (momentum)
 	
@@ -67,6 +67,8 @@ public class Constants {
 	public static int mouseX, mouseY; // Coordonnées de la souris
 	public static String currentScreen = "running"; // écran à afficher
 	public static boolean debug = false; // true quand on veut afficher la debug_view
+	public static String heroCollision; // Sert à l'afficher dans la vue debug
+	public static boolean neutrino = false;
 	public static boolean mousePressed = false; // true quand le bouton gauche de la souris est enfoncé
 	public static boolean mouseWasPressed = false; // garde en mémoire l'ancien état de mousePressed (permet de détecter des clicks)
 	public static boolean inConsole = false; // true si la console est ouverte
@@ -80,10 +82,19 @@ public class Constants {
 	public static Tile[] Sols, Murs;
 	private static int IDCounter = 0;
 	
-// ------ équilibrage slime ------ //	
+// ------ Equilibrage slime ------ //	
 	public static float slimeSpeed =  0.15f;
 	public static int slimeAggro = 350;
 	public static int slimeRange = Constants.blockSize+10;
+	public static int slimeDamages = 10;
+
+// ------ Equilibrage fire ghosts ------ //
+	public static int fireGhostCooldown = 500;
+	public static float fireGhostSpeed = 0.3f;
+	public static int fireGhostAggro = Constants.blockSize*10;
+	public static int fireGhostRange = Constants.blockSize*5;
+	public static float fireBallSpeed = 1f; // Attention a ne pas trop le reduire sinon ca fausse l'angle de déplacement 
+	public static int fireBallDamages = 30;
 
 // ------ Initialization ------ //
 	public static void init() throws SlickException {

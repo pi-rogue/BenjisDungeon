@@ -29,12 +29,15 @@ public class Dungeon {
 			floors.add(new Map(Constants.mapWidth, Constants.mapHeight));
 			this.floors.get(i).spawnEntity(Constants.nbStairs, "Stairs");
 			this.floors.get(i).spawnEntity(Constants.nbChest, "Chest");
-			this.floors.get(i).spawnEntity(Constants.nbMob, "Slime");
+			this.floors.get(i).spawnEntity((int) (Constants.nbMob*0.9), "Slime");
+			this.floors.get(i).spawnEntity((int) (Constants.nbMob*0.1), "FireGhost");
 		}
 	}
 
 	public void spawnHero() throws SlickException {
-		this.hero = new Rogue(this.getCurrentFloor().spawnX, this.getCurrentFloor().spawnY); // Les coordonnées de spawn sont données par la Map
+		int X = this.getCurrentFloor().spawnX*Constants.blockSize+Constants.blockSize/2;
+		int Y = this.getCurrentFloor().spawnY*Constants.blockSize+Constants.blockSize/2;
+		this.hero = new Rogue(X, Y); // Les coordonnées de spawn sont données par la Map
 	}
 	
 	public Map getCurrentFloor() {

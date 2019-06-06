@@ -6,8 +6,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.pirogue.entity.Chest;
-import com.pirogue.entity.mob.FireGhost;
 import com.pirogue.entity.Stairs;
+import com.pirogue.entity.mob.FireGhost;
 import com.pirogue.entity.mob.Slime;
 import com.pirogue.entity.projectiles.Fireball;
 import com.pirogue.items.EmptyItem;
@@ -48,7 +48,8 @@ public class Console {
 			g.drawString("mousePressed: " + Constants.mousePressed, Constants.SCREEN_WIDTH-500, 10);
 			g.drawString("mouseX: " + Constants.mouseX, Constants.SCREEN_WIDTH-300, 10);
 			g.drawString("mouseY: " + Constants.mouseY, Constants.SCREEN_WIDTH-150, 10);
-			g.drawString("arrowDir: " + arrowDir, Constants.SCREEN_WIDTH/2-100, 10);
+			g.drawString("arrowDir: " + arrowDir, Constants.SCREEN_WIDTH/2-300, 10);
+			g.drawString("isColliding: " + Constants.heroCollision, Constants.SCREEN_WIDTH/2-100, 10);
 		}
 	}
 
@@ -80,7 +81,7 @@ public class Console {
 		case "/walid":
 			this.historic += "\n# OK. OP MODE ENABLED";
 			Constants.dungeon.hero.damages = 1000000;
-			Constants.dungeon.hero.setLife(300);
+			Constants.dungeon.hero.setLife(500);
 			break;
 		case "/give" :
 			if (word.length>1) {
@@ -105,15 +106,50 @@ public class Console {
 				this.historic += "\n# Usage : /give <ID>";
 			}
 			break;
+		
+/*		case "/show":
+			if (word[1].equals("entities")) {
+				for (Entity ent : Constants.dungeon.getCurrentFloor().entities) {
+					this.historic += "\nID " + ent.ID + " : " + ent.getClass().getName();
+				}
+				System.out.println(this.historic);
+			}
+			break;
+		
+		case "/mark":
+			if (word.length==2) {
+				int id = Integer.parseInt(word[1]);
+				Entity selected = null;
+				for (Entity ent : Constants.dungeon.getCurrentFloor().entities) { // Recherche de l'entite
+					if (ent.ID==id) selected=ent;
+				}
+				historic += "\nYour coords : " + Constants.dungeon.hero.x + " " + Constants.dungeon.hero.y;
+				historic += "\n#" + id + "'s coords : " + selected.x + " " + selected.y;
+				historic += "\nType : " + selected.getClass().getSimpleName();
+				selected.animations.put("rest", selected.animations.get("hit rest"));
+				selected.animations.put("moving", selected.animations.get("hit moving"));
+			}
+			else this.historic += "\n# Usage : /mark <ID>";
+			break;*/
+			
+		case "/revive":
+			Constants.dungeon.hero.isDead = false;
+			Constants.dungeon.hero.setLife(100);
+			break;
 
+		case "/neutrino":
+			Constants.neutrino = !Constants.neutrino;
+			Constants.dungeon.hero.collisionsEnabled = !Constants.neutrino;
+			break;
+	
 		case "/set":
 			if (word.length>1) {
 				switch (word[1]) {
 				case "life":
-					if (word.length==3 && Integer.parseInt(word[2])>=0 && Integer.parseInt(word[2])<=100) {
+					if (word.length==3 && Integer.parseInt(word[2])>=0) {
 						Constants.dungeon.hero.setLife(Integer.parseInt(word[2]));
 					}
-					else this.historic += "\n# Usage : /set life <value>\n# The value must be between 0 and 100";
+					else this.historic += "\n# Usage : /set life <value>\n# The value must be greater or equal to 0";
 					break;
 				}
 			}
@@ -123,26 +159,25 @@ public class Console {
 		case "/summon":
 			if (word.length>1) {
 				boolean success = true;
-				switch (word[1]) {
+				switch (word[1].toLowerCase()) {
 				case "chest":
-				case "Chest":
-					Constants.dungeon.getCurrentFloor().entities.add(new Chest(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-2, ""));
+					Constants.dungeon.getCurrentFloor().entities.add(new Chest(Constants.dungeon.hero.x/Constants.blockSize*Constants.blockSize+Constants.blockSize/2, (Constants.dungeon.hero.y/Constants.blockSize-2)*Constants.blockSize+Constants.blockSize/2, ""));
 					break;
 				case "slime":
-				case "Slime":
-					Constants.dungeon.getCurrentFloor().entities.add(new Slime(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-2, "blue"));
+					Constants.dungeon.getCurrentFloor().entities.add(new Slime(Constants.dungeon.hero.x, Constants.dungeon.hero.y-2*Constants.blockSize, "blue"));
 					break;
-				case "fire_ghost":
 				case "fireghost":
-				case "FireGhost":
-					Constants.dungeon.getCurrentFloor().entities.add(new FireGhost(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-2));
+					Constants.dungeon.getCurrentFloor().entities.add(new FireGhost(Constants.dungeon.hero.x, Constants.dungeon.hero.y-2*Constants.blockSize));
 					break;
 				case "fireball":
-				case "Fireball":
-					Constants.dungeon.getCurrentFloor().entities.add(new Fireball(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-2, 90f));
+					float angle;
+					int Xa = Constants.dungeon.hero.x, Ya = Constants.dungeon.hero.y;
+					int Xb = Constants.dungeon.hero.x-Constants.SCREEN_WIDTH/2+Constants.mouseX, Yb = Constants.dungeon.hero.y-Constants.SCREEN_HEIGHT/2+Constants.mouseY;
+					angle = (float) (Math.acos((Xb-Xa)/Math.sqrt((Xb-Xa)*(Xb-Xa) + (Yb-Ya)*(Yb-Ya)))) * (Yb<Ya?-1:1); // Quick math (angle de la souris par rapport à l'horizontale)
+					Constants.dungeon.getCurrentFloor().entities.add(new Fireball(Constants.dungeon.hero.x, Constants.dungeon.hero.y-Constants.blockSize*2, angle));
 					break;
 				case "stairs":
-					Constants.dungeon.getCurrentFloor().entities.add(new Stairs(Constants.dungeon.hero.x/Constants.blockSize, Constants.dungeon.hero.y/Constants.blockSize-1));
+					Constants.dungeon.getCurrentFloor().entities.add(new Stairs(Constants.dungeon.hero.x/Constants.blockSize*Constants.blockSize+Constants.blockSize/2, (Constants.dungeon.hero.y/Constants.blockSize-2)*Constants.blockSize+Constants.blockSize/2));
 					break;
 				default:
 					this.historic += "\n# Unknown entity";
