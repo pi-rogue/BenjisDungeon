@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.pirogue.entity.Chest;
+import com.pirogue.entity.Loot;
 import com.pirogue.entity.Stairs;
 import com.pirogue.entity.mob.FireGhost;
 import com.pirogue.entity.mob.Slime;
@@ -89,7 +90,10 @@ public class Console {
 				double ID;
 				while((!(Constants.dungeon.hero.inventory.objects[n] instanceof EmptyItem))) {
 					n++;
-				}
+					if (n==26)
+						return;
+					}
+					
 				if (word[1].equals("empty") || word[1].equals("")) {
 					break;
 				}
@@ -163,6 +167,9 @@ public class Console {
 				case "chest":
 					Constants.dungeon.getCurrentFloor().entities.add(new Chest(Constants.dungeon.hero.x/Constants.blockSize*Constants.blockSize+Constants.blockSize/2, (Constants.dungeon.hero.y/Constants.blockSize-2)*Constants.blockSize+Constants.blockSize/2, ""));
 					break;
+				case "loot" :
+					Constants.dungeon.getCurrentFloor().entities.add(new Loot(Constants.dungeon.hero.x/Constants.blockSize*Constants.blockSize+Constants.blockSize/2, (Constants.dungeon.hero.y/Constants.blockSize-2)*Constants.blockSize+Constants.blockSize/2));
+					break;					
 				case "slime":
 					Constants.dungeon.getCurrentFloor().entities.add(new Slime(Constants.dungeon.hero.x, Constants.dungeon.hero.y-2*Constants.blockSize, "blue"));
 					break;
