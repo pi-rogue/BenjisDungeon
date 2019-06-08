@@ -5,6 +5,8 @@ import com.pirogue.game.Constants;
 public class Chest extends Entity {
 
 	public String rarity;
+	public boolean opened = false;
+	public boolean open = false; //test pour le drop si le coffre est ouvert.
 
 	public Chest(int x, int y, String rarity) {
 		super(x, y);
@@ -27,11 +29,23 @@ public class Chest extends Entity {
 		this.life = 0;
 		this.facing = 0;
 		this.collisionsEnabled=false;
-		// this.drop(); // TODO : Drop en fonction de this.rarity
+		this.open = true;
 	}
 
 	public void update(int delta) {}
 	
 	@Override
 	protected void updateFacing() {}
-}
+
+	public void drop() {
+		for (int i=0;i<6;i++) {
+		int randomx = -100 + (int) (Math.random() * 200);
+		int randomy = -100 + (int) (Math.random() * 200);
+		Constants.dungeon.getCurrentFloor().entities.add(new Loot(this.x+randomx,this.y+randomy));
+		
+		
+		
+		
+		
+		
+	}}}

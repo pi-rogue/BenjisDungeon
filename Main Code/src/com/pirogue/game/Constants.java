@@ -15,7 +15,7 @@ public class Constants {
 // ---------- Settings ---------- //
 	/* GLOBAL */
 	public static boolean SHOW_FPS = true;
-	public static boolean FULLSCREEN = true;
+	public static boolean FULLSCREEN = false;
 	public static boolean VERTICAL_SYNC = false;
 	public static int DELTA_MAX = 20; // Permet de ne pas (trop) traverser les murs si il y a un freeze
 	public static int FPS_MAX = 200;

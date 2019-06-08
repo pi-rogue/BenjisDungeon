@@ -16,7 +16,9 @@ public abstract class Item {
 	//abstract void damage(); 
 	//abstract void spell();
 	
-	public Item(String name, String ID, String type, String acces,int range,double damage,double damage_level,double power,double power_level,double attack_speed,double health ,double health_level,int level) {
+	public Item(String name, String ID, String type, String acces,int range,double damage,double damage_level,double power,double power_level,double attack_speed,double health ,double health_level) {
+		
+		//this.level = Constants.dungeon.hero.level;
 		this.name=name;
 		this.ID = ID;
 		this.type = type;
@@ -33,7 +35,6 @@ public abstract class Item {
 		this.attack_speed = attack_speed;
 		this.health = health + (health_level * (level-1));
 		this.health_level = health_level;
-		this.level=level;
 		
 	}
 	

@@ -2,205 +2,199 @@ package com.pirogue.items;
 
 public class List {
 
-	//double damage,double damage_level,double power,double power_level,double attack_speed,double heal ,double health_level,int level	
-	public Item[] Items = new Item[200000];
+	//double damage,double damage_level,double power,double power_level,double attack_speed,double heal ,double health_levelnt level	
+	public Item[] Items = new Item[2001];{
 	
 	
-	private int i,level_max=29;
-	{
+	
+	/*Items[0] = new Axe("Farmer_Axe_common_","Farmer_Axe",11,1.1,0,0,0.8,0,0);
+	Items[1] = new Axe("Farmer_Axe_unusual_",1,"Farmer_Axe",13,1.4,0,0,0.8,0,0);
+	Items[2] = new Axe("Farmer_Axe_rare_",2,"Farmer_Axe",15,1.8,0,0,0.8,0,0);
+	Items[3] = new Axe("Farmer_Axe_epic_",3,"Farmer_Axe",17,2.2,0,0,0.8,0,0);
+	
+	Items[4] = new Axe("Innacurate_Axe_common_",4,"Innacurate_Axe",17,3.2,0,0,0.4,0,0);
+	Items[5] = new Axe("Innacurate_Axe_unusual_",5,"Innacurate_Axe",22,4.4,0,0,0.4,0,0);
+	Items[6] = new Axe("Innacurate_Axe_rare_",6,"Innacurate_Axe",25,5.6,0,0,0.4,0,0);
+	Items[7] = new Axe("Innacurate_Axe_epic_",7,"Innacurate_Axe",29,6.8,0,0,0.4,0,0);
+	
+	Items[8] = new Axe("Basic_Axe_common_",8,"Basic_Axe",13,2.2,0,0,0.8,0,0);
+	Items[9] = new Axe("Basic_Axe_unusual_",9,"Basic_Axe",16,2.7,0,0,0.8,0,0);
+	Items[10] = new Axe("Basic_Axe_rare_",10,"Basic_Axe",19,3.2,0,0,0.8,0,0);
+	Items[11] = new Axe("Basic_Axe_epic_",11,"Basic_Axe",23,4.2,0,0,0.8,0,0);
+	
+	Items[12] = new Axe("ancient_daggers_Axe_common_",12,"ancient_daggers_Axe",13,2.2,0,0,0.8,0,0);
+	Items[13] = new Axe("ancient_daggers_Axe_unusual_",13,"ancient_daggers_Axe",16,2.7,0,0,0.8,0,0);
+	Items[14] = new Axe("ancient_daggers_Axe_rare_",14,"ancient_daggers_Axe",19,3.2,0,0,0.8,0,0);
+	Items[15] = new Axe("ancient_daggers_Axe_epic_",15,"ancient_daggers_Axe",23,4.2,0,0,0.8,0,0);
+	
+	
+	Items[100] = new Swords("Farmer_sword_common_",1,"Farmer_sword",10,1,0,0,1,0,0);
+	Items[101] = new Swords("Farmer_sword_unusual_",101,"Farmer_sword",12,1.2,0,0,1,0,0);
+	Items[102] = new Swords("Farmer_sword_rare_",102,"Farmer_sword",14,1.6,0,0,1,0,0);
+	Items[103] = new Swords("Farmer_sword_epic_",103,"Farmer_sword",16,2,0,0,1,0,0);
+	
+	Items[104] = new Swords("Innacurate_sword_common_",104,"Innacurate_sword",15,3,0,0,0.5,0,0);
+	Items[105] = new Swords("Innacurate_sword_unusual_",105,"Innacurate_sword",19,4,0,0,0.5,0,0);
+	Items[106] = new Swords("Innacurate_sword_rare_",106,"Innacurate_sword",23,5,0,0,0.5,0,0);
+	Items[107] = new Swords("Innacurate_sword_epic_",107,"Innacurate_sword",27,6,0,0,0.5,0,0);
+	
+	Items[108] = new Swords("Basic_sword_common_",108,"Basic_sword",12,2,0,0,1,0,0);
+	Items[109] = new Swords("Basic_sword_unusual_",109,"Basic_sword",15,2.5,0,0,1,0,0);
+	Items[110] = new Swords("Basic_sword_rare_",110,"Basic_sword",18,3,0,0,1,0,0);
+	Items[111] = new Swords("Basic_sword_epic_",111,"Basic_sword",22,4,0,0,1,0,0);
+	
+	Items[112] = new Swords("Ancient_sword_common_",112,"Ancient_sword",12,2,0,0,1,0,0);
+	Items[113] = new Swords("Ancient_sword_unusual_",113,"Ancient_sword",15,2.5,0,0,1,0,0);
+	Items[114] = new Swords("Ancient_sword_rare_",114,"Ancient_sword",18,3,0,0,1,0,0);
+	Items[115] = new Swords("Ancient_sword_epic_",115,"Ancient_sword",22,4,0,0,1,0,0);
+	
+	
+	Items[200] = new Staff("Basic_Staff_common_",2,"Basic_Staff",8,1,10,0.3,0.5,0,0);
+	Items[201] = new Staff("Basic_Staff_unusual_",201,"Basic_Staff",9,1.1,20,0.3,0.5,0,0);
+	Items[202] = new Staff("Basic_Staff_rare_",202,"Basic_Staff",10,1.2,30,0.3,0.5,0,0);
+	Items[203] = new Staff("Basic_Staff_epic_",203,"Basic_Staff",12,1.3,40,0.3,0.5,0,0);
+	
+	Items[204] = new Staff("Void_Staff_common_",204,"Void_Staff",8,1,8,0.3,0.5,0,0);
+	Items[205] = new Staff("Void_Staff_unusual_",205,"Void_Staff",9,1.1,16,0.3,0.5,0,0);
+	Items[206] = new Staff("Void_Staff_rare_",206,"Void_Staff",10,1.2,24,0.3,0.5,0,0);
+	Items[207] = new Staff("Void_Staff_epic_",207,"Void_Staff",12,1.3,36,0.3,0.5,0,0);
+	
+	Items[208] = new Staff("ancient_daggers_Staff_common_",208,"ancient_daggers_Staff",8,1,12,0.3,0.5,0,0);
+	Items[209] = new Staff("ancient_daggers_Staff_unusual_",209,"ancient_daggers_Staff",9,1.1,24,0.3,0.5,0,0);
+	Items[210] = new Staff("ancient_daggers_Staff_rare_",210,"ancient_daggers_Staff",10,1.2,36,0.3,0.5,0,0);
+	Items[211] = new Staff("ancient_daggers_Staff_epic_",211,"ancient_daggers_Staff",12,1.3,50,0.3,0.5,0,0);	
 		
-	for(i=0;i<=level_max;i++)
-	
-	{
-	/*Items[i] = new Axe("Farmer_Axe_common_"+Integer.toString(i),i,"Farmer_Axe",11,1.1,0,0,0.8,0,0,i);
-	Items[100+i] = new Axe("Farmer_Axe_unusual_"+Integer.toString(i),100+i,"Farmer_Axe",13,1.4,0,0,0.8,0,0,i);
-	Items[200+i] = new Axe("Farmer_Axe_rare_"+Integer.toString(i),200+i,"Farmer_Axe",15,1.8,0,0,0.8,0,0,i);
-	Items[300+i] = new Axe("Farmer_Axe_epic_"+Integer.toString(i),300+i,"Farmer_Axe",17,2.2,0,0,0.8,0,0,i);
-	
-	Items[400+i] = new Axe("Innacurate_Axe_common_"+Integer.toString(i),400+i,"Innacurate_Axe",17,3.2,0,0,0.4,0,0,i);
-	Items[500+i] = new Axe("Innacurate_Axe_unusual_"+Integer.toString(i),500+i,"Innacurate_Axe",22,4.4,0,0,0.4,0,0,i);
-	Items[600+i] = new Axe("Innacurate_Axe_rare_"+Integer.toString(i),600+i,"Innacurate_Axe",25,5.6,0,0,0.4,0,0,i);
-	Items[700+i] = new Axe("Innacurate_Axe_epic_"+Integer.toString(i),700+i,"Innacurate_Axe",29,6.8,0,0,0.4,0,0,i);
-	
-	Items[800+i] = new Axe("Basic_Axe_common_"+Integer.toString(i),800+i,"Basic_Axe",13,2.2,0,0,0.8,0,0,i);
-	Items[900+i] = new Axe("Basic_Axe_unusual_"+Integer.toString(i),900+i,"Basic_Axe",16,2.7,0,0,0.8,0,0,i);
-	Items[1000+i] = new Axe("Basic_Axe_rare_"+Integer.toString(i),1000+i,"Basic_Axe",19,3.2,0,0,0.8,0,0,i);
-	Items[1100+i] = new Axe("Basic_Axe_epic_"+Integer.toString(i),1100+i,"Basic_Axe",23,4.2,0,0,0.8,0,0,i);
-	
-	Items[1200+i] = new Axe("ancient_daggers_Axe_common_"+Integer.toString(i),1200+i,"ancient_daggers_Axe",13,2.2,0,0,0.8,0,0,i);
-	Items[1300+i] = new Axe("ancient_daggers_Axe_unusual_"+Integer.toString(i),1300+i,"ancient_daggers_Axe",16,2.7,0,0,0.8,0,0,i);
-	Items[1400+i] = new Axe("ancient_daggers_Axe_rare_"+Integer.toString(i),1400+i,"ancient_daggers_Axe",19,3.2,0,0,0.8,0,0,i);
-	Items[1500+i] = new Axe("ancient_daggers_Axe_epic_"+Integer.toString(i),1500+i,"ancient_daggers_Axe",23,4.2,0,0,0.8,0,0,i);
+	Items[212] = new Staff("Corrupted_Staff_common_",212,"Corrupted_Staff",8,1,20,0.3,0.5,-10,-6);
+	Items[213] = new Staff("Corrupted_Staff_unusual_",213,"Corrupted_Staff",9,1.1,30,0.3,0.5,-10,-6);
+	Items[214] = new Staff("Corrupted_Staff_rare_",214,"Corrupted_Staff",10,1.2,40,0.3,0.5,-10,-6);
+	Items[215] = new Staff("Corrupted_Staff_epic_",215,"Corrupted_Staff",12,1.3,50,0.3,0.5,-10,-6);
 	
 	
-	Items[10000+i] = new Swords("Farmer_sword_common_"+Integer.toString(i),10000+i,"Farmer_sword",10,1,0,0,1,0,0,i);
-	Items[10100+i] = new Swords("Farmer_sword_unusual_"+Integer.toString(i),10100+i,"Farmer_sword",12,1.2,0,0,1,0,0,i);
-	Items[10200+i] = new Swords("Farmer_sword_rare_"+Integer.toString(i),10200+i,"Farmer_sword",14,1.6,0,0,1,0,0,i);
-	Items[10300+i] = new Swords("Farmer_sword_epic_"+Integer.toString(i),10300+i,"Farmer_sword",16,2,0,0,1,0,0,i);
+	Items[300] = new Bow("Basic_Bow_common_",3,"Basic_Bow",18,2.2,0,0,1,0,0);
+	Items[301] = new Bow("Basic_Bow_unusual_",301,"Basic_Bow",22,2.8,0,0,1,0,0);
+	Items[302] = new Bow("Basic_Bow_rare_",302,"Basic_Bow",26,3.6,0,0,1,0,0);
+	Items[303] = new Bow("Basic_Bow_epic_",303,"Basic_Bow",30,4.4,0,0,1,0,0);
 	
-	Items[10400+i] = new Swords("Innacurate_sword_common_"+Integer.toString(i),10400+i,"Innacurate_sword",15,3,0,0,0.5,0,0,i);
-	Items[10500+i] = new Swords("Innacurate_sword_unusual_"+Integer.toString(i),10500+i,"Innacurate_sword",19,4,0,0,0.5,0,0,i);
-	Items[10600+i] = new Swords("Innacurate_sword_rare_"+Integer.toString(i),10600+i,"Innacurate_sword",23,5,0,0,0.5,0,0,i);
-	Items[10700+i] = new Swords("Innacurate_sword_epic_"+Integer.toString(i),10700+i,"Innacurate_sword",27,6,0,0,0.5,0,0,i);
-	
-	Items[10800+i] = new Swords("Basic_sword_common_"+Integer.toString(i),10800+i,"Basic_sword",12,2,0,0,1,0,0,i);
-	Items[10900+i] = new Swords("Basic_sword_unusual_"+Integer.toString(i),10900+i,"Basic_sword",15,2.5,0,0,1,0,0,i);
-	Items[11000+i] = new Swords("Basic_sword_rare_"+Integer.toString(i),11000+i,"Basic_sword",18,3,0,0,1,0,0,i);
-	Items[11100+i] = new Swords("Basic_sword_epic_"+Integer.toString(i),11100+i,"Basic_sword",22,4,0,0,1,0,0,i);
-	
-	Items[11200+i] = new Swords("Ancient_sword_common_"+Integer.toString(i),11200+i,"Ancient_sword",12,2,0,0,1,0,0,i);
-	Items[11300+i] = new Swords("Ancient_sword_unusual_"+Integer.toString(i),11300+i,"Ancient_sword",15,2.5,0,0,1,0,0,i);
-	Items[11400+i] = new Swords("Ancient_sword_rare_"+Integer.toString(i),11400+i,"Ancient_sword",18,3,0,0,1,0,0,i);
-	Items[11500+i] = new Swords("Ancient_sword_epic_"+Integer.toString(i),11500+i,"Ancient_sword",22,4,0,0,1,0,0,i);
-	
-	
-	Items[20000+i] = new Staff("Basic_Staff_common_"+Integer.toString(i),20000+i,"Basic_Staff",8,1,10,0.3,0.5,0,0,i);
-	Items[20100+i] = new Staff("Basic_Staff_unusual_"+Integer.toString(i),20100+i,"Basic_Staff",9,1.1,20,0.3,0.5,0,0,i);
-	Items[20200+i] = new Staff("Basic_Staff_rare_"+Integer.toString(i),20200+i,"Basic_Staff",10,1.2,30,0.3,0.5,0,0,i);
-	Items[20300+i] = new Staff("Basic_Staff_epic_"+Integer.toString(i),20300+i,"Basic_Staff",12,1.3,40,0.3,0.5,0,0,i);
-	
-	Items[20400+i] = new Staff("Void_Staff_common_"+Integer.toString(i),20400+i,"Void_Staff",8,1,8,0.3,0.5,0,0,i);
-	Items[20500+i] = new Staff("Void_Staff_unusual_"+Integer.toString(i),20500+i,"Void_Staff",9,1.1,16,0.3,0.5,0,0,i);
-	Items[20600+i] = new Staff("Void_Staff_rare_"+Integer.toString(i),20600+i,"Void_Staff",10,1.2,24,0.3,0.5,0,0,i);
-	Items[20700+i] = new Staff("Void_Staff_epic_"+Integer.toString(i),20700+i,"Void_Staff",12,1.3,36,0.3,0.5,0,0,i);
-	
-	Items[20800+i] = new Staff("ancient_daggers_Staff_common_"+Integer.toString(i),20800+i,"ancient_daggers_Staff",8,1,12,0.3,0.5,0,0,i);
-	Items[20900+i] = new Staff("ancient_daggers_Staff_unusual_"+Integer.toString(i),20900+i,"ancient_daggers_Staff",9,1.1,24,0.3,0.5,0,0,i);
-	Items[21000+i] = new Staff("ancient_daggers_Staff_rare_"+Integer.toString(i),21000+i,"ancient_daggers_Staff",10,1.2,36,0.3,0.5,0,0,i);
-	Items[21100+i] = new Staff("ancient_daggers_Staff_epic_"+Integer.toString(i),21100+i,"ancient_daggers_Staff",12,1.3,50,0.3,0.5,0,0,i);	
-		
-	Items[21200+i] = new Staff("Corrupted_Staff_common_"+Integer.toString(i),21200+i,"Corrupted_Staff",8,1,20,0.3,0.5,-10,-6,i);
-	Items[21300+i] = new Staff("Corrupted_Staff_unusual_"+Integer.toString(i),21300+i,"Corrupted_Staff",9,1.1,30,0.3,0.5,-10,-6,i);
-	Items[21400+i] = new Staff("Corrupted_Staff_rare_"+Integer.toString(i),21400+i,"Corrupted_Staff",10,1.2,40,0.3,0.5,-10,-6,i);
-	Items[21500+i] = new Staff("Corrupted_Staff_epic_"+Integer.toString(i),21500+i,"Corrupted_Staff",12,1.3,50,0.3,0.5,-10,-6,i);
-	
-	
-	Items[30000+i] = new Bow("Basic_Bow_common_"+Integer.toString(i),30000+i,"Basic_Bow",18,2.2,0,0,1,0,0,i);
-	Items[30100+i] = new Bow("Basic_Bow_unusual_"+Integer.toString(i),30100+i,"Basic_Bow",22,2.8,0,0,1,0,0,i);
-	Items[30200+i] = new Bow("Basic_Bow_rare_"+Integer.toString(i),30200+i,"Basic_Bow",26,3.6,0,0,1,0,0,i);
-	Items[30300+i] = new Bow("Basic_Bow_epic_"+Integer.toString(i),30300+i,"Basic_Bow",30,4.4,0,0,1,0,0,i);
-	
-	Items[30400+i] = new Bow("Sniper_Bow_common_"+Integer.toString(i),30400+i,"Sniper_Bow",18,2.2,0,0,1,0,0,i);
-	Items[30500+i] = new Bow("Sniper_Bow_unusual_"+Integer.toString(i),30500+i,"Sniper_Bow",22,2.8,0,0,1,0,0,i);
-	Items[30600+i] = new Bow("Sniper_Bow_rare_"+Integer.toString(i),30600+i,"Sniper_Bow",26,3.6,0,0,1,0,0,i);
-	Items[30700+i] = new Bow("Sniper_Bow_epic_"+Integer.toString(i),30700+i,"Sniper_Bow",30,4.4,0,0,1,0,0,i);
+	Items[304] = new Bow("Sniper_Bow_common_",304,"Sniper_Bow",18,2.2,0,0,1,0,0);
+	Items[305] = new Bow("Sniper_Bow_unusual_",305,"Sniper_Bow",22,2.8,0,0,1,0,0);
+	Items[306] = new Bow("Sniper_Bow_rare_",306,"Sniper_Bow",26,3.6,0,0,1,0,0);
+	Items[307] = new Bow("Sniper_Bow_epic_",307,"Sniper_Bow",30,4.4,0,0,1,0,0);
 
-	Items[30800+i] = new Bow("Fire_Bow_common_"+Integer.toString(i),30800+i,"Fire_Bow",16,2.2,0,0,1,0,0,i);
-	Items[30900+i] = new Bow("Fire_Bow_unusual_"+Integer.toString(i),30900+i,"Fire_Bow",20,2.8,0,0,1,0,0,i);
-	Items[31000+i] = new Bow("Fire_Bow_rare_"+Integer.toString(i),31000+i,"Fire_Bow",24,3.6,0,0,1,0,0,i);
-	Items[31100+i] = new Bow("Fire_Bow_epic_"+Integer.toString(i),31100+i,"Fire_Bow",28,4.4,0,0,1,0,0,i);
+	Items[308] = new Bow("Fire_Bow_common_",308,"Fire_Bow",16,2.2,0,0,1,0,0);
+	Items[309] = new Bow("Fire_Bow_unusual_",309,"Fire_Bow",20,2.8,0,0,1,0,0);
+	Items[310] = new Bow("Fire_Bow_rare_",310,"Fire_Bow",24,3.6,0,0,1,0,0);
+	Items[311] = new Bow("Fire_Bow_epic_",311,"Fire_Bow",28,4.4,0,0,1,0,0);
 
-	Items[31200+i] = new Bow("Poisonned_Bow_common_"+Integer.toString(i),31200+i,"Poisonned_Bow",16,2.2,0,0,1,0,0,i);
-	Items[31300+i] = new Bow("Poisonned_Bow_unusual_"+Integer.toString(i),31300+i,"Poisonned_Bow",20,2.8,0,0,1,0,0,i);
-	Items[31400+i] = new Bow("Poisonned_Bow_rare_"+Integer.toString(i),31400+i,"Poisonned_Bow",24,3.6,0,0,1,0,0,i);
-	Items[31500+i] = new Bow("Poisonned_Bow_epic_"+Integer.toString(i),31500+i,"Poisonned_Bow",28,4.4,0,0,1,0,0,i);
+	Items[312] = new Bow("Poisonned_Bow_common_",312,"Poisonned_Bow",16,2.2,0,0,1,0,0);
+	Items[313] = new Bow("Poisonned_Bow_unusual_",313,"Poisonned_Bow",20,2.8,0,0,1,0,0);
+	Items[314] = new Bow("Poisonned_Bow_rare_",314,"Poisonned_Bow",24,3.6,0,0,1,0,0);
+	Items[315] = new Bow("Poisonned_Bow_epic_",315,"Poisonned_Bow",28,4.4,0,0,1,0,0);
 	
 	*/
-	Items[40000+i] = new Daggers("basic_daggers_common_"+Integer.toString(i),40000+i,"basic_daggers",8,4.2,0,0,1,0,0,i);
-	Items[40100+i] = new Daggers("basic_daggers_unusual_"+Integer.toString(i),40100+i,"basic_daggers",10,4.8,0,0,1,0,0,i);
-	Items[40200+i] = new Daggers("basic_daggers_rare_"+Integer.toString(i),40200+i,"basic_daggers",12,5.4,0,0,1,0,0,i);
-	Items[40300+i] = new Daggers("basic_daggers_epic_"+Integer.toString(i),40300+i,"basic_daggers",14,6,0,0,1,0,0,i);
+	Items[400] = new Daggers("basic_daggers_common_",4,"basic_daggers",8,4.2,0,0,1,0,0);
+	Items[401] = new Daggers("basic_daggers_unusual_",401,"basic_daggers",10,4.8,0,0,1,0,0);
+	Items[402] = new Daggers("basic_daggers_rare_",402,"basic_daggers",12,5.4,0,0,1,0,0);
+	Items[403] = new Daggers("basic_daggers_epic_",403,"basic_daggers",14,6,0,0,1,0,0);
 	
-	Items[40400+i] = new Daggers("assassin_daggers_common_"+Integer.toString(i),40400+i,"assassin_daggers",16,4.2,0,0,1,0,0,i);
-	Items[40500+i] = new Daggers("assassin_daggers_unusual_"+Integer.toString(i),40500+i,"assassin_daggers",20,4.8,0,0,1,0,0,i);
-	Items[40600+i] = new Daggers("assassin_daggers_rare_"+Integer.toString(i),40600+i,"assassin_daggers",24,5.4,0,0,1,0,0,i);
-	Items[40700+i] = new Daggers("assassin_daggers_epic_"+Integer.toString(i),40700+i,"assassin_daggers",18,6,0,0,1,0,0,i);
+	Items[404] = new Daggers("assassin_daggers_common_",404,"assassin_daggers",16,4.2,0,0,1,0,0);
+	Items[405] = new Daggers("assassin_daggers_unusual_",405,"assassin_daggers",20,4.8,0,0,1,0,0);
+	Items[406] = new Daggers("assassin_daggers_rare_",406,"assassin_daggers",24,5.4,0,0,1,0,0);
+	Items[407] = new Daggers("assassin_daggers_epic_",407,"assassin_daggers",18,6,0,0,1,0,0);
 
-	Items[40800+i] = new Daggers("bloody_daggers_common_"+Integer.toString(i),40800+i,"bloody_daggers",8,4.2,0,0,1,0,0,i);
-	Items[40900+i] = new Daggers("bloody_daggers_unusual_"+Integer.toString(i),40900+i,"bloody_daggers",10,4.8,0,0,1,0,0,i);
-	Items[41000+i] = new Daggers("bloody_daggers_rare_"+Integer.toString(i),41000+i,"bloody_daggers",12,5.4,0,0,1,0,0,i);
-	Items[41100+i] = new Daggers("bloody_daggers_epic_"+Integer.toString(i),41100+i,"bloody_daggers",14,6,0,0,1,0,0,i);
+	Items[408] = new Daggers("bloody_daggers_common_",408,"bloody_daggers",8,4.2,0,0,1,0,0);
+	Items[409] = new Daggers("bloody_daggers_unusual_",409,"bloody_daggers",10,4.8,0,0,1,0,0);
+	Items[410] = new Daggers("bloody_daggers_rare_",410,"bloody_daggers",12,5.4,0,0,1,0,0);
+	Items[411] = new Daggers("bloody_daggers_epic_",411,"bloody_daggers",14,6,0,0,1,0,0);
 
-	Items[41200+i] = new Daggers("ancient_daggers_common_"+Integer.toString(i),41200+i,"ancient_daggers",9,4.2,0,0,1,0,0,i);
-	Items[41300+i] = new Daggers("ancient_daggers_unusual_"+Integer.toString(i),41300+i,"ancient_daggers",11,4.8,0,0,1,0,0,i);
-	Items[41400+i] = new Daggers("ancient_daggers_rare_"+Integer.toString(i),41400+i,"ancient_daggers",13,5.4,0,0,1,0,0,i);
-	Items[41500+i] = new Daggers("ancient_daggers_epic_"+Integer.toString(i),41500+i,"ancient_daggers",15,6,0,0,1,0,0,i);
+	Items[412] = new Daggers("ancient_daggers_common_",412,"ancient_daggers",9,4.2,0,0,1,0,0);
+	Items[413] = new Daggers("ancient_daggers_unusual_",413,"ancient_daggers",11,4.8,0,0,1,0,0);
+	Items[414] = new Daggers("ancient_daggers_rare_",414,"ancient_daggers",13,5.4,0,0,1,0,0);
+	Items[415] = new Daggers("ancient_daggers_epic_",415,"ancient_daggers",15,6,0,0,1,0,0);
 	
 	//double health, double health_level
 	
 	
-		/*Items[100000+i] = new Head("Hat_common_"+Integer.toString(i),100000+i,"Hat",10,5,i);
-		Items[100100+i] = new Head("Hat_unusual_"+Integer.toString(i),100100+i,"Hat",15,6,i);
-		Items[100200+i] = new Head("Hat_rare_"+Integer.toString(i),100200+i,"Hat",20,7,i);
-		Items[100300+i] = new Head("Hat_epic_"+Integer.toString(i),100300+i,"Hat",30,8,i);
+		/*Items[1000] = new Head("Hat_common_",10,"Hat",10,5);
+		Items[1001] = new Head("Hat_unusual_",11,"Hat",15,6);
+		Items[1002] = new Head("Hat_rare_",12,"Hat",20,7);
+		Items[1003] = new Head("Hat_epic_",13,"Hat",30,8);
 		
-		Items[100400+i] = new Head("Helmet_common_"+Integer.toString(i),100400+i,"Helmet",15,8,i);
-		Items[100500+i] = new Head("Helmet_unusual_"+Integer.toString(i),100500+i,"Helmet",25,9,i);
-		Items[100600+i] = new Head("Helmet_rare_"+Integer.toString(i),100600+i,"Helmet",35,10,i);
-		Items[100700+i] = new Head("Helmet_epic_"+Integer.toString(i),100700+i,"Helmet",50,12,i);
+		Items[1004] = new Head("Helmet_common_",14,"Helmet",15,8);
+		Items[1005] = new Head("Helmet_unusual_",15,"Helmet",25,9);
+		Items[1006] = new Head("Helmet_rare_",16,"Helmet",35,10);
+		Items[1007] = new Head("Helmet_epic_",17,"Helmet",50,12);
 
-		Items[100800+i] = new Head("Helm_common_"+Integer.toString(i),100800+i,"Helm",12,6.5,i);
-		Items[100900+i] = new Head("Helm_unusual_"+Integer.toString(i),100900+i,"Helm",19,7.5,i);
-		Items[101000+i] = new Head("Helm_rare_"+Integer.toString(i),101000+i,"Helm",26,8.5,i);
-		Items[101100+i] = new Head("Helm_epic_"+Integer.toString(i),101100+i,"Helm",40,9.5,i);
+		Items[1008] = new Head("Helm_common_",18,"Helm",12,6.5);
+		Items[1009] = new Head("Helm_unusual_",19,"Helm",19,7.5);
+		Items[1010] = new Head("Helm_rare_",1010,"Helm",26,8.5);
+		Items[1011] = new Head("Helm_epic_",1011,"Helm",40,9.5);
 		
-		Items[101200+i] = new Head("Hood_common_"+Integer.toString(i),101200+i,"Hood",10,5,i);
-		Items[101300+i] = new Head("Hood_unusual_"+Integer.toString(i),101300+i,"Hood",15,6,i);
-		Items[101400+i] = new Head("Hood_rare_"+Integer.toString(i),101400+i,"Hood",20,7,i);
-		Items[101500+i] = new Head("Hood_epic_"+Integer.toString(i),101500+i,"Hood",30,8,i);
-		
-		
-		Items[110000+i] = new Chestplate("Breastplate_common_"+Integer.toString(i),110000+i,"Breastplate",20,8,i);
-		Items[110100+i] = new Chestplate("Breastplate_unusual_"+Integer.toString(i),110100+i,"Breastplate",30,9,i);
-		Items[110200+i] = new Chestplate("Breastplate_rare_"+Integer.toString(i),110200+i,"Breastplate",40,10,i);
-		Items[110300+i] = new Chestplate("Breastplate_epic_"+Integer.toString(i),110300+i,"Breastplate",50,12,i);
-		
-		Items[110400+i] = new Chestplate("Vest_common_"+Integer.toString(i),110400+i,"Vest",10,5,i);
-		Items[110500+i] = new Chestplate("Vest_unusual_"+Integer.toString(i),110500+i,"Vest",15,6,i);
-		Items[110600+i] = new Chestplate("Vest_rare_"+Integer.toString(i),110600+i,"Vest",20,7,i);
-		Items[110700+i] = new Chestplate("Vest_epic_"+Integer.toString(i),110700+i,"Vest",30,8,i);
-		
-		Items[110800+i] = new Chestplate("Chain_Mail_common_"+Integer.toString(i),110800+i,"Chain_Mail",12,6.5,i);
-		Items[110900+i] = new Chestplate("Chain_Mail_unusual_"+Integer.toString(i),110900+i,"Chain_Mail",19,7.5,i);
-		Items[111000+i] = new Chestplate("Chain_Mail_rare_"+Integer.toString(i),111000+i,"Chain_Mail",26,8.5,i);
-		Items[111100+i] = new Chestplate("Chain_Mail_epic_"+Integer.toString(i),111100+i,"Chain_Mail",40,9.5,i);
-		
-		Items[111200+i] = new Chestplate("Dress_common_"+Integer.toString(i),111200+i,"Dress",10,5,i);
-		Items[111300+i] = new Chestplate("Dress_unusual_"+Integer.toString(i),111300+i,"Dress",15,6,i);
-		Items[111400+i] = new Chestplate("Dress_rare_"+Integer.toString(i),111400+i,"Dress",20,7,i);
-		Items[111500+i] = new Chestplate("Dress_epic_"+Integer.toString(i),111500+i,"Dress",30,8,i);
+		Items[1012] = new Head("Hood_common_",1012,"Hood",10,5);
+		Items[1013] = new Head("Hood_unusual_",1013,"Hood",15,6);
+		Items[1014] = new Head("Hood_rare_",1014,"Hood",20,7);
+		Items[1015] = new Head("Hood_epic_",1015,"Hood",30,8);
 		
 		
-		Items[120000+i] = new Legs("Legguard_common_"+Integer.toString(i),120000+i,"Legguard",20,8,i);
-		Items[120100+i] = new Legs("Legguard_unusual_"+Integer.toString(i),120100+i,"Legguard",30,9,i);
-		Items[120200+i] = new Legs("Legguard_rare_"+Integer.toString(i),120200+i,"Legguard",40,10,i);
-		Items[120300+i] = new Legs("Legguard_epic_"+Integer.toString(i),120300+i,"Legguard",50,12,i);
+		Items[1100] = new Chestplate("Breastplate_common_",11,"Breastplate",20,8);
+		Items[1101] = new Chestplate("Breastplate_unusual_",1101,"Breastplate",30,9);
+		Items[1102] = new Chestplate("Breastplate_rare_",1102,"Breastplate",40,10);
+		Items[1103] = new Chestplate("Breastplate_epic_",1103,"Breastplate",50,12);
 		
-		Items[120400+i] = new Legs("Leggings_common_"+Integer.toString(i),120400+i,"Leggings",12,6.5,i);
-		Items[120500+i] = new Legs("Leggings_unusual_"+Integer.toString(i),120500+i,"Leggings",19,7.5,i);
-		Items[120600+i] = new Legs("Leggings_rare_"+Integer.toString(i),120600+i,"Leggings",26,8.5,i);
-		Items[120700+i] = new Legs("Leggings_epic_"+Integer.toString(i),120700+i,"Leggings",40,9.5,i);
+		Items[1104] = new Chestplate("Vest_common_",1104,"Vest",10,5);
+		Items[1105] = new Chestplate("Vest_unusual_",1105,"Vest",15,6);
+		Items[1106] = new Chestplate("Vest_rare_",1106,"Vest",20,7);
+		Items[1107] = new Chestplate("Vest_epic_",1107,"Vest",30,8);
 		
-		Items[120800+i] = new Legs("Pants_common_"+Integer.toString(i),120800+i,"Pants",10,5,i);
-		Items[120900+i] = new Legs("Pants_unusual_"+Integer.toString(i),120900+i,"Pants",15,6,i);
-		Items[121000+i] = new Legs("Pants_rare_"+Integer.toString(i),121000+i,"Pants",20,7,i);
-		Items[121100+i] = new Legs("Pants_epic_"+Integer.toString(i),121100+i,"Pants",30,8,i);
+		Items[1108] = new Chestplate("Chain_Mail_common_",1108,"Chain_Mail",12,6.5);
+		Items[1109] = new Chestplate("Chain_Mail_unusual_",1109,"Chain_Mail",19,7.5);
+		Items[1110] = new Chestplate("Chain_Mail_rare_",1110,"Chain_Mail",26,8.5);
+		Items[1111] = new Chestplate("Chain_Mail_epic_",1111,"Chain_Mail",40,9.5);
 		
-		Items[121200+i] = new Legs("Breeches_common_"+Integer.toString(i),121200+i,"Breeches",10,5,i);
-		Items[121300+i] = new Legs("Breeches_unusual_"+Integer.toString(i),121300+i,"Breeches",15,6,i);
-		Items[121400+i] = new Legs("Breeches_rare_"+Integer.toString(i),121400+i,"Breeches",20,7,i);
-		Items[121500+i] = new Legs("Breeches_epic_"+Integer.toString(i),121500+i,"Breeches",30,8,i);
+		Items[1112] = new Chestplate("Dress_common_",1112,"Dress",10,5);
+		Items[1113] = new Chestplate("Dress_unusual_",1113,"Dress",15,6);
+		Items[1114] = new Chestplate("Dress_rare_",1114,"Dress",20,7);
+		Items[1115] = new Chestplate("Dress_epic_",1115,"Dress",30,8);
 		
 		
-		Items[130000+i] = new Feet("Greaves_common_"+Integer.toString(i),130000+i,"Greaves",15,5,i);
-		Items[130100+i] = new Feet("Greaves_unusual_"+Integer.toString(i),130100+i,"Greaves",25,6,i);
-		Items[130200+i] = new Feet("Greaves_rare_"+Integer.toString(i),130200+i,"Greaves",35,7,i);
-		Items[130300+i] = new Feet("Greaves_epic_"+Integer.toString(i),130300+i,"Greaves",50,8,i);
+		Items[1200] = new Legs("Legguard_common_",12,"Legguard",20,8);
+		Items[1201] = new Legs("Legguard_unusual_",1201,"Legguard",30,9);
+		Items[1202] = new Legs("Legguard_rare_",1202,"Legguard",40,10);
+		Items[1203] = new Legs("Legguard_epic_",1203,"Legguard",50,12);
 		
-		Items[130400+i] = new Feet("Footguard_common_"+Integer.toString(i),130400+i,"Footguard",12,8,i);
-		Items[130500+i] = new Feet("Footguard_unusual_"+Integer.toString(i),130500+i,"Footguard",19,9,i);
-		Items[130600+i] = new Feet("Footguard_rare_"+Integer.toString(i),130600+i,"Footguard",26,10,i);
-		Items[130700+i] = new Feet("Footguard_epic_"+Integer.toString(i),130700+i,"Footguard",40,12,i);
+		Items[1204] = new Legs("Leggings_common_",1204,"Leggings",12,6.5);
+		Items[1205] = new Legs("Leggings_unusual_",1205,"Leggings",19,7.5);
+		Items[1206] = new Legs("Leggings_rare_",1206,"Leggings",26,8.5);
+		Items[1207] = new Legs("Leggings_epic_",1207,"Leggings",40,9.5);
 		
-		Items[130800+i] = new Feet("Boots_common_"+Integer.toString(i),130800+i,"Boots",10,6.5,i);
-		Items[130900+i] = new Feet("Boots_unusual_"+Integer.toString(i),130900+i,"Boots",15,7.5,i);
-		Items[131000+i] = new Feet("Boots_rare_"+Integer.toString(i),131000+i,"Boots",20,8.5,i);
-		Items[131100+i] = new Feet("Boots_epic_"+Integer.toString(i),131100+i,"Boots",30,9.5,i);
+		Items[1208] = new Legs("Pants_common_",1208,"Pants",10,5);
+		Items[1209] = new Legs("Pants_unusual_",1209,"Pants",15,6);
+		Items[1210] = new Legs("Pants_rare_",1210,"Pants",20,7);
+		Items[1211] = new Legs("Pants_epic_",1211,"Pants",30,8);
 		
-		Items[131200+i] = new Feet("Slippers_common_"+Integer.toString(i),131200+i,"Slippers",10,5,i);
-		Items[131300+i] = new Feet("Slippers_unusual_"+Integer.toString(i),131300+i,"Slippers",15,6,i);
-		Items[131400+i] = new Feet("Slippers_rare_"+Integer.toString(i),131400+i,"Slippers",20,7,i);
-		Items[131500+i] = new Feet("Slippers_epic_"+Integer.toString(i),131500+i,"Slippers",30,8,i);*/
-}
+		Items[1212] = new Legs("Breeches_common_",1212,"Breeches",10,5);
+		Items[1213] = new Legs("Breeches_unusual_",1213,"Breeches",15,6);
+		Items[1214] = new Legs("Breeches_rare_",1214,"Breeches",20,7);
+		Items[1215] = new Legs("Breeches_epic_",1215,"Breeches",30,8);
+		
+		
+		Items[1300] = new Feet("Greaves_common_",13,"Greaves",15,5);
+		Items[1301] = new Feet("Greaves_unusual_",1301,"Greaves",25,6);
+		Items[1302] = new Feet("Greaves_rare_",1302,"Greaves",35,7);
+		Items[1303] = new Feet("Greaves_epic_",1303,"Greaves",50,8);
+		
+		Items[1304] = new Feet("Footguard_common_",1304,"Footguard",12,8);
+		Items[1305] = new Feet("Footguard_unusual_",1305,"Footguard",19,9);
+		Items[1306] = new Feet("Footguard_rare_",1306,"Footguard",26,10);
+		Items[1307] = new Feet("Footguard_epic_",1307,"Footguard",40,12);
+		
+		Items[1308] = new Feet("Boots_common_",1308,"Boots",10,6.5);
+		Items[1309] = new Feet("Boots_unusual_",1309,"Boots",15,7.5);
+		Items[1310] = new Feet("Boots_rare_",1310,"Boots",20,8.5);
+		Items[1311] = new Feet("Boots_epic_",1311,"Boots",30,9.5);
+		
+		Items[1312] = new Feet("Slippers_common_",1312,"Slippers",10,5);
+		Items[1313] = new Feet("Slippers_unusual_",1313,"Slippers",15,6);
+		Items[1314] = new Feet("Slippers_rare_",1314,"Slippers",20,7);
+		Items[1315] = new Feet("Slippers_epic_",1315,"Slippers",30,8);*/
 }}
 

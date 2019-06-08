@@ -53,7 +53,7 @@ public class Loot extends Entity{
 		distX = this.x - Constants.dungeon.hero.x;//la distance qui separe le hero du mob en x
 		distY = this.y - Constants.dungeon.hero.y;//pareil en y
 
-		if((distX*distX+distY*distY) <= 300 ) {
+		if((distX*distX+distY*distY) <= 1500) {
 			
 			
 			int n=6;
@@ -75,7 +75,7 @@ public class Loot extends Entity{
 		
 		
 		do {
-			random = (int) (Math.random() * (200000));
+			random = (int) (Math.random() * (2000));
 		}while(!(list.Items[random] instanceof Item  ));
 		
 	}
