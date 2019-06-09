@@ -12,7 +12,6 @@ import com.pirogue.entity.mob.FireGhost;
 import com.pirogue.entity.mob.Slime;
 import com.pirogue.entity.projectiles.Fireball;
 import com.pirogue.items.EmptyItem;
-import com.pirogue.items.List;
 
 public class Console {
 
@@ -21,7 +20,6 @@ public class Console {
 	public String enteredString;
 	public String historic;
 	public String line;
-	List obj = new List();
 
 	public Console() {
 		this.enteredString = "";
@@ -100,9 +98,9 @@ public class Console {
 				else {
 					word[1] = word[1].replaceAll("[^0-9\\.]", "");
 					ID = Double.parseDouble(word[1]);
-					if(ID<200000 && (obj.Items[(int)ID])!=null) {
+					if(ID<200000 && (Constants.items.get((int)ID))!=null) {
 						//System.out.println(ID);
-						Constants.dungeon.hero.inventory.objects[n] = obj.Items[(int)ID];
+						Constants.dungeon.hero.inventory.objects[n] = Constants.items.get((int)ID);
 					}
 				}
 			}

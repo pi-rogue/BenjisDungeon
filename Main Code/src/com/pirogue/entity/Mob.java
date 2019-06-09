@@ -42,6 +42,11 @@ public abstract class Mob extends Entity {
 		return false;
 	}
 
+	public void update(int delta) {
+		pathfinding();
+		super.update(delta);
+	}
+	
 	protected void move(prio tabPrio[]){
 		if(!this.isColliding) {//si le mob peut passer, il choisi la premiere direction en fonction du chemin a parcourir
 			if(tabPrio[0]==prio.haut) {this.moving = 0;}

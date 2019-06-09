@@ -42,7 +42,7 @@ public class FireGhost extends Mob {
 
 	@Override
 	protected boolean aggro() {
-		if(Math.sqrt(distX*distX+distY*distY)<aggro) { // Detecte si le mob est assez proche pour pathfind
+		if(Math.sqrt(distX*distX+distY*distY)<aggro && !Constants.dungeon.hero.isDead) { // Detecte si le mob est assez proche pour pathfind
 			if(Math.sqrt(distX*distX+distY*distY)<range) { // Detecte si le mob est assez pres pour attaquer
 				attack();
 				return false;

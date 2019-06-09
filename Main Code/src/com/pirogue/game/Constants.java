@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import com.pirogue.game.util.AnimationsContainer;
+import com.pirogue.items.List;
 
 public class Constants {
 
@@ -75,6 +76,7 @@ public class Constants {
 	public static GameContainer container; // Gère ce qui est propre au jeu au niveau de l'OS, par exemple les inputs, la musique, le fullscreen, etc
 	public static Dungeon dungeon; // Pour accéder au dungeon
 	public static AnimationsContainer animations = new AnimationsContainer(); // Contient toutes les animations de tous les mobs/joueurs
+	public static List items; // Contient tous les différents items du jeu 
 	public static Tile Droite, Gauche, Bas, Haut,
 					   AngleHG, AngleHD, AngleBG, AngleBD,
 					   CoinHG, CoinHD, CoinBG, CoinBD,
@@ -99,6 +101,7 @@ public class Constants {
 // ------ Initialization ------ //
 	public static void init() throws SlickException {
 		animations.loadAnimations(new File("src/assets/sprites"));
+		items = new List();
 
 		SpriteSheet tilesheet    = new SpriteSheet(tileset, blockSize, blockSize);
 		SpriteSheet collidesheet = new SpriteSheet(collide, blockSize, blockSize);

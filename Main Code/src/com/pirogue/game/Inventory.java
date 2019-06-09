@@ -9,6 +9,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import com.pirogue.entity.Loot;
 import com.pirogue.game.util.Animations;
 import com.pirogue.items.EmptyItem;
 import com.pirogue.items.Item;
@@ -114,8 +115,8 @@ public class Inventory {
 			n++;
 		}
 		
-		if (!Constants.mousePressed && Constants.mouseWasPressed && selectedItemIndex!=-1) { // Si on relâche la souris sur aucune case, on remet l'item dans sa case d'origine
-			objects[selectedItemIndex] = selectedItem;
+		if (!Constants.mousePressed && Constants.mouseWasPressed && selectedItemIndex!=-1) { // Si on relâche la souris dans le vide, on drop l'item par terre
+			Constants.dungeon.getCurrentFloor().entities.add(new Loot(Constants.dungeon.hero.x, Constants.dungeon.hero.y+40, Integer.parseInt(selectedItem.getID())));
 			selectedItem = new EmptyItem();
 			refresh = selectedItemIndex<6;
 			selectedItemIndex=-1;

@@ -9,9 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import com.pirogue.entity.Chest;
 import com.pirogue.entity.Entity;
-import com.pirogue.entity.Mob;
 
 public class Game extends BasicGame {
 
@@ -193,18 +191,6 @@ public class Game extends BasicGame {
 				if (entity.vanished) {
 					Constants.dungeon.getCurrentFloor().entities.remove(entity);
 					i--;
-				}
-				else if (entity instanceof Chest) {
-					Chest chest = (Chest) entity;
-					if(chest.open && !chest.opened	) {
-					chest.drop();
-					chest.open = false;
-					chest.opened = true;
-					}
-				}
-				else if (entity instanceof Mob) {
-					Mob mob = (Mob) entity;
-					mob.pathfinding();
 				}
 			}
 		}

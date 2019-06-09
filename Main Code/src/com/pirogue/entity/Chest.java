@@ -5,8 +5,7 @@ import com.pirogue.game.Constants;
 public class Chest extends Entity {
 
 	public String rarity;
-	public boolean opened = false;
-	public boolean open = false; //test pour le drop si le coffre est ouvert.
+	public boolean opened = false; //test pour le drop si le coffre est ouvert.
 
 	public Chest(int x, int y, String rarity) {
 		super(x, y);
@@ -29,10 +28,14 @@ public class Chest extends Entity {
 		this.life = 0;
 		this.facing = 0;
 		this.collisionsEnabled=false;
-		this.open = true;
 	}
 
-	public void update(int delta) {}
+	public void update(int delta) {
+		if(this.life==0 && !this.opened) {
+			this.drop();
+			this.opened = true;
+		}
+	}
 	
 	@Override
 	protected void updateFacing() {}
