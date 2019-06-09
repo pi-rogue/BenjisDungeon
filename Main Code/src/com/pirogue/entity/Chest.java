@@ -17,7 +17,7 @@ public class Chest extends Entity {
 
 	@Override
 	protected void refreshAnimations() {
-		this.animations.put("rest", Constants.animations.get("accessories chest"));
+		this.animations.put("rest",Constants.animations.get("accessories chest"));
 	}
 
 	@Override
