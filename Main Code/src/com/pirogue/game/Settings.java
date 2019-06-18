@@ -12,9 +12,9 @@ public class Settings {
 		
 		settings = new Button[3];
 		
-		settings[0] = new Button(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2-150, "assets/gui/buttons/settings.png", "sound");
-		settings[1] = new Button(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2, "assets/gui/buttons/settings.png", "commands");
-		settings[2] = new Button(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2+150, "assets/gui/buttons/settings.png", "return_settings");
+		settings[0] = new Button(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2-150, "assets/gui/buttons/Sound.png", "sound");
+		settings[1] = new Button(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2, "assets/gui/buttons/Commands.png", "commands");
+		settings[2] = new Button(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2+150, "assets/gui/buttons/Return.png", "return_settings");
 		
 }
 	

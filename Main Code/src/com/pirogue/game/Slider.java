@@ -14,10 +14,11 @@ public class Slider {
 	private Rectangle rect;
 	private Rectangle rect_cursor;
 	private boolean rect_cursor_selected = false;
-	public int centercX;
+	private float variable;
+	public int centercX;//centre du curseur en x
 	public int centerX;
 	public int centerY;
-	public int centercY;
+	public int centercY;//centre du curseur en y
 	
 	
 	public Slider(int centerX, int centerY,int centercX,int centercY) throws SlickException {
@@ -29,13 +30,13 @@ public class Slider {
 		this.background = new Image("assets/gui/buttons/background_with_bar.png");
 		this.cursor = new Image("assets/gui/buttons/cursor.png");
 		this.rect = new Rectangle(centerX-this.background.getWidth()/2, centerY-this.background.getHeight()/2, this.background.getWidth(), this.background.getHeight());
-		this.rect_cursor = new Rectangle(centerX-this.cursor.getWidth()/2+40, centerY-this.cursor.getHeight()/2, this.cursor.getWidth(), this.cursor.getHeight());
+		this.rect_cursor = new Rectangle(centerX-this.cursor.getWidth()/2+20, centerY-this.cursor.getHeight()/2, this.cursor.getWidth(), this.cursor.getHeight());
 	}
 	
 	public void render(Graphics g) {
 		g.drawImage(background, rect.getMinX(), rect.getMinY());
 		g.drawImage(cursor, rect_cursor.getMinX(), rect_cursor.getMinY());
-		if (rect_cursor.contains(Constants.mouseX, Constants.mouseY) && (rect_cursor_selected = true ))
+		if (((rect_cursor.contains(Constants.mouseX, Constants.mouseY) && !Constants.mousePressed) || (rect_cursor_selected == true )))
 			g.drawImage(selected, rect_cursor.getMinX(), rect_cursor.getMinY());
 		
 	}
@@ -45,10 +46,7 @@ public class Slider {
 
 
 	public void update() {
-		
-		
-		
-		
+		//Variable est une échelle de 0 à 100
 		if (Constants.mousePressed && !Constants.mouseWasPressed && rect_cursor.contains(Constants.mouseX, Constants.mouseY)) {
 			rect_cursor_selected = true;
 		}
@@ -56,11 +54,16 @@ public class Slider {
 			rect_cursor_selected = false;
 		}
 			
-		if (rect_cursor_selected)
-		{
+		if (rect_cursor_selected) {
+			if(Constants.mouseX<460) 
+				this.centercX = 460;
+			else if (Constants.mouseX>910)	
+				this.centercX = 910;				
+			else {
 			this.centercX=Constants.mouseX;
+			}
 			this.rect_cursor = new Rectangle(centercX-this.cursor.getWidth()/2, centercY-this.cursor.getHeight()/2, this.cursor.getWidth(), this.cursor.getHeight());
-		
-			
-	}	}	
+		}
+		variable = (float) ((this.centercX - 460.0)/(910.0-460.0)*100);
+	}
 }

@@ -18,7 +18,7 @@ public abstract class Item {
 	
 	public Item(String name, String ID, String type, String acces,int range,double damage,double damage_level,double power,double power_level,double attack_speed,double health ,double health_level) {
 		
-		//this.level = Constants.dungeon.hero.level;
+		//this.level = Constants.dungeon.hero.level;  //TODO : intégrer les niveaux dans le jeu
 		this.name=name;
 		this.ID = ID;
 		this.type = type;

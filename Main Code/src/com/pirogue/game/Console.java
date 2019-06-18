@@ -98,7 +98,7 @@ public class Console {
 				else {
 					word[1] = word[1].replaceAll("[^0-9\\.]", "");
 					ID = Double.parseDouble(word[1]);
-					if(ID<200000 && (Constants.items.get((int)ID))!=null) {
+					if(ID<=2000 && (Constants.items.get((int)ID))!=null) {
 						//System.out.println(ID);
 						Constants.dungeon.hero.inventory.objects[n] = Constants.items.get((int)ID);
 					}
