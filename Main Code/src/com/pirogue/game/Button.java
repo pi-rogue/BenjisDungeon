@@ -45,6 +45,9 @@ public class Button {
 		case "return_settings" :
 			Constants.currentScreen = "menu";
 			break;
+		case "return_sound" :
+			Constants.currentScreen = "settings";
+			break;
 			
 			
 		}
