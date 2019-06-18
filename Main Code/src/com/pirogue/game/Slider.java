@@ -19,15 +19,17 @@ public class Slider {
 	public int centerX;
 	public int centerY;
 	public int centercY;//centre du curseur en y
+	private String label;
 	
 	
-	public Slider(int centerX, int centerY,int centercX,int centercY) throws SlickException {
+	public Slider(int centerX, int centerY,int centercX,int centercY,String label) throws SlickException {
 		this.centercY=centercY;
 		this.centerY=centerY;		
 		this.centerX=centerX;
 		this.centercX=centercX;
+		this.label=label;
 		this.selected = new Image("assets/gui/selected_cursor.png");
-		this.background = new Image("assets/gui/buttons/background_with_bar.png");
+		this.background = new Image("assets/gui/buttons/background_with_bar_" + label +".png");
 		this.cursor = new Image("assets/gui/buttons/cursor.png");
 		this.rect = new Rectangle(centerX-this.background.getWidth()/2, centerY-this.background.getHeight()/2, this.background.getWidth(), this.background.getHeight());
 		this.rect_cursor = new Rectangle(centerX-this.cursor.getWidth()/2+20, centerY-this.cursor.getHeight()/2, this.cursor.getWidth(), this.cursor.getHeight());

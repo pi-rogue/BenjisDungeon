@@ -11,9 +11,9 @@ public class Sound {
 	
 	public Sound() throws SlickException{
 		volume = new Slider[3];
-		volume[0] = new Slider(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2-150,Constants.SCREEN_WIDTH/2-80, Constants.SCREEN_HEIGHT/2-150);
-		volume[1] = new Slider(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2,Constants.SCREEN_WIDTH/2-80, Constants.SCREEN_HEIGHT/2);
-		volume[2] = new Slider(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2+150,Constants.SCREEN_WIDTH/2-80, Constants.SCREEN_HEIGHT/2+150);
+		volume[0] = new Slider(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2-150,Constants.SCREEN_WIDTH/2-80, Constants.SCREEN_HEIGHT/2-150,"Master");
+		volume[1] = new Slider(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2,Constants.SCREEN_WIDTH/2-80, Constants.SCREEN_HEIGHT/2,"Music");
+		volume[2] = new Slider(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2+150,Constants.SCREEN_WIDTH/2-80, Constants.SCREEN_HEIGHT/2+150,"Effects");
 	}
 
 
