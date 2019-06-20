@@ -82,6 +82,11 @@ public class Console {
 			Constants.dungeon.hero.damages = 1000000;
 			Constants.dungeon.hero.setLife(500);
 			break;
+		case "/pute":
+			Constants.dungeon.hero.setLife(1);
+			Constants.dungeon.hero.damages = 0;
+			 this.historic = "pupu pute\n";
+			 break;
 		case "/give" :
 			if (word.length>1) {
 				int n=6;

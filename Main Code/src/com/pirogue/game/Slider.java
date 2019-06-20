@@ -57,16 +57,16 @@ public class Slider {
 		}
 			
 		if (rect_cursor_selected) {
-			if(Constants.mouseX<Constants.SCREEN_WIDTH/2-(this.rect.getWidth()/2)+20) 
-				this.centercX = (int) (Constants.SCREEN_WIDTH/2-(this.rect.getWidth()/2)+20);
-			else if (Constants.mouseX>Constants.SCREEN_WIDTH/2+(this.rect.getWidth())/2-20)	
-				this.centercX = (int) (Constants.SCREEN_WIDTH/2+this.rect.getWidth()/2-20);
+			if(Constants.mouseX<Constants.SCREEN_WIDTH/2-(this.rect.getWidth()/2)+30) 
+				this.centercX = (int) (Constants.SCREEN_WIDTH/2-(this.rect.getWidth()/2)+30);
+			else if (Constants.mouseX>Constants.SCREEN_WIDTH/2+(this.rect.getWidth())/2-30)	
+				this.centercX = (int) (Constants.SCREEN_WIDTH/2+this.rect.getWidth()/2-30);
 							
 			else {
 			this.centercX=Constants.mouseX;
 			}
 			this.rect_cursor = new Rectangle(centercX-this.cursor.getWidth()/2, centercY-this.cursor.getHeight()/2, this.cursor.getWidth(), this.cursor.getHeight());
 		}
-		ladder = (float) (this.centercX - (Constants.SCREEN_WIDTH/2-(this.rect.getWidth()/2)+20))/(2*this.rect.getWidth()/2-40)*100;
+		ladder = (float) (this.centercX - (Constants.SCREEN_WIDTH/2-(this.rect.getWidth()/2)+30))/(2*this.rect.getWidth()/2-60)*100;
 	}
 }
