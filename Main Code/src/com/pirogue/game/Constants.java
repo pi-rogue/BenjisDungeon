@@ -46,7 +46,7 @@ public class Constants {
 	public static int blockSize = 64; // Taille d'un bloc de la map
 	
 	/* MISCELLANEOUS */
-	public static int nbFloors=1; // Nombre d'étages à générer dans le dungeon
+	public static int nbFloors=3; // Nombre d'étages à générer dans le dungeon
 	public static int nbMob=250; // Nombre de mob à générer sur la map 
 	public static int nbChest=30; // Nombre de Chest générés par map
 	public static int nbStairs=1;

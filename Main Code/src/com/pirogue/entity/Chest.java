@@ -9,6 +9,7 @@ public class Chest extends Entity {
 
 	public Chest(int x, int y, String rarity) {
 		super(x, y);
+		this.displayLifeBar = false;
 		this.rarity = rarity;
 		this.life = 1;
 		this.facing = 1;

@@ -180,7 +180,8 @@ public class Map {
 			switch(entityType) {
 				case "Slime": this.entities.add(new Slime(X, Y, colors[(int)(Math.random() * 3)])); break; // Et on fait spawn un Slime de couleur random
 				case "Chest": this.entities.add(new Chest(X, Y, "")); break;
-				case "Stairs": this.entities.add(new Stairs(X, Y)); break;
+				case "StairsUp": this.entities.add(new Stairs(X, Y, 1)); break;
+				case "StairsDown": this.entities.add(new Stairs(X, Y, -1)); break;
 				case "FireGhost": this.entities.add(new FireGhost(X,Y));break;
 			}
 			this.grille[x][y] = true;
@@ -233,6 +234,13 @@ public class Map {
 			Entity entity = entities.get(i);
 			if (entity.x>=Xi && entity.x<=Xf && entity.y>=Yi && entity.y<=Yf ) {
 				entity.render(g, heroX, heroY);
+			}
+		}
+		
+		for(int i=0; i<entities.size(); i++) {
+			Entity entity = entities.get(i);
+			if (entity.x>=Xi && entity.x<=Xf && entity.y>=Yi && entity.y<=Yf ) {
+				entity.renderOver(g, heroX, heroY);
 			}
 		}
 	}

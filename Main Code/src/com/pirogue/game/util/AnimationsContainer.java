@@ -35,16 +35,8 @@ public class AnimationsContainer extends HashMap<String, Animations> {
 				}
 				
 				String key = String.join(" ", file.getPath().substring(19, file.getPath().indexOf(".")).split("\\\\")); // Format de la key
-				int cellWidth = Constants.blockSize; // Permet de gérer des spritesheets qui ne sont pas 64x64
-				int cellHeight = Constants.blockSize;
-				if (key.matches("heroes attack .*")) {
-					cellWidth *= 2;
-				}
-				else if (key.matches("mobs slime .*attack.*")) {
-					cellWidth *= 3;
-					cellHeight *= 3;
-				}
-				SpriteSheet spritesheet = new SpriteSheet(file.getPath(), cellWidth, cellHeight);
+				int[] cellSize = getCellSize(key);
+				SpriteSheet spritesheet = new SpriteSheet(file.getPath(), cellSize[0], cellSize[1]);
 				
 				Animations anims = new Animations(spritesheet, getDuration(key), getDamageFrame(key));
 				setModifiers(anims, key);
@@ -64,7 +56,22 @@ public class AnimationsContainer extends HashMap<String, Animations> {
 		} 
 		return anims;
 	}
-
+	
+	private int[] getCellSize(String key) {
+		/* Selon l'image, on veut des tailles différentes */
+		int[] cellSize = {Constants.blockSize, Constants.blockSize};
+		if (key.matches("heroes attack .*")) cellSize[0] *= 2;
+		if (key.matches("debug life_bar")) {
+			cellSize[0] = 142;
+			cellSize[1] = 25;
+		}
+		if (key.matches("mobs slime .*attack.*")) {
+			cellSize[0] *= 3;
+			cellSize[1] *= 3;
+		}
+		return cellSize;
+	}
+	
 	private int getDuration(String key) {
 		/* Selon l'animation, on veut des durées différentes */
 		if (key.matches(".* death .*")) return 100;

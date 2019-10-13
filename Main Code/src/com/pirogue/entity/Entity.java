@@ -11,10 +11,12 @@ import com.pirogue.game.util.AnimationsContainer;
 public abstract class Entity {
 
 	public boolean collisionsEnabled=true;
+	public boolean displayLifeBar=true;
 	protected int distX=200, distY=200;
 	public int x,y, width,height, ID;
 	protected float velocity = 0.5f;
-	protected int life = 100; // Pour l'instant c'est en pourcentage
+	protected int lifeMax = 100;
+	protected int life = lifeMax;
 	public int damages;
 	protected int facing; // Direction de l'entité
 	protected int moving = -1; // Direction du déplacement de l'entité (-1 si on ne se déplace pas)
@@ -26,6 +28,7 @@ public abstract class Entity {
 	private boolean momentum = false; // True après un déplacement quand l'entité glisse un peu à vitesse réduite 
 	public boolean isDead = false;
 	public boolean vanished = false; // True quand l'animation de mort est terminée et l'entité est vraiment morte
+	public Entity collidingWith;
 
 	public Entity(int x, int y) {
 		this.ID = Constants.newID();
@@ -59,6 +62,17 @@ public abstract class Entity {
 		}
 		else {
 			hitCounter++;
+
+			// Affichage du corps //
+			if (attackID==-1 || alwaysDrawBody) {
+				String key = moving==-1 ? "rest" : "moving";
+				Animation animBody = animations.get(key).get(facing);
+				g.drawAnimation(animBody, X, Y);
+				if (hitCounter < 10) {
+					Animation hitBody = animations.get("hit " + key).get(facing);
+					g.drawImage(hitBody.getImage(animBody.getFrame()), X, Y);
+				}
+			}
 			
 			// Affichage de l'attaque //
 			if (attackID!=-1) {
@@ -74,19 +88,20 @@ public abstract class Entity {
 					this.damageDealt = false;
 				}
 			}
-			// Affichage du corps //
-			if (attackID==-1 || alwaysDrawBody) {
-				String key = moving==-1 ? "rest" : "moving";
-				Animation animBody = animations.get(key).get(facing);
-				g.drawAnimation(animBody, X, Y);
-				if (hitCounter < 10) {
-					Animation hitBody = animations.get("hit " + key).get(facing);
-					g.drawImage(hitBody.getImage(animBody.getFrame()), X, Y);
-				}
-			}
 		}
 	}
+
+	public void renderOver(Graphics g, int offsetX, int offsetY) {
+		float X = this.x-offsetX + (Constants.SCREEN_WIDTH-Constants.blockSize)/2;  // Coordonnées du coin supérieur gauche (en considérant que l'entité a une longueur 
+		float Y = this.y-offsetY + (Constants.SCREEN_HEIGHT-Constants.blockSize)/2; // et largeur d'une case entière et pas -2, ce qui permet de ne pas décaler l'image)
 		
+		// Affichage de la barre de vie //
+		if (displayLifeBar && this.life<this.lifeMax) {
+			g.drawImage(Constants.animations.get("debug life_bar").get(0).getImage(0).getScaledCopy(width, Constants.blockSize/8), X, Y-Constants.blockSize/8); // Fond
+			g.drawImage(Constants.animations.get("debug life_bar").get(1).getImage(0).getScaledCopy(width*this.life/this.lifeMax, Constants.blockSize/8), X, Y-Constants.blockSize/8); // Vie
+		}
+	}
+	
 	public void update(int delta) {
 		
 		this.distX = this.x - Constants.dungeon.hero.x;//la distance qui separe le hero du mob en x
@@ -244,6 +259,7 @@ public abstract class Entity {
 		// Pour l'instant solution de la facilité : on interdit la distance avec les autres entités à être < à blockSize
 		for (Entity ent : Constants.dungeon.getCurrentFloor().entities) {
 			if (ent.ID!=this.ID && this.collisionsEnabled && ent.collisionsEnabled && Math.sqrt(Math.pow(ent.x-futureX, 2)+Math.pow(ent.y-futureY, 2))<Constants.blockSize) {
+				this.collidingWith = ent;
 				return "entity";
 			}
 		}
@@ -252,7 +268,8 @@ public abstract class Entity {
 				return "hero";
 			}
 		}
-
+		
+		this.collidingWith = null;
 		return "";
 	}
 

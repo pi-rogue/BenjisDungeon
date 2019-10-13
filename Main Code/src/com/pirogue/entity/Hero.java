@@ -34,9 +34,9 @@ public abstract class Hero extends Entity {
 	public void render(Graphics g) {
 		// Affichage de la barre de vie //
 		g.drawImage(lifeBar[1], 40, Constants.SCREEN_HEIGHT-50); // Fond
-		g.drawImage(lifeBar[2].getScaledCopy(lifeBar[0].getWidth()*this.life/100, lifeBar[0].getHeight()), 40, Constants.SCREEN_HEIGHT-50); // Vie
-		if (life <= 100) g.drawImage(lifeBar[0], 40, Constants.SCREEN_HEIGHT-50); // Cadre
-		else g.drawImage(lifeBar[0].getScaledCopy(lifeBar[0].getWidth()*this.life/100, lifeBar[0].getHeight()), 40, Constants.SCREEN_HEIGHT-50); // Fond
+		g.drawImage(lifeBar[2].getScaledCopy(lifeBar[0].getWidth()*this.life/lifeMax, lifeBar[0].getHeight()), 40, Constants.SCREEN_HEIGHT-50); // Vie
+		if (life <= lifeMax) g.drawImage(lifeBar[0], 40, Constants.SCREEN_HEIGHT-50); // Cadre
+		else g.drawImage(lifeBar[0].getScaledCopy(lifeBar[0].getWidth()*this.life/lifeMax, lifeBar[0].getHeight()), 40, Constants.SCREEN_HEIGHT-50); // Cadre
 		
 		// Affichage du héros //
 		super.render(g, x, y, true, (facing==1?Constants.blockSize:0), 0);
@@ -91,6 +91,14 @@ public abstract class Hero extends Entity {
 		if (isDead) {
 			this.life=0; // Permet de ne pas avoir de vie négative (pour la barre de vie)
 			this.facing=0;
+		}
+		if (collidingWith instanceof Stairs) {
+			Constants.dungeon.currentFloor -= ((Stairs)collidingWith).level;
+			int X = Constants.dungeon.getCurrentFloor().spawnX*Constants.blockSize+Constants.blockSize/2;
+			int Y = Constants.dungeon.getCurrentFloor().spawnY*Constants.blockSize+Constants.blockSize/2;
+			this.x = X;
+			this.y = Y;
+
 		}
 		if (inInventory()) {
 			if (inventory.update())	refreshAnimations(); // inventory.update() renvoie true si jamais les équipements ont été modifiés
